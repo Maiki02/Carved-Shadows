@@ -10,7 +10,7 @@ public class PlayerInteractor : MonoBehaviour
     public LayerMask interactableLayer;
     public Transform inspectionPoint;
 
-    private PadlockInspectable candadoActual;
+    //private PadlockInspectable candadoActual;
 
     void Awake()
     {
@@ -53,7 +53,7 @@ public class PlayerInteractor : MonoBehaviour
                 return;
             }
 
-            var candado = hit.collider.GetComponentInParent<PadlockInspectable>();
+            /*var candado = hit.collider.GetComponentInParent<PadlockInspectable>();
             if (candado is PadlockInspectable padlock)
             {
                 candadoActual = padlock;
@@ -68,7 +68,7 @@ public class PlayerInteractor : MonoBehaviour
             else
             {
                 candadoActual?.OnHoverExit();
-            }
+            }*/
 
         }
 
