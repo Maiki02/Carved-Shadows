@@ -13,7 +13,7 @@ public class PadLockPassword : MonoBehaviour
     private MoveRuller _moveRull;
     private AudioSource _audioSource;
     private Renderer[] _renderers;
-    [SerializeField] private PadlockInspectable _padlockInspectable;
+    //[SerializeField] private PadlockInspectable _padlockInspectable;
 
     [SerializeField] private Door doorToOpen;
 
@@ -54,10 +54,10 @@ public class PadLockPassword : MonoBehaviour
         if (_audioSource != null)
             _audioSource.Play();
 
-        if (_padlockInspectable != null)
+        /*if (_padlockInspectable != null)
         {
-            _padlockInspectable.SalirInspeccion();
-        }
+            //_padlockInspectable.SalirInspeccion();
+        }*/ 
 
         this.doorToOpen.SetType(TypeDoorInteract.NextLevel);
 

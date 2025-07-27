@@ -1,12 +1,39 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 
+[RequireComponent(typeof(CanvasGroup))] //Para manejar la opacidad del inventario.
 public class InventoryHotbar : MonoBehaviour
 {
-    public Image[] slotImages;
+    [SerializeField] private Image[] slotImages;
     private PuzzlePiece[] pieces = new PuzzlePiece[5];
     private int selectedSlot = -1;
+
+    [Header("Fade Settings")]
+    [SerializeField] private CanvasGroup inventoryCanvasGroup;
+    [SerializeField] private float fadeDuration = 0.5f;
+    [Tooltip("Tiempo que el inventario está visible antes de ocultarse.")]
+    [SerializeField] private float showDuration = 3.0f;
+    [Tooltip("Valor de la opacidad cuando el inventario está visible (0 a 1).")]
+    [Range(0f, 1f)]
+    [SerializeField] private float visibleAlpha = 1f;
+    [Tooltip("Valor de la opacidad cuando el inventario está oculto (0 a 1).")]
+    [Range(0f, 1f)]
+    [SerializeField] private float hiddenAlpha = 0.2f;
+    private Coroutine showAndHideCoroutine; // Referencia a la corutina para evitar varias
+
+    void Awake()
+    {
+        // Obtenemos la referencia al CanvasGroup en este mismo GameObject.
+        inventoryCanvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    void Start()
+    {
+        // Establece la opacidad inicial del inventario al empezar el juego.
+        inventoryCanvasGroup.alpha = hiddenAlpha;
+    }
 
     void Update()
     {
@@ -15,9 +42,22 @@ public class InventoryHotbar : MonoBehaviour
             if (Input.GetKeyDown((i + 1).ToString()))
             {
                 SelectPiece(i);
+
+                // Si se selecciona una pieza válida, muestra el inventario.
+                if (selectedSlot != -1)
+                {
+                    // Si ya hay una corutina en ejecución, la detenemos para iniciar una nueva.
+                    if (showAndHideCoroutine != null)
+                    {
+                        StopCoroutine(showAndHideCoroutine);
+                    }
+                    // Iniciamos la corutina que muestra y luego oculta el inventario.
+                    showAndHideCoroutine = StartCoroutine(ShowAndHideInventory());
+                }
             }
         }
     }
+
 
     void SelectPiece(int index)
     {
@@ -36,6 +76,9 @@ public class InventoryHotbar : MonoBehaviour
 
             selectedSlot = -1;
             Debug.Log("Slot deseleccionado.");
+            // Ocultamos el inventario inmediatamente si se deselecciona.
+            if (showAndHideCoroutine != null) StopCoroutine(showAndHideCoroutine);
+            showAndHideCoroutine = StartCoroutine(FadeCanvasGroup(inventoryCanvasGroup.alpha, hiddenAlpha, fadeDuration));
             return;
         }
 
@@ -161,5 +204,28 @@ public class InventoryHotbar : MonoBehaviour
     public PuzzlePiece[] ObtenerPiezas()
     {
         return pieces;
+    }
+
+
+    //-------------- UI --------------\\
+
+    // Corutina que gestiona el ciclo completo de mostrar y ocultar el inventario.
+    private IEnumerator ShowAndHideInventory()
+    {
+        yield return StartCoroutine(FadeCanvasGroup(inventoryCanvasGroup.alpha, visibleAlpha, fadeDuration));
+        yield return new WaitForSeconds(showDuration);
+        yield return StartCoroutine(FadeCanvasGroup(inventoryCanvasGroup.alpha, hiddenAlpha, fadeDuration));
+    }
+
+    private IEnumerator FadeCanvasGroup(float startAlpha, float endAlpha, float duration)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            inventoryCanvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        inventoryCanvasGroup.alpha = endAlpha;
     }
 }
