@@ -3,4 +3,5 @@ public enum TypeDoorInteract {
     Key,
     NextLevel,
     OpenAndClose,
+    Knocking,
 }
