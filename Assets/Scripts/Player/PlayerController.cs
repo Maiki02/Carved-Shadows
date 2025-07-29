@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private float yaw;
     private float pitch;
 
+    private CinemachinePOV playerPOV;
 
     private bool controlesActivos = true;
 
@@ -57,6 +58,19 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        if (normalCameraPoint != null)
+        {
+            playerPOV = normalCameraPoint.GetCinemachineComponent<CinemachinePOV>();
+        }
+
+        var vCam = GameObject.FindGameObjectWithTag("PlayerVirtualCamera");
+        if (vCam != null)
+        {
+            //vCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().GetComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = GetMouseSensitivity();
+        }
+        yaw = transform.eulerAngles.y;
+        pitch = cameraTransform.localEulerAngles.x;
+
         // Inicializamos los componentes de ruido de ambas cámaras
         if (walkCamera != null)
             walkNoise = walkCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -66,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!controlesActivos) return;
+        if (!controlesActivos || GameFlowManager.Instance.IsInTransition) return;
         this.UpdateCamera();
         this.UpdateMovement();
 
@@ -213,19 +227,16 @@ return 700f;
     {
         controlesActivos = activos;
 
-        if (activos)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+        Cursor.lockState = activos
+            ? CursorLockMode.Locked
+            : CursorLockMode.None;
+        Cursor.visible = !activos;
 
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        
-        }
+        if (playerPOV != null)
+            playerPOV.enabled = activos;
     }
+
+
 
     public void SetStatusCharacterController(bool status)
     {
@@ -236,7 +247,7 @@ return 700f;
     }
 
     /* Dado un determinado tiempo, inmovilizamos al jugador y lo hacemos seguir un punto */
-        void FreezePlayerAndFaceEnemies()
+    void FreezePlayerAndFaceEnemies()
     {
         //Freezamos al jugador
         this.controlesActivos = false;

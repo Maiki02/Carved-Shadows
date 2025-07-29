@@ -3,31 +3,30 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    [SerializeField] private GameObject menuUI;
+    [SerializeField] private PlayerController playerController;
+
+    [SerializeField] private GameObject menuCamara;
+
     public void Start()
     {
-        AudioController.Instance.PlayMusic(AudioType.BackgroundMusicMenu, true);
-        Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
-        Cursor.visible = true; // Hace visible el cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        playerController.SetControlesActivos(false);
     }
 
     public void StartGame()
     {
-        GameController.Instance.StartGame();
+        GameController.Instance.SetGameStarted(true);
         AudioController.Instance.StopMusic();
-    }
 
-    public void HowToPlay()
-    {
-        SceneController.Instance.LoadHowToPlayScene();
-    }
+        // Oculta el menu
+        menuUI.SetActive(false);
 
-    public void Configuration()
-    {
-        SceneController.Instance.LoadConfigurationSceneWithAdditive();
-    }
+        // Oculta la cámara del menu
+        menuCamara.SetActive(false);
 
-    public void QuitGame()
-    {
-        SceneController.Instance.QuitGame();
+        // Activa controles del jugador
+        playerController.SetControlesActivos(true);
     }
 }
