@@ -8,6 +8,7 @@ TagManager:
   - InventoryHotbar
   - InspectionPoint
   - Perilla
+  - CameraPhone
   layers:
   - Default
   - TransparentFX
