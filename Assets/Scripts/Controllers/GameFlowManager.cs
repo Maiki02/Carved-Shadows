@@ -78,7 +78,7 @@ public class GameFlowManager : MonoBehaviour
         IsInTransition = value;
     }
 
-//////////////////////////////////////////// DE CAM HIZO NUEVO
+    //////////////////////////////////////////// DE CAM HIZO NUEVO
 
     // Devuelve el nombre de la siguiente escena
     private string GetNextSceneName(string currentScene)
@@ -150,6 +150,7 @@ public class GameFlowManager : MonoBehaviour
         {
             controller.SetControlesActivos(false);
             controller.SetStatusCharacterController(false);
+
         }
 
         // Tiempo de animacion hay q ajustarlo y poner la animacion

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private float yaw;
     private float pitch;
 
+    private CinemachinePOV playerPOV;
 
     private bool controlesActivos = true;
 
@@ -43,6 +44,10 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        if (normalCameraPoint != null)
+        {
+            playerPOV = normalCameraPoint.GetCinemachineComponent<CinemachinePOV>();
+        }
 
         var vCam = GameObject.FindGameObjectWithTag("PlayerVirtualCamera");
         if (vCam != null)
@@ -56,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!controlesActivos) return;
+        if (!controlesActivos || GameFlowManager.Instance.IsInTransition) return;
         this.UpdateCamera();
 
         this.UpdateMovement();
@@ -164,19 +169,15 @@ public class PlayerController : MonoBehaviour
     {
         controlesActivos = activos;
 
-        if (followCamera != null)
-        {
-            var pov = followCamera.GetCinemachineComponent<CinemachinePOV>();
-            if (pov != null)
-            {
-                pov.m_HorizontalAxis.m_MaxSpeed = activos ? GetMouseSensitivity() : 0f;
-                pov.m_VerticalAxis.m_MaxSpeed = activos ? GetMouseSensitivity() : 0f;
-            }
-        }
-
-        Cursor.lockState = activos ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.lockState = activos
+            ? CursorLockMode.Locked
+            : CursorLockMode.None;
         Cursor.visible = !activos;
+
+        if (playerPOV != null)
+            playerPOV.enabled = activos;
     }
+
 
 
     public void SetStatusCharacterController(bool status)
