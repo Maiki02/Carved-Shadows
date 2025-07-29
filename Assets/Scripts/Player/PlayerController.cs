@@ -10,18 +10,17 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTransform;
 
     [Header("Camera Walk Effect Settings")]
-    [Tooltip("Cámara virtual principal del jugador")]
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [Tooltip("Cámara virtual para caminar")]
+    [SerializeField] private CinemachineVirtualCamera walkCamera;
+    [Tooltip("Cámara virtual para idle")]
+    [SerializeField] private CinemachineVirtualCamera idleCamera;
     [Tooltip("Velocidad máxima que alcanza tu personaje al caminar/correr.")]
     [SerializeField] private float maxSpeed = 5f;
     [Tooltip("La máxima amplitud del 'shake' al caminar a velocidad máxima.")]
     [SerializeField] private float maxAmplitude = 1f;
-    [Tooltip("Perfil de ruido para caminar")]
-    [SerializeField] private NoiseSettings walkNoiseProfile;
-    [Tooltip("Perfil de ruido para quieto")]
-    [SerializeField] private NoiseSettings idleNoiseProfile;
 
-    private CinemachineBasicMultiChannelPerlin noise;
+    private CinemachineBasicMultiChannelPerlin walkNoise;
+    private CinemachineBasicMultiChannelPerlin idleNoise;
     private bool wasMoving = false;
 
     [Header("Freeze Settings")]
@@ -58,21 +57,11 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-
-        var vCam = GameObject.FindGameObjectWithTag("PlayerVirtualCamera");
-        if (vCam != null)
-        {
-            //vCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().GetComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = GetMouseSensitivity();
-            // Si no se asignó la cámara virtual por Inspector, la buscamos por tag
-            if (virtualCamera == null)
-                virtualCamera = vCam.GetComponent<CinemachineVirtualCamera>();
-        }
-
-        // Inicializamos el componente de ruido
-        if (virtualCamera != null)
-        {
-            noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        }
+        // Inicializamos los componentes de ruido de ambas cámaras
+        if (walkCamera != null)
+            walkNoise = walkCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (idleCamera != null)
+            idleNoise = idleCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     void Update()
@@ -86,29 +75,39 @@ public class PlayerController : MonoBehaviour
     // Efecto de "shake" de cámara al caminar o estar quieto
     private void UpdateCameraWalkEffect()
     {
-        if (virtualCamera == null || controller == null || noise == null)
+        if (walkCamera == null || idleCamera == null || controller == null)
             return;
 
         float speed = new Vector3(controller.velocity.x, 0, controller.velocity.z).magnitude;
         bool isMoving = (speed > 0.1f && controller.isGrounded);
 
-        // Cambia el perfil de ruido solo si el estado de movimiento cambió
+        // Cambia la prioridad de las cámaras según el estado
         if (isMoving != wasMoving)
         {
-            if (isMoving && walkNoiseProfile != null)
+            if (isMoving)
             {
-                noise.m_NoiseProfile = walkNoiseProfile;
+                walkCamera.Priority = 20;
+                idleCamera.Priority = 10;
             }
-            else if (!isMoving && idleNoiseProfile != null)
+            else
             {
-                noise.m_NoiseProfile = idleNoiseProfile;
+                walkCamera.Priority = 10;
+                idleCamera.Priority = 20;
             }
             wasMoving = isMoving;
         }
 
-        float targetAmplitude = isMoving ? (maxAmplitude * (speed / maxSpeed)) : 1f;
-        float lerpSpeed = isMoving ? 5f : 5f; // Puedes ajustar la velocidad de transición si lo deseas
-        noise.m_AmplitudeGain = Mathf.Lerp(noise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * lerpSpeed);
+        // Ajusta el grain solo en la cámara activa
+        if (isMoving && walkNoise != null)
+        {
+            float targetAmplitude = maxAmplitude * (speed / maxSpeed);
+            walkNoise.m_AmplitudeGain = Mathf.Lerp(walkNoise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * 5f);
+        }
+        else if (!isMoving && idleNoise != null)
+        {
+            float targetAmplitude = 1f;
+            idleNoise.m_AmplitudeGain = Mathf.Lerp(idleNoise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * 5f);
+        }
     }
 
     float GetMouseSensitivity()
