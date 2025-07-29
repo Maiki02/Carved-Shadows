@@ -33,7 +33,7 @@ public class Door: ObjectInteract
 
     private void Start()
     {
-        this.StartKnockingLoop();
+        this.StartKnockingLoop();   
     }
 
     private void Update()
