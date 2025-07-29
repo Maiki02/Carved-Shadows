@@ -9,6 +9,21 @@ public class PlayerController : MonoBehaviour
 
     public Transform cameraTransform;
 
+    [Header("Camera Walk Effect Settings")]
+    [Tooltip("Cámara virtual principal del jugador")]
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [Tooltip("Velocidad máxima que alcanza tu personaje al caminar/correr.")]
+    [SerializeField] private float maxSpeed = 5f;
+    [Tooltip("La máxima amplitud del 'shake' al caminar a velocidad máxima.")]
+    [SerializeField] private float maxAmplitude = 1f;
+    [Tooltip("Perfil de ruido para caminar")]
+    [SerializeField] private NoiseSettings walkNoiseProfile;
+    [Tooltip("Perfil de ruido para quieto")]
+    [SerializeField] private NoiseSettings idleNoiseProfile;
+
+    private CinemachineBasicMultiChannelPerlin noise;
+    private bool wasMoving = false;
+
     [Header("Freeze Settings")]
     [SerializeField] private Vector3 followPointWhileFrozen;
     [SerializeField] private CinemachineVirtualCamera followCamera; // Cámara que se usa cuando el jugador está congelado
@@ -48,6 +63,15 @@ public class PlayerController : MonoBehaviour
         if (vCam != null)
         {
             //vCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().GetComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = GetMouseSensitivity();
+            // Si no se asignó la cámara virtual por Inspector, la buscamos por tag
+            if (virtualCamera == null)
+                virtualCamera = vCam.GetComponent<CinemachineVirtualCamera>();
+        }
+
+        // Inicializamos el componente de ruido
+        if (virtualCamera != null)
+        {
+            noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         }
     }
 
@@ -55,8 +79,36 @@ public class PlayerController : MonoBehaviour
     {
         if (!controlesActivos) return;
         this.UpdateCamera();
-
         this.UpdateMovement();
+
+        UpdateCameraWalkEffect();
+    }
+    // Efecto de "shake" de cámara al caminar o estar quieto
+    private void UpdateCameraWalkEffect()
+    {
+        if (virtualCamera == null || controller == null || noise == null)
+            return;
+
+        float speed = new Vector3(controller.velocity.x, 0, controller.velocity.z).magnitude;
+        bool isMoving = (speed > 0.1f && controller.isGrounded);
+
+        // Cambia el perfil de ruido solo si el estado de movimiento cambió
+        if (isMoving != wasMoving)
+        {
+            if (isMoving && walkNoiseProfile != null)
+            {
+                noise.m_NoiseProfile = walkNoiseProfile;
+            }
+            else if (!isMoving && idleNoiseProfile != null)
+            {
+                noise.m_NoiseProfile = idleNoiseProfile;
+            }
+            wasMoving = isMoving;
+        }
+
+        float targetAmplitude = isMoving ? (maxAmplitude * (speed / maxSpeed)) : 1f;
+        float lerpSpeed = isMoving ? 5f : 5f; // Puedes ajustar la velocidad de transición si lo deseas
+        noise.m_AmplitudeGain = Mathf.Lerp(noise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * lerpSpeed);
     }
 
     float GetMouseSensitivity()
