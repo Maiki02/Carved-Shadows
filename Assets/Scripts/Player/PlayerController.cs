@@ -112,7 +112,8 @@ public class PlayerController : MonoBehaviour
 
     float GetMouseSensitivity()
     {
-        return GameController.Instance.MouseSensitivity;
+return 700f;
+        //return GameController.Instance.MouseSensitivity;
     }
 
     public float GetFallDuration()
@@ -138,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
-        if (!controller.enabled || GameFlowManager.Instance.IsInTransition) return; // Si el controller está desactivado, no movemos al jugador
+        //if (!controller.enabled || GameFlowManager.Instance.IsInTransition) return; // Si el controller está desactivado, no movemos al jugador
 
         //Capturamos los movimientos del teclado
         float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
