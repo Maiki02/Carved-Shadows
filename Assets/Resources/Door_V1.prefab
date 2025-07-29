@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115642023233833512}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 24.663, y: -14.322771, z: 15.86}
   m_LocalScale: {x: 1.2, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 7819877923902525181}
   - component: {fileID: 6528068021286217503}
   - component: {fileID: 8417634278814175046}
-  - component: {fileID: 3856466501699719337}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -235,28 +234,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4fa30f7f7acd94d8429e3b4c0633ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockingInterval: 3
   objetoRequerido: {fileID: 0}
   inventarioHotbar: {fileID: 0}
-  doorAnimator: {fileID: 3856466501699719337}
   type: 1
---- !u!95 &3856466501699719337
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8696673969191385937}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 20525926a69bffa4a814fbd720b46fc5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  openDegreesY: 110
+  openDuration: 1
+  knockAmount: 15
+  knockSpeed: 8

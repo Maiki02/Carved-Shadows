@@ -9,6 +9,20 @@ public class PlayerController : MonoBehaviour
 
     public Transform cameraTransform;
 
+    [Header("Camera Walk Effect Settings")]
+    [Tooltip("Cámara virtual para caminar")]
+    [SerializeField] private CinemachineVirtualCamera walkCamera;
+    [Tooltip("Cámara virtual para idle")]
+    [SerializeField] private CinemachineVirtualCamera idleCamera;
+    [Tooltip("Velocidad máxima que alcanza tu personaje al caminar/correr.")]
+    [SerializeField] private float maxSpeed = 5f;
+    [Tooltip("La máxima amplitud del 'shake' al caminar a velocidad máxima.")]
+    [SerializeField] private float maxAmplitude = 1f;
+
+    private CinemachineBasicMultiChannelPerlin walkNoise;
+    private CinemachineBasicMultiChannelPerlin idleNoise;
+    private bool wasMoving = false;
+
     [Header("Freeze Settings")]
     [SerializeField] private Vector3 followPointWhileFrozen;
     [SerializeField] private CinemachineVirtualCamera followCamera; // Cámara que se usa cuando el jugador está congelado
@@ -57,19 +71,63 @@ public class PlayerController : MonoBehaviour
         yaw = transform.eulerAngles.y;
         pitch = cameraTransform.localEulerAngles.x;
 
+        // Inicializamos los componentes de ruido de ambas cámaras
+        if (walkCamera != null)
+            walkNoise = walkCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (idleCamera != null)
+            idleNoise = idleCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     void Update()
     {
         if (!controlesActivos || GameFlowManager.Instance.IsInTransition) return;
         this.UpdateCamera();
-
         this.UpdateMovement();
+
+        UpdateCameraWalkEffect();
+    }
+    // Efecto de "shake" de cámara al caminar o estar quieto
+    private void UpdateCameraWalkEffect()
+    {
+        if (walkCamera == null || idleCamera == null || controller == null)
+            return;
+
+        float speed = new Vector3(controller.velocity.x, 0, controller.velocity.z).magnitude;
+        bool isMoving = (speed > 0.1f && controller.isGrounded);
+
+        // Cambia la prioridad de las cámaras según el estado
+        if (isMoving != wasMoving)
+        {
+            if (isMoving)
+            {
+                walkCamera.Priority = 20;
+                idleCamera.Priority = 10;
+            }
+            else
+            {
+                walkCamera.Priority = 10;
+                idleCamera.Priority = 20;
+            }
+            wasMoving = isMoving;
+        }
+
+        // Ajusta el grain solo en la cámara activa
+        if (isMoving && walkNoise != null)
+        {
+            float targetAmplitude = maxAmplitude * (speed / maxSpeed);
+            walkNoise.m_AmplitudeGain = Mathf.Lerp(walkNoise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * 5f);
+        }
+        else if (!isMoving && idleNoise != null)
+        {
+            float targetAmplitude = 1f;
+            idleNoise.m_AmplitudeGain = Mathf.Lerp(idleNoise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * 5f);
+        }
     }
 
     float GetMouseSensitivity()
     {
-        return GameController.Instance.MouseSensitivity;
+return 700f;
+        //return GameController.Instance.MouseSensitivity;
     }
 
     public float GetFallDuration()
@@ -95,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
-        if (!controller.enabled || GameFlowManager.Instance.IsInTransition) return; // Si el controller está desactivado, no movemos al jugador
+        //if (!controller.enabled || GameFlowManager.Instance.IsInTransition) return; // Si el controller está desactivado, no movemos al jugador
 
         //Capturamos los movimientos del teclado
         float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;

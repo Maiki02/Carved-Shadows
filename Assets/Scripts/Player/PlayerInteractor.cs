@@ -24,7 +24,7 @@ public class PlayerInteractor : MonoBehaviour
     void Update()
     {
 
-        if(GameController.Instance.IsPaused() || GameFlowManager.Instance.IsInTransition) return;
+       // if(GameController.Instance.IsPaused() || GameFlowManager.Instance.IsInTransition) return;
         // Lanzar rayo desde el centro de la pantalla
         Ray ray = cameraChildren.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
         Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.red, 1f);
