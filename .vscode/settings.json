@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Carved_Shadows.sln"
+    "dotnet.defaultSolution": "Carved-Shadows.sln"
 }

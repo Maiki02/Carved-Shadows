@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
         {
             //vCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().GetComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = GetMouseSensitivity();
         }
+        yaw = transform.eulerAngles.y;
+        pitch = cameraTransform.localEulerAngles.x;
+
     }
 
     void Update()
@@ -161,19 +164,20 @@ public class PlayerController : MonoBehaviour
     {
         controlesActivos = activos;
 
-        if (activos)
+        if (followCamera != null)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            var pov = followCamera.GetCinemachineComponent<CinemachinePOV>();
+            if (pov != null)
+            {
+                pov.m_HorizontalAxis.m_MaxSpeed = activos ? GetMouseSensitivity() : 0f;
+                pov.m_VerticalAxis.m_MaxSpeed = activos ? GetMouseSensitivity() : 0f;
+            }
+        }
 
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        
-        }
+        Cursor.lockState = activos ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !activos;
     }
+
 
     public void SetStatusCharacterController(bool status)
     {
@@ -184,7 +188,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /* Dado un determinado tiempo, inmovilizamos al jugador y lo hacemos seguir un punto */
-        void FreezePlayerAndFaceEnemies()
+    void FreezePlayerAndFaceEnemies()
     {
         //Freezamos al jugador
         this.controlesActivos = false;
