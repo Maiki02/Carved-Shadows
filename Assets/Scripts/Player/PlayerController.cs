@@ -98,6 +98,24 @@ public class PlayerController : MonoBehaviour
         // Cambia la prioridad de las cámaras según el estado
         if (isMoving != wasMoving)
         {
+            // Sincroniza la rotación del POV entre cámaras antes de cambiar prioridades
+            if (walkCamera != null && idleCamera != null)
+            {
+                var walkPOV = walkCamera.GetCinemachineComponent<CinemachinePOV>();
+                var idlePOV = idleCamera.GetCinemachineComponent<CinemachinePOV>();
+                if (isMoving && walkPOV != null && idlePOV != null)
+                {
+                    // Copia la rotación de idle a walk
+                    walkPOV.m_HorizontalAxis.Value = idlePOV.m_HorizontalAxis.Value;
+                    walkPOV.m_VerticalAxis.Value = idlePOV.m_VerticalAxis.Value;
+                }
+                else if (!isMoving && walkPOV != null && idlePOV != null)
+                {
+                    // Copia la rotación de walk a idle
+                    idlePOV.m_HorizontalAxis.Value = walkPOV.m_HorizontalAxis.Value;
+                    idlePOV.m_VerticalAxis.Value = walkPOV.m_VerticalAxis.Value;
+                }
+            }
             if (isMoving)
             {
                 walkCamera.Priority = 20;
