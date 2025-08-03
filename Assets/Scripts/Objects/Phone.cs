@@ -6,8 +6,9 @@ public class Phone : ObjectInteract
 {
     private PlayerController playerController;
     [Header("Phone Call Settings")]
-    [Tooltip("Duration of the phone call in seconds.")]
-    public float callDuration = 5f;
+
+    [Tooltip("Secuencia de diálogos de la llamada telefónica")]
+    [SerializeField] private DialogMessage[] callDialogSequence;
 
     [Tooltip("Priority to set for the phone camera during the call.")]
     public int phoneCameraPriority = 20;
@@ -66,9 +67,13 @@ public class Phone : ObjectInteract
 
         // Sube la prioridad para activar la cámara del teléfono
         phoneCamera.Priority = phoneCameraPriority;
-        // Espera la duración de la llamada
-        Debug.Log("Duración de la llamada: " + callDuration);
-        yield return new WaitForSeconds(callDuration);
+
+        // Muestra la secuencia de diálogos y espera a que termine
+        if (callDialogSequence != null && callDialogSequence.Length > 0)
+        {
+            yield return StartCoroutine(ShowDialogSequenceAndWait());
+        }
+
         // Baja la prioridad de la cámara del teléfono para devolver el control al Player
         Debug.Log("Llamada terminada");
         phoneCamera.Priority = 0;
@@ -76,5 +81,25 @@ public class Phone : ObjectInteract
         if (playerController != null)
             playerController.SetControlesActivos(true);
         isCalling = false;
+    }
+
+    // Corrutina auxiliar para esperar a que termine la secuencia de diálogos
+    private IEnumerator ShowDialogSequenceAndWait()
+    {
+        bool finished = false;
+        // Llama a la secuencia y espera su finalización
+        yield return StartCoroutine(DialogSequenceCoroutine(() => finished = true));
+        while (!finished) yield return null;
+    }
+
+    // Corrutina que ejecuta la secuencia y llama al callback al terminar
+    private IEnumerator DialogSequenceCoroutine(System.Action onComplete)
+    {
+        DialogController.Instance.ShowDialogSequence(callDialogSequence);
+        float totalDuration = 0f;
+        foreach (var msg in callDialogSequence)
+            totalDuration += msg.duration;
+        yield return new WaitForSeconds(totalDuration);
+        onComplete?.Invoke();
     }
 }
