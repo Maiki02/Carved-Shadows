@@ -11,6 +11,9 @@ public class Radio : ObjectInteract
 
     [SerializeField] private InventoryHotbar inventarioHotbar;
 
+    [Tooltip("Secuencia de diálogos de la radio")]
+    [SerializeField] private DialogMessage[] callDialogSequence;
+
     public void PlayRadio()
     {
         Debug.Log("Intentando reproducir la radio...");
@@ -19,7 +22,6 @@ public class Radio : ObjectInteract
 
     public override void OnInteract()
     {
-
         if (inventarioHotbar != null && inventarioHotbar.TieneObjectoSeleccionado("knob"))
         {
             inventarioHotbar.RemoveSelectedPiece(); // Quitamos la pieza del inventario
@@ -39,12 +41,36 @@ public class Radio : ObjectInteract
 
         playerController.SetControlesActivos(false); // Desactiva los controles del jugador
 
+        // Inicia la secuencia de diálogos en paralelo
+        Coroutine dialogCoroutine = null;
+        if (callDialogSequence != null && callDialogSequence.Length > 0)
+        {
+            dialogCoroutine = StartCoroutine(ShowDialogSequenceParallel());
+        }
+
         yield return new WaitForSeconds(audioDuration); // Espera la duración del audio
+
+        // Si la secuencia de diálogos sigue, la detenemos (opcional, depende del comportamiento deseado)
+        if (dialogCoroutine != null)
+        {
+            StopCoroutine(dialogCoroutine);
+        }
 
         playerController.SetControlesActivos(true); // Reactiva los controles del jugador
 
         StartCoroutine(FadeManager.Instance.Oscurecer());
 
         SceneController.Instance.LoadGameOverScene();
+    }
+
+    // Corrutina para mostrar la secuencia de diálogos en paralelo
+    private IEnumerator ShowDialogSequenceParallel()
+    {
+        DialogController.Instance.ShowDialogSequence(callDialogSequence);
+        // Calcula la duración total de los diálogos
+        float totalDuration = 0f;
+        foreach (var msg in callDialogSequence)
+            totalDuration += msg.duration;
+        yield return new WaitForSeconds(totalDuration);
     }
 }
