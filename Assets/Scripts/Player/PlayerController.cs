@@ -55,9 +55,6 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         if (normalCameraPoint != null)
         {
             playerPOV = normalCameraPoint.GetCinemachineComponent<CinemachinePOV>();
