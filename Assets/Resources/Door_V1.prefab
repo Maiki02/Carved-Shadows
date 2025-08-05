@@ -237,8 +237,8 @@ MonoBehaviour:
   knockingInterval: 3
   objetoRequerido: {fileID: 0}
   inventarioHotbar: {fileID: 0}
-  type: 1
+  type: 3
   openDegreesY: 110
   openDuration: 1
-  knockAmount: 15
-  knockSpeed: 8
+  knockAmount: 3
+  knockSpeed: 2
