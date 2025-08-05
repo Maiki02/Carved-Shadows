@@ -31,8 +31,40 @@ Transform:
   m_Children:
   - {fileID: 9129776670118690369}
   - {fileID: 4019087291774190041}
+  - {fileID: 5799437202680441361}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 269.999, z: 0}
+--- !u!1 &6607959866147857310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5799437202680441361}
+  m_Layer: 0
+  m_Name: EntryPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5799437202680441361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6607959866147857310}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.971, z: -0.127}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7153576831291930757}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6810707116459001292
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +78,6 @@ GameObject:
   - component: {fileID: 2903122701608133961}
   - component: {fileID: 2297772105542731599}
   - component: {fileID: 3041825323152885729}
-  - component: {fileID: 6533175662039557059}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -152,29 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b2d524bcaeaea49948395eb24be787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionCanvas: {fileID: 0}
-  transitionDuration: 3
---- !u!95 &6533175662039557059
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6810707116459001292}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 20525926a69bffa4a814fbd720b46fc5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  doorEntryPoint: {fileID: 5799437202680441361}
+  moveSpeed: 1
+  rotateSpeed: 3
 --- !u!1 &6940362069034640035
 GameObject:
   m_ObjectHideFlags: 0

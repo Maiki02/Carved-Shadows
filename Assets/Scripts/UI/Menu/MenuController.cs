@@ -1,32 +1,22 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject menuUI;
-    [SerializeField] private PlayerController playerController;
+    private MenuInitializer initializer;
 
-    [SerializeField] private GameObject menuCamara;
-
-    public void Start()
+    private void Awake()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        playerController.SetControlesActivos(false);
+        initializer = FindObjectOfType<MenuInitializer>();
     }
 
-    public void StartGame()
+    public void OnStartButton()
     {
-        GameController.Instance.SetGameStarted(true);
-        AudioController.Instance.StopMusic();
+        initializer?.StartGame();
+    }
 
-        // Oculta el menu
-        menuUI.SetActive(false);
-
-        // Oculta la cámara del menu
-        menuCamara.SetActive(false);
-
-        // Activa controles del jugador
-        playerController.SetControlesActivos(true);
+    public void OnExitButton()
+    {
+        Application.Quit();
+        Debug.Log("Saliendo del juego...");
     }
 }
