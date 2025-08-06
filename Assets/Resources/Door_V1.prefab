@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 7250221402633296194}
   - component: {fileID: 7819877923902525181}
   - component: {fileID: 6528068021286217503}
-  - component: {fileID: 8417634278814175046}
+  - component: {fileID: 8796740774722748315}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -222,7 +222,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.056931, y: 2.098418, z: 0.15871}
   m_Center: {x: -0.52694654, y: -0.9094943, z: 0.028385239}
---- !u!114 &8417634278814175046
+--- !u!114 &8796740774722748315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,8 +237,8 @@ MonoBehaviour:
   knockingInterval: 3
   objetoRequerido: {fileID: 0}
   inventarioHotbar: {fileID: 0}
-  type: 3
+  type: 1
   openDegreesY: 110
   openDuration: 1
-  knockAmount: 3
-  knockSpeed: 2
+  knockAmount: 15
+  knockSpeed: 8
