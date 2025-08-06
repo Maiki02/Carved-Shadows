@@ -4,8 +4,9 @@ using System.Collections;
 public class MenuInitializer : MonoBehaviour
 {
     [SerializeField] private GameObject menuRoot;   // Objeto MainMenu completo
-    [SerializeField] private GameObject playerUI;   // Canvas de la UI del jugador
+    [SerializeField] private GameObject[] canvasToActivate; // Otros Canvas que se activan al iniciar el juego
     [SerializeField] private GameObject menuCamera; // Cámara del menú
+
 
     private PlayerController playerController;
 
@@ -16,7 +17,7 @@ public class MenuInitializer : MonoBehaviour
             playerController = playerGO.GetComponent<PlayerController>();
 
         if (menuRoot != null) menuRoot.SetActive(false);
-        if (playerUI != null) playerUI.SetActive(false);
+        //if (playerUI != null) playerUI.SetActive(false);
         if (menuCamera != null) menuCamera.SetActive(true);
 
         if (playerController != null)
@@ -46,8 +47,8 @@ public class MenuInitializer : MonoBehaviour
         if (menuCamera != null) menuCamera.SetActive(false);
 
         //Activamos la UI del jugador antes de la animación
-        if (playerUI != null) playerUI.SetActive(true);
-        
+        this.ShowCanvasToActivate();
+
         // 2 segs para la transicion de cam prolija
         yield return new WaitForSeconds(2f);
 
@@ -57,5 +58,19 @@ public class MenuInitializer : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void ShowCanvasToActivate()
+    {
+        if (canvasToActivate != null)
+        {
+            foreach (var canvas in canvasToActivate)
+            {
+                if (canvas != null)
+                {
+                    canvas.SetActive(true);
+                }
+            }
+        }
     }
 }

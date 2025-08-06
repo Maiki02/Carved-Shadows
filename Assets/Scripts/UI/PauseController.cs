@@ -9,7 +9,14 @@ public class PauseController : MonoBehaviour
 
     void Awake()
     {
-
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -38,11 +45,28 @@ public class PauseController : MonoBehaviour
 
     public void OpenConfiguration()
     {
-        //this.TogglePauseMenu();
-        SceneController.Instance.LoadConfigurationSceneWithAdditive();
+        // Ocultar el menú de pausa
+        SetShowPauseUI(false);
+        
+        // Mostrar la configuración usando el Singleton
+        if (ConfigController.Instance != null)
+        {
+            ConfigController.Instance.ShowConfiguration();
+        }
 
-        //Cuando se abra la configuración, el juego sigue en pausa
+        // El juego sigue en pausa mientras se muestran las configuraciones
+    }
 
+    public void CloseConfiguration()
+    {
+        // Ocultar la configuración usando el Singleton
+        if (ConfigController.Instance != null)
+        {
+            ConfigController.Instance.HideConfiguration();
+        }
+        
+        // Volver al menú de pausa
+        SetShowPauseUI(true);
     }
 
     public void ResetGame()
@@ -55,8 +79,7 @@ public class PauseController : MonoBehaviour
     {
         this.TogglePauseMenu();
         GameController.Instance.SetGameStarted(false);
-
-        SceneController.Instance.LoadMenuScene();
+        GameController.Instance.ResetValues();
     }
 
     public void TogglePauseMenu()

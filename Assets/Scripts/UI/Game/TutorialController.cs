@@ -123,7 +123,6 @@ public class TutorialController : MonoBehaviour
     private IEnumerator RedirectToMenu()
     {
         yield return new WaitForSeconds(3f);
-        SceneController.Instance.LoadMenuScene();
     }
 
     public void ResetTutorial()

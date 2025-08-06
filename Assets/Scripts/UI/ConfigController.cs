@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class ConfigController : MonoBehaviour
 {
+    public static ConfigController Instance { get; private set; }
+
+    [SerializeField] private GameObject configPanel; // Panel visual de configuración
+
     [Header("Game Settings UI")]
     [SerializeField] private Slider mouseSensitivitySlider;
     [SerializeField] private Toggle invertMouseToggle;
@@ -14,6 +18,20 @@ public class ConfigController : MonoBehaviour
 
     //[Header("Event System")]
     //[SerializeField] private GameObject eventSystem;
+
+    public void Awake()
+    {
+        Debug.Log("Awake ConfigController");
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start()
     {
@@ -90,8 +108,40 @@ public class ConfigController : MonoBehaviour
         }
     }
 
+    /// Muestra la UI de configuración
+    public void ShowConfiguration()
+    {
+        if (configPanel != null)
+        {
+            configPanel.SetActive(true);
+        }
+        Debug.Log("Configuración mostrada");
+    }
+
+    /// Oculta la UI de configuración
+    public void HideConfiguration()
+    {
+        if (configPanel != null)
+        {
+            configPanel.SetActive(false);
+        }
+        Debug.Log("Configuración ocultada");
+    }
+
     public void ReturnToPreviousScene()
-    {   
-        SceneController.Instance.UnloadConfigAsync();
+    {
+        this.HideConfiguration();
+
+        // Ocultar la configuración
+        /*HideConfiguration();
+        
+        // Si hay un PauseController activo, volver al menú de pausa
+        if (PauseController.Instance != null)
+        {
+            PauseController.Instance.SetShowPauseUI(true);
+        }*/
+
+        // Si no hay PauseController, asumimos que estamos en el menú principal
+        // y simplemente ocultamos la configuración (el menú principal sigue visible)
     }
 }

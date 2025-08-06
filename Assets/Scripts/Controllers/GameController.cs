@@ -63,8 +63,11 @@ public class GameController : MonoBehaviour
         CurrentLevel = 1;
         isPaused = false;
         Time.timeScale = 1f; // Asegurarse de que el tiempo se reanude
-        if(TutorialController.Instance != null)
+        if (TutorialController.Instance != null)
             TutorialController.Instance.ResetTutorial(); // Reiniciar el tutorial si existe
+            
+
+
     }
 
     public bool IsGameStarted()

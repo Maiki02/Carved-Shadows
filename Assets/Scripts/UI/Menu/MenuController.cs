@@ -14,6 +14,20 @@ public class MenuController : MonoBehaviour
         initializer?.StartGame();
     }
 
+    public void OnConfigurationButton()
+    {
+        // Mostrar la configuración usando el Singleton
+        if (ConfigController.Instance != null)
+        {
+            ConfigController.Instance.ShowConfiguration();
+        }
+        else
+        {
+            Debug.LogWarning("ConfigController.Instance no encontrado en la escena del menú");
+        }
+    }
+    
+
     public void OnExitButton()
     {
         Application.Quit();
