@@ -69,11 +69,11 @@ public class PauseController : MonoBehaviour
         SetShowPauseUI(true);
     }
 
-    public void ResetGame()
+    /*public void ResetGame()
     {
         this.TogglePauseMenu();
         GameController.Instance.ResetGame(true);
-    }
+    }*/
 
     public void ExitToMainMenu()
     {

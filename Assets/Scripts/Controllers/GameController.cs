@@ -28,13 +28,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    /*public void StartGame()
     {
         this.ResetValues();
 
         SceneController.Instance.LoadIntroScene();
         this.SetGameStarted(true);
-    }
+    }*/
 
     public void FinishGame()
     {
@@ -44,13 +44,13 @@ public class GameController : MonoBehaviour
         //SceneController.Instance.LoadGameOverScene();
     }
 
-    public void ResetGame(bool reloadScene = false)
+    /*public void ResetGame(bool reloadScene = false)
     {
         if (reloadScene)
         {
             this.StartGame();
         }
-    }
+    }*/
 
     public void SetGameStarted(bool started)
     {
@@ -63,9 +63,11 @@ public class GameController : MonoBehaviour
         CurrentLevel = 1;
         isPaused = false;
         Time.timeScale = 1f; // Asegurarse de que el tiempo se reanude
-        if (TutorialController.Instance != null)
+        /*if (TutorialController.Instance != null)
             TutorialController.Instance.ResetTutorial(); // Reiniciar el tutorial si existe
-            
+            */
+
+        GameFlowManager.Instance.ResetGameFlow(); // Reiniciar el flujo del juego
 
 
     }

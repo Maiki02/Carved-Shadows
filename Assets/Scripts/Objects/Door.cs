@@ -62,8 +62,8 @@ public class Door: ObjectInteract
         isDoorOpen = !isDoorOpen; // Cambiamos el estado de la puerta
 
         this.ValidateDoorWithAnimation();
-        this.ValidateDoorWithTeleport();
-        this.ValidateDoorWithNextLevel();
+        //this.ValidateDoorWithTeleport();
+        //this.ValidateDoorWithNextLevel();
     }
     
     public void SetType(TypeDoorInteract newType)
@@ -171,7 +171,7 @@ public class Door: ObjectInteract
 
     }
 
-    private void ValidateDoorWithNextLevel()
+    /*private void ValidateDoorWithNextLevel()
     {
         if (type != TypeDoorInteract.NextLevel) return; // Si no es del tipo NextLevel, no hacemos nada
         isDoorOpen = true; // Forzamos la apertura de la puerta para el siguiente nivel
@@ -184,7 +184,7 @@ public class Door: ObjectInteract
         {
             DialogController.Instance.ShowDialog("La puerta está cerrada. Necesitas abrirla para continuar.", 2f);
         }
-    }
+    }*/
 
     public void OpenOrCloseDoor(bool isDoorOpen)
     {
@@ -206,7 +206,7 @@ public class Door: ObjectInteract
 
     }
 
-    private void ValidateDoorWithTeleport()
+    /*private void ValidateDoorWithTeleport()
     {
         if (type != TypeDoorInteract.Key) { return; } //Si no es del tipo Key, no hacemos nada
 
@@ -223,7 +223,7 @@ public class Door: ObjectInteract
         {
             DialogController.Instance.ShowDialog("La puerta está cerrada. Necesitas una llave.", 2f);
         }
-    }
+    }*/
 
     /*private bool TieneObjetoEnInventario()
     {

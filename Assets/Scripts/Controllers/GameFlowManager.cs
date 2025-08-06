@@ -8,7 +8,7 @@ public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance { get; private set; }
 
-    [Tooltip("Transform del punto al que queremos teleportar")]
+    /*[Tooltip("Transform del punto al que queremos teleportar")]
     [SerializeField] private Transform pointToTeleport;
     [SerializeField] private Door door; // Puerta con la que tiene que interactuar el jugador
     [SerializeField] private Door initialDoor; // Puerta inicial del juego
@@ -19,7 +19,7 @@ public class GameFlowManager : MonoBehaviour
     [Header("Puerta museo 1 y 2")]
     [SerializeField] private Door puertaMuseo1;
     [SerializeField] private Door puertaMuseo2;
-
+*/
     // Siguiente nivel
     private AsyncOperation nextSceneLoadingOperation;
 
@@ -168,10 +168,24 @@ public class GameFlowManager : MonoBehaviour
     }
 
     //////////////////////////////////////////// FIN DE CAM HIZO NUEVO
+
+    /// HOLA DON PEPITO HOLA DON JOSE
+    public void ResetGameFlow()
+    {
+        Debug.Log("Reiniciando flujo del juego...");
+        IsInTransition = false;
+        if (SceneController.Instance != null)
+        {
+            SceneController.Instance.LoadInitialScene();
+        }
+    
+    }
+
+
     /// Hay que ver que cosas a partir de aca ya no se usan para limpiar tal vez
 
 
-    public void GoToNextLevel()
+    /*public void GoToNextLevel()
     {
         StartCoroutine(NextLevel(this.player));
     }
@@ -279,6 +293,6 @@ public class GameFlowManager : MonoBehaviour
             initialDoor.SetType(TypeDoorInteract.None); // La puerta inicial siempre es de tipo None
 
         }
-    }
+    }*/
 
 }

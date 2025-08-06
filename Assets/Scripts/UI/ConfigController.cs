@@ -7,6 +7,7 @@ public class ConfigController : MonoBehaviour
     public static ConfigController Instance { get; private set; }
 
     [SerializeField] private GameObject configPanel; // Panel visual de configuración
+    [SerializeField] private GameObject mainMenuPanel; // Panel visual del menú principal
 
     [Header("Game Settings UI")]
     [SerializeField] private Slider mouseSensitivitySlider;
@@ -112,18 +113,37 @@ public class ConfigController : MonoBehaviour
     public void ShowConfiguration()
     {
         if (configPanel != null)
-        {
             configPanel.SetActive(true);
+
+        // Si está en pausa, ocultar el menú de pausa
+        if (GameController.Instance != null && GameController.Instance.IsPaused())
+        {
+            if (PauseController.Instance != null)
+                PauseController.Instance.SetShowPauseUI(false);
         }
-        Debug.Log("Configuración mostrada");
+        // Si NO está en pausa, ocultar el menú principal
+        else if (mainMenuPanel != null)
+        {
+            mainMenuPanel.SetActive(false);
+        }
     }
 
     /// Oculta la UI de configuración
     public void HideConfiguration()
     {
         if (configPanel != null)
-        {
             configPanel.SetActive(false);
+
+        // Si está en pausa, mostrar el menú de pausa
+        if (GameController.Instance != null && GameController.Instance.IsPaused())
+        {
+            if (PauseController.Instance != null)
+                PauseController.Instance.SetShowPauseUI(true);
+        }
+        // Si NO está en pausa, mostrar el menú principal
+        else if (mainMenuPanel != null)
+        {
+            mainMenuPanel.SetActive(true);
         }
         Debug.Log("Configuración ocultada");
     }

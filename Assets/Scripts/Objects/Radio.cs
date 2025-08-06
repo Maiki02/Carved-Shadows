@@ -60,7 +60,7 @@ public class Radio : ObjectInteract
 
         StartCoroutine(FadeManager.Instance.Oscurecer());
 
-        SceneController.Instance.LoadGameOverScene();
+        //SceneController.Instance.LoadGameOverScene();
     }
 
     // Corrutina para mostrar la secuencia de diálogos en paralelo

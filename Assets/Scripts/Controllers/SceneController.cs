@@ -17,10 +17,15 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    public void LoadIntroScene()
+    /*public void LoadIntroScene()
     {
         // Carga la escena de introducción
         LoadScene("IntroScene");
+    }*/
+
+    public void LoadInitialScene()
+    {
+        SceneManager.LoadScene("Loop_01");
     }
 
     //La pasamos por parametro para testear distintas.
@@ -29,7 +34,7 @@ public class SceneController : MonoBehaviour
         LoadScene(sceneGame);
     }
 
-    public void LoadGameOverScene()
+    /*public void LoadGameOverScene()
     {
         LoadScene("GameOverScene");
     }
@@ -37,7 +42,7 @@ public class SceneController : MonoBehaviour
     public void LoadHowToPlayScene()
     {
         LoadScene("TutorialScene");
-    }
+    }*/
 
     /*public void LoadConfigurationScene()
     {

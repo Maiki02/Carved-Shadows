@@ -291,16 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8388058cbe38324d9969e0287243327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointToTeleport: {fileID: 0}
-  door: {fileID: 0}
-  initialDoor: {fileID: 0}
-  rooms:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  puertaMuseo1: {fileID: 0}
-  puertaMuseo2: {fileID: 0}
 --- !u!4 &199281481
 Transform:
   m_ObjectHideFlags: 0
@@ -2175,6 +2165,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 85.675964
       objectReference: {fileID: 0}
+    - target: {fileID: 237906456022238456, guid: 106172354549ea2439b7a35ebf1285c9, type: 3}
+      propertyPath: m_Color.a
+      value: 0.29803923
+      objectReference: {fileID: 0}
     - target: {fileID: 1028244669261513759, guid: 106172354549ea2439b7a35ebf1285c9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2325,7 +2319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5635988999032699484, guid: 106172354549ea2439b7a35ebf1285c9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6186178353790044562, guid: 106172354549ea2439b7a35ebf1285c9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2339,6 +2333,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8515550598850117022, guid: 106172354549ea2439b7a35ebf1285c9, type: 3}
+      propertyPath: mainMenuPanel
+      value: 
+      objectReference: {fileID: 470151382}
     - target: {fileID: 8902384175213459714, guid: 106172354549ea2439b7a35ebf1285c9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
