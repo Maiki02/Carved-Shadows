@@ -10,36 +10,34 @@ public class SplashController : MonoBehaviour
     [SerializeField] private float duration = 3f;        // Tiempo total
     [SerializeField] private float postWait = 1f;        // Tiempo de espera después de la animación
 
-    [SerializeField] private string nextSceneName = "MenuScene"; // Nombre de la escena siguiente
+    [SerializeField] private string nextSceneName = "LoadingScene"; // Nombre de la escena siguiente
 
     private void Start()
     {
-        // Inicializa el fondo UI en gris
-        backgroundImage.color = Color.gray;
-
-        StartCoroutine(PlaySplash());
+        // Inicializa el fondo UI en negro y completamente transparente
+        backgroundImage.color = new Color(0f, 0f, 0f, 0f);
+        StartCoroutine(FadeInBlack());
     }
 
-    private IEnumerator PlaySplash()
+    private IEnumerator FadeInBlack()
     {
         float t = 0f;
-        Vector3 startScale = Vector3.zero;
-        Vector3 endScale = Vector3.one;
-        Color startColor = Color.gray;
-        Color endColor = Color.black;
+        Color startColor = new Color(0f, 0f, 0f, 0f); // negro transparente
+        Color endColor = new Color(0f, 0f, 0f, 1f);   // negro opaco
+
+        // Si splashImage existe, asegúrate de que esté visible (pero no se animará)
+        if (splashImage != null)
+            splashImage.enabled = true;
 
         while (t < duration)
         {
             t += Time.deltaTime;
             float frac = t / duration;
-
-            // Escala de la imagen
-            splashImage.rectTransform.localScale = Vector3.Lerp(startScale, endScale, frac);
-            // Transición de color del fondo UI
             backgroundImage.color = Color.Lerp(startColor, endColor, frac);
-
             yield return null;
         }
+
+        backgroundImage.color = endColor;
 
         // Espera adicional antes de cargar la siguiente escena
         yield return new WaitForSeconds(postWait);

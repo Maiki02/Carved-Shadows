@@ -45,10 +45,12 @@ public class MenuInitializer : MonoBehaviour
 
         if (menuCamera != null) menuCamera.SetActive(false);
 
+        //Activamos la UI del jugador antes de la animación
+        if (playerUI != null) playerUI.SetActive(true);
+        
         // 2 segs para la transicion de cam prolija
         yield return new WaitForSeconds(2f);
 
-        if (playerUI != null) playerUI.SetActive(true);
 
         if (playerController != null)
             playerController.SetControlesActivos(true);
