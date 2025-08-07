@@ -1,208 +1,152 @@
 using System.Collections;
-using Cinemachine;
 using UnityEngine;
+using Cinemachine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement Settings")]
+    public float GetFallDuration() => fallTime;
+
+    [Header("Movimiento")]
     [SerializeField] private float moveSpeed = 1.75f;
+    private Vector3 velocity;
+    private Vector3 currentMove = Vector3.zero;
+    [SerializeField] private float accelerationSpeed = 5f;
 
-    public Transform cameraTransform;
 
-    [Header("Camera Walk Effect Settings")]
-    [Tooltip("Cámara virtual para caminar")]
-    [SerializeField] private CinemachineVirtualCamera walkCamera;
-    [Tooltip("Cámara virtual para idle")]
-    [SerializeField] private CinemachineVirtualCamera idleCamera;
-    [Tooltip("Velocidad máxima que alcanza tu personaje al caminar/correr.")]
+    [Header("Cámaras")]
+    [SerializeField] private CinemachineVirtualCamera mainCam;
+    [SerializeField] private CinemachineVirtualCamera inspectionCam;
+    [SerializeField] private CinemachineVirtualCamera freezeCam;
+    [SerializeField] private CinemachineBrain brain;
+
+    [Header("Shake al caminar")]
+    [SerializeField] private float idleAmplitude = 0.05f;
+    [SerializeField] private float maxShake = 2.5f;
     [SerializeField] private float maxSpeed = 3.5f;
-    [Tooltip("La máxima amplitud del 'shake' al caminar a velocidad máxima.")]
-    [SerializeField] private float maxAmplitude = 1f;
+    private CinemachinePOV mainPOV;
+    private CinemachineBasicMultiChannelPerlin noise;
+    [SerializeField] private NoiseSettings walkNoiseProfile;
 
-    private CinemachineBasicMultiChannelPerlin walkNoise;
-    private CinemachineBasicMultiChannelPerlin idleNoise;
-    private bool wasMoving = false;
-
-    [Header("Freeze Settings")]
-    [SerializeField] private Vector3 followPointWhileFrozen;
-    [SerializeField] private CinemachineVirtualCamera followCamera; // Cámara que se usa cuando el jugador está congelado
-
-    [Header("Inspection Settings")]
-    [SerializeField] private CinemachineVirtualCamera normalCameraPoint; // Punto de referencia para la cámara cuando el jugador no está congelado
-    [SerializeField] private CinemachineBrain cinemachineBrain; // Cerebro de Cinemachine para controlar las transiciones de cámara
-
-    [Header("Fall Settings")]
-    private float fallDuration = 1f;         // Tiempo total de la caída
-    private float finalTiltAngle = 90f;      // Grados que gira sobre el eje X
-    private AnimationCurve fallCurve =                          // Curva de aceleración angular
-    AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
-    private bool isFalling = false;
-
-    private bool isInspecting = false; // Indica si el jugador está inspeccionando un objeto
-
+    [Header("Caída")]
+    [SerializeField] private float fallTime = 1f;
+    [SerializeField] private float fallAngle = 90f;
+    private AnimationCurve fallCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private CharacterController controller;
-
-    // Referencias a los componentes CinemachinePOV de las cámaras
-    private CinemachinePOV walkPOV;
-    private CinemachinePOV idlePOV;
-
-    private CinemachinePOV playerPOV;
-
+    private Transform camTransform;
     private bool controlesActivos = true;
+    private bool isFalling = false;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        cameraTransform = GetComponentInChildren<Camera>().transform;
+        camTransform = GetComponentInChildren<Camera>().transform;
 
-        // Obtener referencias a los CinemachinePOV de ambas cámaras
-        if (walkCamera != null)
+        if (mainCam)
         {
-            walkPOV = walkCamera.GetCinemachineComponent<CinemachinePOV>();
-            walkNoise = walkCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        }
-        if (idleCamera != null)
-        {
-            idlePOV = idleCamera.GetCinemachineComponent<CinemachinePOV>();
-            idleNoise = idleCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        }
-        if (normalCameraPoint != null)
-        {
-            playerPOV = normalCameraPoint.GetCinemachineComponent<CinemachinePOV>();
-        }
-
-
-        //Imprimamos la sensibilidiad
-        if (walkPOV != null)
-        {
-            Debug.Log("Walk Camera Sensitivity: " + walkPOV.m_HorizontalAxis.m_MaxSpeed);
-
-        }
-        
-        if (idlePOV != null)
-        {
-            Debug.Log("Idle Camera Sensitivity: " + idlePOV.m_HorizontalAxis.m_MaxSpeed);
+            mainPOV = mainCam.GetCinemachineComponent<CinemachinePOV>();
+            noise = mainCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            noise.m_NoiseProfile = walkNoiseProfile;
         }
     }
+
 
     void Update()
     {
-        if (!controlesActivos || GameFlowManager.Instance.IsInTransition) return;
 
-        // Actualizar sensibilidad de CinemachinePOV en runtime
-        float sens = GetMouseSensitivity();
-        if (walkPOV != null)
-        {
-            walkPOV.m_HorizontalAxis.m_MaxSpeed = sens;
-            walkPOV.m_VerticalAxis.m_MaxSpeed = sens;
-        }
-        if (idlePOV != null)
-        {
-            idlePOV.m_HorizontalAxis.m_MaxSpeed = sens;
-            idlePOV.m_VerticalAxis.m_MaxSpeed = sens;
-        }
-        if (playerPOV != null)
-        {
-            playerPOV.m_HorizontalAxis.m_MaxSpeed = sens;
-            playerPOV.m_VerticalAxis.m_MaxSpeed = sens;
-        }
+        AplicarShakeCamara();
 
-        this.UpdateMovement();
-        UpdateCameraWalkEffect();
+        if (!controlesActivos || isFalling || GameFlowManager.Instance.IsInTransition) return;
+
+        UpdateSensibilidad();
+        MoverJugador();
     }
-    // Efecto de "shake" de cámara al caminar o estar quieto
-    private void UpdateCameraWalkEffect()
-    {
-        if (walkCamera == null || idleCamera == null || controller == null)
-            return;
 
+    private void UpdateSensibilidad()
+    {
+        float sens = GameController.Instance.MouseSensitivity;
+        if (mainPOV != null)
+        {
+            mainPOV.m_HorizontalAxis.m_MaxSpeed = sens;
+            mainPOV.m_VerticalAxis.m_MaxSpeed = sens;
+        }
+    }
+
+
+    private void MoverJugador()
+    {
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 forward = camTransform.forward;
+        Vector3 right = camTransform.right;
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 direction = right * inputX + forward * inputZ;
+        Vector3 targetMove = direction * moveSpeed;
+        currentMove = Vector3.Lerp(currentMove, targetMove, Time.deltaTime * accelerationSpeed);
+
+
+        if (controller.isGrounded)
+            velocity.y = -2f;
+        else
+            velocity.y += Physics.gravity.y * Time.deltaTime;
+
+        Vector3 finalMove = currentMove;
+        finalMove.y = velocity.y;
+        controller.Move(finalMove * Time.deltaTime);
+
+        controller.Move(finalMove * Time.deltaTime);
+    }
+
+
+    private void AplicarShakeCamara()
+    {
         float speed = new Vector3(controller.velocity.x, 0, controller.velocity.z).magnitude;
-        bool isMoving = (speed > 0.1f && controller.isGrounded);
+        bool isMoving = speed > 0.1f && controller.isGrounded;
 
-        // Cambia la prioridad de las cámaras según el estado
-        if (isMoving != wasMoving)
-        {
-            // Sincroniza la rotación del POV entre cámaras antes de cambiar prioridades
-            if (walkCamera != null && idleCamera != null)
-            {
-                var walkPOV = walkCamera.GetCinemachineComponent<CinemachinePOV>();
-                var idlePOV = idleCamera.GetCinemachineComponent<CinemachinePOV>();
-                if (isMoving && walkPOV != null && idlePOV != null)
-                {
-                    // Copia la rotación de idle a walk
-                    walkPOV.m_HorizontalAxis.Value = idlePOV.m_HorizontalAxis.Value;
-                    walkPOV.m_VerticalAxis.Value = idlePOV.m_VerticalAxis.Value;
-                }
-                else if (!isMoving && walkPOV != null && idlePOV != null)
-                {
-                    // Copia la rotación de walk a idle
-                    idlePOV.m_HorizontalAxis.Value = walkPOV.m_HorizontalAxis.Value;
-                    idlePOV.m_VerticalAxis.Value = walkPOV.m_VerticalAxis.Value;
-                }
-            }
-            if (isMoving)
-            {
-                walkCamera.Priority = 20;
-                idleCamera.Priority = 10;
-            }
-            else
-            {
-                walkCamera.Priority = 10;
-                idleCamera.Priority = 20;
-            }
-            wasMoving = isMoving;
-        }
+        float targetAmp = isMoving
+            ? Mathf.Clamp01(speed / maxSpeed) * maxShake
+            : idleAmplitude;
 
-        // Ajusta el grain solo en la cámara activa
-        if (isMoving && walkNoise != null)
+        noise.m_AmplitudeGain = Mathf.Lerp(
+            noise.m_AmplitudeGain,
+            targetAmp,
+            Time.deltaTime * 5f
+        );
+    }
+
+
+
+    public void SetControlesActivos(bool activos)
+    {
+        controlesActivos = activos;
+
+        Cursor.lockState = activos ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !activos;
+    }
+
+    public void SetCamaraActiva(bool activa)
+    {
+        if (mainPOV == null) return;
+
+        if (activa)
         {
-            float targetAmplitude = maxAmplitude * (speed / maxSpeed);
-            walkNoise.m_AmplitudeGain = Mathf.Lerp(walkNoise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * 5f);
+            float sens = GameController.Instance.MouseSensitivity;
+            mainPOV.m_HorizontalAxis.m_MaxSpeed = sens;
+            mainPOV.m_VerticalAxis.m_MaxSpeed = sens;
         }
-        else if (!isMoving && idleNoise != null)
+        else
         {
-            float targetAmplitude = 1f;
-            idleNoise.m_AmplitudeGain = Mathf.Lerp(idleNoise.m_AmplitudeGain, targetAmplitude, Time.deltaTime * 5f);
+            mainPOV.m_HorizontalAxis.m_MaxSpeed = 0f;
+            mainPOV.m_VerticalAxis.m_MaxSpeed = 0f;
         }
     }
 
-    float GetMouseSensitivity()
-    {
-        return GameController.Instance.MouseSensitivity;
-    }
-
-    public float GetFallDuration()
-    {
-        return fallDuration;
-    }
-
-    // Eliminado: el control manual de la cámara ahora lo hace CinemachinePOV
-
-    private void UpdateMovement()
-    {
-        if (!controller.enabled || GameFlowManager.Instance.IsInTransition) return; // Si el controller está desactivado, no movemos al jugador
-
-        //Capturamos los movimientos del teclado
-        float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float moveZ = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-
-        //Aplicamos más velocidad si el shift está pulsado
-        /*if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            moveX *= 8f;
-            moveZ *= 8f;
-        }*/
-
-        //Calculamos la dirección de movimiento
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
-
-        //Aplicamos la gravedad
-        move.y -= 9.81f * Time.deltaTime;
-
-        //Movemos al jugador
-        controller.Move(move);
-    }
 
     public void FallToTheGround()
     {
@@ -210,99 +154,60 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(FallCoroutine());
     }
 
-
     private IEnumerator FallCoroutine()
     {
         isFalling = true;
-        this.controlesActivos = false;  // desactiva los controles del jugador
-        controller.enabled = false;  // desactiva el controller durante la animación
+        SetControlesActivos(false);
+        controller.enabled = false;
 
-        Vector3 startPos = transform.position;
-        // Calcula el pivot en el borde inferior (para que rote “sobre el suelo”)
-        float pivotOffset = (controller.height * 0.5f) - controller.radius;
-        Vector3 pivot = startPos + Vector3.down * pivotOffset;
+        Vector3 pivot = transform.position + Vector3.down * ((controller.height * 0.5f) - controller.radius);
+        float elapsed = 0f, prevCurve = 0f;
 
-        float elapsed = 0f;
-        float prevCurveVal = 0f;
-
-        while (elapsed < fallDuration)
+        while (elapsed < fallTime)
         {
-            float dt = Time.deltaTime;
-            elapsed += dt;
-            float tNorm = Mathf.Clamp01(elapsed / fallDuration);
-            float curveV = fallCurve.Evaluate(tNorm);
+            float t = Mathf.Clamp01(elapsed / fallTime);
+            float curve = fallCurve.Evaluate(t);
+            float delta = (curve - prevCurve) * fallAngle;
 
-            // Ángulo diferencial a aplicar este frame
-            float deltaAngle = (curveV - prevCurveVal) * finalTiltAngle;
+            transform.RotateAround(pivot, transform.forward, delta);
+            prevCurve = curve;
 
-            // Rota alrededor del pivot usando el eje forward (caída lateral)
-            transform.RotateAround(pivot, transform.forward, deltaAngle);
-
-            prevCurveVal = curveV;
+            elapsed += Time.deltaTime;
             yield return null;
         }
 
-        float finalDelta = finalTiltAngle - (prevCurveVal * finalTiltAngle);
-        if (!Mathf.Approximately(finalDelta, 0f))
-            transform.RotateAround(pivot, transform.forward, finalDelta);
+        float final = fallAngle - (prevCurve * fallAngle);
+        if (!Mathf.Approximately(final, 0f))
+            transform.RotateAround(pivot, transform.forward, final);
 
-        isFalling = false;
-        this.controlesActivos = true;  // reactiva los controles del jugador
         controller.enabled = true;
-    }
-
-    public void SetControlesActivos(bool activos)
-    {
-        controlesActivos = activos;
-
-        Cursor.lockState = activos
-            ? CursorLockMode.Locked
-            : CursorLockMode.None;
-        Cursor.visible = !activos;
-
-        if (playerPOV != null)
-            playerPOV.enabled = activos;
-    }
-
-
-
-    public void SetStatusCharacterController(bool status)
-    {
-        if (controller != null)
-        {
-            controller.enabled = status;
-        }
-    }
-
-    /* Dado un determinado tiempo, inmovilizamos al jugador y lo hacemos seguir un punto */
-    void FreezePlayerAndFaceEnemies()
-    {
-        //Freezamos al jugador
-        this.controlesActivos = false;
-
-        // this.normalCameraPoint.gameObject.SetActive(false);
-        this.followCamera.gameObject.SetActive(true);
-
-
-
+        SetControlesActivos(true);
+        isFalling = false;
     }
 
     public void ActivarCamaraInspeccion(Transform inspectionPoint)
     {
         this.SetControlesActivos(false);
         GameController.Instance.IsInspecting = true;
-        //Debug.Log("Activando cámara de inspección");
-        this.cinemachineBrain.enabled = false;
-        this.normalCameraPoint.gameObject.SetActive(false);
+        if (brain) brain.enabled = false;
+        if (inspectionCam) inspectionCam.gameObject.SetActive(true);
     }
 
     public void DesactivarCamaraInspeccion()
     {
-        this.SetControlesActivos(true);
         GameController.Instance.IsInspecting = false;
-        this.cinemachineBrain.enabled = true;
-        //this.inspectionCamera.gameObject.SetActive(false);
-        this.normalCameraPoint.gameObject.SetActive(true);
+        SetControlesActivos(true);
+        if (brain) brain.enabled = true;
+        if (inspectionCam) inspectionCam.gameObject.SetActive(false);
     }
 
+    public void SetStatusCharacterController(bool status)
+    {
+        if (controller) controller.enabled = status;
+    }
+
+    public Transform GetCameraTransform()
+    {
+        return camTransform;
+    }
 }

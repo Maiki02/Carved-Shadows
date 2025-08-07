@@ -43,22 +43,33 @@ public class MenuInitializer : MonoBehaviour
         AudioController.Instance.StopMusic();
 
         if (menuRoot != null) menuRoot.SetActive(false);
-
         if (menuCamera != null) menuCamera.SetActive(false);
 
-        //Activamos la UI del jugador antes de la animación
-        this.ShowCanvasToActivate();
-
-        // 2 segs para la transicion de cam prolija
-        yield return new WaitForSeconds(2f);
-
+        GameFlowManager.Instance.SetTransitionStatus(true);
 
         if (playerController != null)
+        {
+            playerController.SetControlesActivos(false);
+            playerController.SetCamaraActiva(false);
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        if (playerController != null)
+        {
             playerController.SetControlesActivos(true);
+            playerController.SetCamaraActiva(true);
+            ShowCanvasToActivate();
+            
+        }
+
+        GameFlowManager.Instance.SetTransitionStatus(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
+
 
     public void ShowCanvasToActivate()
     {
