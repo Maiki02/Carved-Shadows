@@ -43,8 +43,9 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
 
-    private float yaw;
-    private float pitch;
+    // Referencias a los componentes CinemachinePOV de las cámaras
+    private CinemachinePOV walkPOV;
+    private CinemachinePOV idlePOV;
 
     private CinemachinePOV playerPOV;
 
@@ -55,32 +56,59 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
 
+        // Obtener referencias a los CinemachinePOV de ambas cámaras
+        if (walkCamera != null)
+        {
+            walkPOV = walkCamera.GetCinemachineComponent<CinemachinePOV>();
+            walkNoise = walkCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+        if (idleCamera != null)
+        {
+            idlePOV = idleCamera.GetCinemachineComponent<CinemachinePOV>();
+            idleNoise = idleCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        }
         if (normalCameraPoint != null)
         {
             playerPOV = normalCameraPoint.GetCinemachineComponent<CinemachinePOV>();
         }
 
-        var vCam = GameObject.FindGameObjectWithTag("PlayerVirtualCamera");
-        if (vCam != null)
-        {
-            //vCam.GetComponent<Cinemachine.CinemachineVirtualCamera>().GetComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = GetMouseSensitivity();
-        }
-        yaw = transform.eulerAngles.y;
-        pitch = cameraTransform.localEulerAngles.x;
 
-        // Inicializamos los componentes de ruido de ambas cámaras
-        if (walkCamera != null)
-            walkNoise = walkCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        if (idleCamera != null)
-            idleNoise = idleCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        //Imprimamos la sensibilidiad
+        if (walkPOV != null)
+        {
+            Debug.Log("Walk Camera Sensitivity: " + walkPOV.m_HorizontalAxis.m_MaxSpeed);
+
+        }
+        
+        if (idlePOV != null)
+        {
+            Debug.Log("Idle Camera Sensitivity: " + idlePOV.m_HorizontalAxis.m_MaxSpeed);
+        }
     }
 
     void Update()
     {
         if (!controlesActivos || GameFlowManager.Instance.IsInTransition) return;
-        this.UpdateCamera();
-        this.UpdateMovement();
 
+        // Actualizar sensibilidad de CinemachinePOV en runtime
+        float sens = GetMouseSensitivity();
+        if (walkPOV != null)
+        {
+            walkPOV.m_HorizontalAxis.m_MaxSpeed = sens;
+            walkPOV.m_VerticalAxis.m_MaxSpeed = sens;
+        }
+        if (idlePOV != null)
+        {
+            idlePOV.m_HorizontalAxis.m_MaxSpeed = sens;
+            idlePOV.m_VerticalAxis.m_MaxSpeed = sens;
+        }
+        if (playerPOV != null)
+        {
+            playerPOV.m_HorizontalAxis.m_MaxSpeed = sens;
+            playerPOV.m_VerticalAxis.m_MaxSpeed = sens;
+        }
+
+        this.UpdateMovement();
         UpdateCameraWalkEffect();
     }
     // Efecto de "shake" de cámara al caminar o estar quieto
@@ -149,21 +177,7 @@ public class PlayerController : MonoBehaviour
         return fallDuration;
     }
 
-    private void UpdateCamera()
-    {
-        //Capturamos los movimientos del ratón
-        float mouseX = Input.GetAxis("Mouse X") * GetMouseSensitivity() * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * GetMouseSensitivity() * Time.deltaTime;
-
-        //Calculamos la rotación de la cámara
-        yaw += mouseX;
-        pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, -80f, 80f);
-
-        //Aplicamos la rotación de la cámara
-        transform.localRotation = Quaternion.Euler(0f, yaw, 0f);
-        cameraTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-    }
+    // Eliminado: el control manual de la cámara ahora lo hace CinemachinePOV
 
     private void UpdateMovement()
     {
