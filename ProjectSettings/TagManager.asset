@@ -9,6 +9,7 @@ TagManager:
   - InspectionPoint
   - Perilla
   - CameraPhone
+  - Alfombra
   layers:
   - Default
   - TransparentFX
