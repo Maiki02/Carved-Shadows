@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 1.75f;
 
     public Transform cameraTransform;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Cámara virtual para idle")]
     [SerializeField] private CinemachineVirtualCamera idleCamera;
     [Tooltip("Velocidad máxima que alcanza tu personaje al caminar/correr.")]
-    [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private float maxSpeed = 3.5f;
     [Tooltip("La máxima amplitud del 'shake' al caminar a velocidad máxima.")]
     [SerializeField] private float maxAmplitude = 1f;
 

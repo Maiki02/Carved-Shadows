@@ -51,7 +51,7 @@ public class GameFlowManager : MonoBehaviour
 
     void Start()
     {
-        AudioController.Instance.PlayMusic(AudioType.MusicLevel1, true);
+        //AudioController.Instance.PlayMusic(AudioType.MusicLevel1, true);
 
         string currentScene = SceneManager.GetActiveScene().name;
         string nextScene = GetNextSceneName(currentScene);

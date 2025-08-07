@@ -20,8 +20,8 @@ public class Door: ObjectInteract
     [Header("Configuración de apertura por rotación")]
     [SerializeField] private float openDegreesY = 110f; // Grados de apertura en Y
     [SerializeField] private float openDuration = 1f; // Duración de apertura en segundos
-    [SerializeField] private float knockAmount = 15f; // Grados del golpe
-    [SerializeField] private float knockSpeed = 8f; // Velocidad del golpe
+    private float knockAmount = 4f; // Grados del golpe
+    private float knockSpeed = 5f; // Velocidad del golpe
     private Quaternion initialRotation;
     private Coroutine doorCoroutine;
 

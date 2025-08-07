@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
 
     public int CurrentLevel { get; private set; } = 1; // Nivel actual del juego //Con esto seteamos distintas rooms
 
-    public float MouseSensitivity { get; set; } = 500f; // Sensibilidad del mouse
+    public float MouseSensitivity { get; set; } = 400f; // Sensibilidad del mouse
     public bool InvertMouse { get; set; } = false; // Invertir el movimiento del mouse
     public bool IsInspecting { get; set; } = false; // Indica si el jugador está inspeccionando un objeto
 
