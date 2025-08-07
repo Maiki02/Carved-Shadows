@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Radio : ObjectInteract
+public class Radio : MonoBehaviour //: ObjectInteract
 {
     [SerializeField] private AudioSource audioSource; // Asigna el AudioSource en el Inspector
     [SerializeField] private PlayerController playerController; // Referencia al PlayerController
@@ -20,7 +20,7 @@ public class Radio : ObjectInteract
         StartCoroutine(PlayRadioCoroutine());
     }
 
-    public override void OnInteract()
+    /*public override void OnInteract()
     {
         if (inventarioHotbar != null && inventarioHotbar.TieneObjectoSeleccionado("knob"))
         {
@@ -33,7 +33,7 @@ public class Radio : ObjectInteract
             if(this.radioReproducida) return; 
             DialogController.Instance.ShowDialog("Le falta una perilla.", 2f);
         }
-    }
+    }**/
 
     public IEnumerator PlayRadioCoroutine()
     {
@@ -58,7 +58,7 @@ public class Radio : ObjectInteract
 
         playerController.SetControlesActivos(true); // Reactiva los controles del jugador
 
-        StartCoroutine(FadeManager.Instance.Oscurecer());
+        //StartCoroutine(FadeManager.Instance.Oscurecer());
 
         //SceneController.Instance.LoadGameOverScene();
     }
