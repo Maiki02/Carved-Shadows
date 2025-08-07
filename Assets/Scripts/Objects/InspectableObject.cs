@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class InspectableObject : ObjectInteract
 {
+
     public float rotationSpeed = 5f;
+    private float distanciaInspeccion = 0.75f;
 
     protected bool isInspecting = false;
     protected float tiempoDesdeInicio = 0f;
@@ -122,9 +124,24 @@ public class InspectableObject : ObjectInteract
         transform.SetParent(null);
         transform.localScale = Vector3.one;
 
-        // 4) Mover al punto de inspección y aplicar rotación 0
-        transform.position = inspeccionDestino.position;
-        transform.rotation = Quaternion.identity;
+        // 4) Mover frente a la cámara principal del jugador
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            Vector3 posicionFrenteCamara = cam.transform.position + cam.transform.forward * distanciaInspeccion;
+            transform.position = posicionFrenteCamara;
+            // Opcional: alinear rotación con la cámara, pero sin girar en X/Z para que quede "recto"
+            transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró la cámara principal para inspección. Se usará el punto de inspección por defecto.");
+            if (inspeccionDestino != null)
+            {
+                transform.position = inspeccionDestino.position;
+                transform.rotation = Quaternion.identity;
+            }
+        }
 
         // 5) Desactivar físicas y colisiones
         if (rb != null) { rb.isKinematic = true; rb.detectCollisions = false; }
