@@ -80,7 +80,7 @@ public class PuzzleManager : MonoBehaviour
                     {
                         inv.AddPiece(objetoRecompensa);
                     }
-                    doorToOpen.SetType(TypeDoorInteract.NextLevel); // Cambiamos el tipo de puerta a NextLevel
+                    //doorToOpen.SetType(TypeDoorInteract.NextLevel); // Cambiamos el tipo de puerta a NextLevel
                 }
                 else if (puzzleType == PuzzleType.Radio && radio != null)
                 {

@@ -3,15 +3,22 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Door: ObjectInteract
+[RequireComponent(typeof(AudioSource))]
+public class Door : ObjectInteract
 {
     [Header("Knocking Loop")]
     [SerializeField] private float knockingInterval = 3f; // Intervalo entre golpes en segundos
     private Coroutine knockingLoopCoroutine;
-    
-    [Header("Requisitos")]
+
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip openDoorClip;
+    [SerializeField] private AudioClip closeDoorClip;
+    [SerializeField] private AudioClip knockClip;
+    private AudioSource audioSource;
+
+    /*[Header("Requisitos")]
     [SerializeField] private PuzzlePiece objetoRequerido;
-    [SerializeField] private InventoryHotbar inventarioHotbar;
+    [SerializeField] private InventoryHotbar inventarioHotbar;*/
 
     [Header("Tipo de acción sobre la puerta")]
     [SerializeField] private TypeDoorInteract type = TypeDoorInteract.None;
@@ -20,8 +27,13 @@ public class Door: ObjectInteract
     [Header("Configuración de apertura por rotación")]
     [SerializeField] private float openDegreesY = 110f; // Grados de apertura en Y
     [SerializeField] private float openDuration = 1f; // Duración de apertura en segundos
-    private float knockAmount = 4f; // Grados del golpe
-    private float knockSpeed = 5f; // Velocidad del golpe
+    [SerializeField] private float knockAmount = 4f; // Grados del golpe
+    [SerializeField] private float knockSpeed = 5f; // Velocidad del golpe
+    
+    [Header("Configuración de cierre lento")]
+    [SerializeField] private float slowCloseDuration = 3f; // Duración del cierre lento en segundos
+    [SerializeField] private float slowCloseSpeed = 0.5f; // Velocidad del cierre lento
+    
     private Quaternion initialRotation;
     private Coroutine doorCoroutine;
 
@@ -29,11 +41,13 @@ public class Door: ObjectInteract
     {
         base.Awake(); // Llamamos al Awake de la clase base para inicializar el objeto interactivo
         initialRotation = transform.rotation;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
-        this.StartKnockingLoop();   
+        this.StartKnockingLoop();
+        this.StartSlowClosing();
     }
 
     private void Update()
@@ -42,16 +56,16 @@ public class Door: ObjectInteract
 
     public override void OnHoverEnter()
     {
-        if (type == TypeDoorInteract.None) return; // Si no es del tipo None, no hacemos nada
-        
+        if (type != TypeDoorInteract.OpenAndClose) return; // Solo permite interactuar si es del tipo OpenAndClose
+
         base.OnHoverEnter(); // Llamamos al método base para activar el contorno
 
     }
 
     public override void OnHoverExit()
     {
-        if (type == TypeDoorInteract.None) return; // Si no es del tipo None, no hacemos nada
-        
+        if (type != TypeDoorInteract.OpenAndClose) return; // Solo permite salir del hover si es del tipo OpenAndClose
+
         base.OnHoverExit(); // Llamamos al método base para desactivar el contorno
 
     }
@@ -65,33 +79,27 @@ public class Door: ObjectInteract
         //this.ValidateDoorWithTeleport();
         //this.ValidateDoorWithNextLevel();
     }
-    
+
     public void SetType(TypeDoorInteract newType)
     {
         type = newType;
     }
 
-    /// <summary>
     /// Abre la puerta rotando en Y según el atributo openDegreesY
-    /// </summary>
     public void OpenDoorByRotation()
     {
         if (doorCoroutine != null) StopCoroutine(doorCoroutine);
         doorCoroutine = StartCoroutine(RotateDoorCoroutine(openDegreesY));
     }
 
-    /// <summary>
     /// Simula que la puerta "late" (golpe sutil y regresa a rotación original)
-    /// </summary>
     public void KnockDoor()
     {
         if (doorCoroutine != null) StopCoroutine(doorCoroutine);
         doorCoroutine = StartCoroutine(KnockDoorCoroutine());
     }
 
-    /// <summary>
-    /// Inicia el bucle de golpeo (Knocking) si el tipo es Knocking
-    /// </summary>
+    // Inicia el bucle de golpeo (Knocking) si el tipo es Knocking
     public void StartKnockingLoop()
     {
         if (type != TypeDoorInteract.Knocking) return;
@@ -110,6 +118,27 @@ public class Door: ObjectInteract
             StopCoroutine(knockingLoopCoroutine);
             knockingLoopCoroutine = null;
             Debug.Log("[Door] Deteniendo bucle de Knocking");
+        }
+    }
+
+    // Inicia el cierre lento si el tipo es SlowClosing
+    public void StartSlowClosing()
+    {
+        if (type != TypeDoorInteract.SlowClosing) return;
+        if (doorCoroutine != null) StopCoroutine(doorCoroutine);
+        doorCoroutine = StartCoroutine(SlowCloseCoroutine());
+        Debug.Log("[Door] Iniciando cierre lento");
+    }
+
+    /// <summary>
+    /// Reproduce un sonido de audio específico
+    /// </summary>
+    private void PlayDoorAudio(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
         }
     }
 
@@ -142,6 +171,10 @@ public class Door: ObjectInteract
         Quaternion startRot = initialRotation;
         Quaternion knockRot = Quaternion.Euler(startRot.eulerAngles.x, startRot.eulerAngles.y + knockAmount, startRot.eulerAngles.z);
         float t = 0f;
+        
+        // Reproducir sonido de golpe
+        PlayDoorAudio(knockClip);
+        
         // Golpe hacia knockAmount
         while (t < 1f)
         {
@@ -159,6 +192,28 @@ public class Door: ObjectInteract
             yield return null;
         }
         transform.rotation = startRot;
+    }
+
+    private IEnumerator SlowCloseCoroutine()
+    {
+        // Esperar un poco antes de empezar a cerrar
+        yield return new WaitForSeconds(1f);
+        
+        Quaternion startRot = transform.rotation;
+        Quaternion targetRot = initialRotation;
+        float elapsed = 0f;
+        
+        while (elapsed < slowCloseDuration)
+        {
+            float t = Mathf.Clamp01(elapsed / slowCloseDuration);
+            // Usar una curva suave para el cierre
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+            transform.rotation = Quaternion.Slerp(startRot, targetRot, smoothT * slowCloseSpeed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        
+        transform.rotation = targetRot;
     }
     // Elimino llave de cierre extra para que las funciones siguientes estén dentro de la clase
 
@@ -194,14 +249,14 @@ public class Door: ObjectInteract
             Debug.Log($"[Door] Abriendo puerta: rotando a {openDegreesY} grados Y");
             if (doorCoroutine != null) StopCoroutine(doorCoroutine);
             doorCoroutine = StartCoroutine(RotateDoorCoroutine(openDegreesY));
-            AudioController.Instance.PlaySFX(AudioType.DoorOpen);
+            PlayDoorAudio(openDoorClip);
         }
         else
         {
             Debug.Log($"[Door] Cerrando puerta: rotando a {-openDegreesY} grados Y (posición original)");
             if (doorCoroutine != null) StopCoroutine(doorCoroutine);
             doorCoroutine = StartCoroutine(RotateDoorCoroutine(-openDegreesY));
-            AudioController.Instance.PlaySFX(AudioType.DoorClose);
+            PlayDoorAudio(closeDoorClip);
         }
 
     }
