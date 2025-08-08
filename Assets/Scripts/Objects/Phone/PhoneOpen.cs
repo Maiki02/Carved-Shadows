@@ -131,13 +131,11 @@ public class PhoneOpen : MonoBehaviour
     {
         if (isCalling) return;
         
-        Debug.Log("[PhoneOpen] Iniciando llamada...");
         
         // Cambio instantáneo de cámara
         if (phoneCamera != null)
         {
             phoneCamera.Priority = phoneCameraPriority;
-            Debug.Log("[PhoneOpen] Cámara del teléfono activada");
         }
         
         if (playerCamera != null)
@@ -155,7 +153,6 @@ public class PhoneOpen : MonoBehaviour
     {
         if (isCalling) return;
         
-        Debug.Log("[PhoneOpen] Iniciando llamada con Fade In...");
         StartCoroutine(StartCallWithFadeInRoutine());
     }
 
@@ -171,7 +168,6 @@ public class PhoneOpen : MonoBehaviour
         if (phoneCamera != null)
         {
             phoneCamera.Priority = phoneCameraPriority;
-            Debug.Log("[PhoneOpen] Cámara del teléfono activada");
         }
         
         if (playerCamera != null)
@@ -226,7 +222,6 @@ public class PhoneOpen : MonoBehaviour
     /// </summary>
     private void EndCall()
     {
-        Debug.Log("[PhoneOpen] Terminando llamada...");
         
         // Reproducir sonido de colgar
         if (audioSource != null && hangupClip != null)
@@ -250,7 +245,6 @@ public class PhoneOpen : MonoBehaviour
             yield return new WaitForSeconds(hangupClip.length);
         }
         
-        Debug.Log("[PhoneOpen] Iniciando transición de vuelta...");
         
         // 1. Fade out
         yield return StartCoroutine(FadeManager.Instance.FadeOutCoroutine(0.3f));
@@ -262,7 +256,6 @@ public class PhoneOpen : MonoBehaviour
         if (playerCamera != null)
         {
             playerCamera.Priority = playerCameraPriority; // Restaurar cámara del player
-            Debug.Log("[PhoneOpen] Cámara del player restaurada");
         }
         
         if (phoneCamera != null)
@@ -299,7 +292,6 @@ public class PhoneOpen : MonoBehaviour
         // 6. Desactivar este GameObject AL FINAL
         gameObject.SetActive(false);
         
-        Debug.Log("[PhoneOpen] Transición completada - Vuelto al mundo normal");
     }
 
     /// <summary>

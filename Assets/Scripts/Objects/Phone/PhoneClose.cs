@@ -112,7 +112,6 @@ public class PhoneClose : ObjectInteract
     /// </summary>
     private void AnswerCall()
     {
-        Debug.Log("[PhoneClose] Atendiendo llamada...");
         
         StopRinging();
         canInteract = false;
@@ -121,7 +120,6 @@ public class PhoneClose : ObjectInteract
         if (playerController != null)
         {
             playerController.SetControlesActivos(false);
-            Debug.Log("[PhoneClose] Controles del player desactivados");
         }
         
         // Reproducir sonido de atender
@@ -140,7 +138,6 @@ public class PhoneClose : ObjectInteract
     /// </summary>
     private IEnumerator TransitionToPhoneOpen()
     {
-        Debug.Log("[PhoneClose] Iniciando transición al teléfono abierto...");
         
         // 1. Fade out
         yield return StartCoroutine(FadeManager.Instance.FadeOutCoroutine(0.3f));
@@ -164,7 +161,6 @@ public class PhoneClose : ObjectInteract
     /// </summary>
     public void OnHangUp()
     {
-        Debug.Log("[PhoneClose] Colgando llamada...");
         StartCoroutine(HangUpRoutine());
     }
 
@@ -185,7 +181,6 @@ public class PhoneClose : ObjectInteract
         if (playerController != null)
         {
             playerController.SetControlesActivos(true);
-            Debug.Log("[PhoneClose] Controles del player reactivados");
         }
 
         if (phoneController != null)
@@ -193,7 +188,6 @@ public class PhoneClose : ObjectInteract
             phoneController.FinishCall();
         }
 
-        Debug.Log("[PhoneClose] Teléfono cerrado restaurado - Player puede moverse");
     }
 
     /// <summary>
