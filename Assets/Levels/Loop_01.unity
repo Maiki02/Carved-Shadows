@@ -650,58 +650,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1615016077761313535, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1615016077761313535, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: knockClip
-      value: 
-      objectReference: {fileID: 8300000, guid: bce809ed651b07243ab1318d654c2bc0, type: 3}
-    - target: {fileID: 1615016077761313535, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: openDoorClip
-      value: 
-      objectReference: {fileID: 8300000, guid: feb746247f12f33478cce0801e56f9ae, type: 3}
-    - target: {fileID: 1615016077761313535, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: closeDoorClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 05e7deca8bd7a5b4b8493d9ffbd24139, type: 3}
-    - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: knockClip
-      value: 
-      objectReference: {fileID: 8300000, guid: bce809ed651b07243ab1318d654c2bc0, type: 3}
-    - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: openDoorClip
-      value: 
-      objectReference: {fileID: 8300000, guid: feb746247f12f33478cce0801e56f9ae, type: 3}
-    - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: closeDoorClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 05e7deca8bd7a5b4b8493d9ffbd24139, type: 3}
     - target: {fileID: 4044353371881805713, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: m_Name
       value: Base
       objectReference: {fileID: 0}
-    - target: {fileID: 4533496986956538613, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4533496986956538613, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: knockClip
-      value: 
-      objectReference: {fileID: 8300000, guid: bce809ed651b07243ab1318d654c2bc0, type: 3}
-    - target: {fileID: 4533496986956538613, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: openDoorClip
-      value: 
-      objectReference: {fileID: 8300000, guid: feb746247f12f33478cce0801e56f9ae, type: 3}
-    - target: {fileID: 4533496986956538613, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: closeDoorClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 05e7deca8bd7a5b4b8493d9ffbd24139, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
