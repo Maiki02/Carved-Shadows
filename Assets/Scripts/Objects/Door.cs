@@ -85,6 +85,11 @@ public class Door : ObjectInteract
         type = newType;
     }
 
+    /// <summary>
+    /// Propiedad pública para acceder a la duración del cierre lento
+    /// </summary>
+    public float SlowCloseDuration => slowCloseDuration;
+
     /// Abre la puerta rotando en Y según el atributo openDegreesY
     public void OpenDoorByRotation()
     {
