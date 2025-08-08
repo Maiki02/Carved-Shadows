@@ -191,6 +191,120 @@ public class DoorStatueSequence : MonoBehaviour
         }
     }
     
+    #region Gizmos
+    
+    private void OnDrawGizmos()
+    {
+        DrawTriggerGizmos(false);
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        DrawTriggerGizmos(true);
+    }
+    
+    /// <summary>
+    /// Dibuja los gizmos del trigger para visualización en el editor
+    /// </summary>
+    /// <param name="isSelected">Si el objeto está seleccionado</param>
+    private void DrawTriggerGizmos(bool isSelected)
+    {
+        Collider col = GetComponent<Collider>();
+        if (col == null) return;
+        
+        // Colores diferentes según el estado
+        Color gizmoColor;
+        if (!col.isTrigger)
+        {
+            gizmoColor = Color.red; // Rojo si no es trigger (error)
+        }
+        else if (hasTriggered && Application.isPlaying)
+        {
+            gizmoColor = Color.gray; // Gris si ya se activó
+        }
+        else if (isSelected)
+        {
+            gizmoColor = Color.yellow; // Amarillo cuando está seleccionado
+        }
+        else
+        {
+            gizmoColor = Color.green; // Verde normal
+        }
+        
+        // Ajustar transparencia
+        gizmoColor.a = isSelected ? 0.6f : 0.3f;
+        Gizmos.color = gizmoColor;
+        
+        // Dibujar según el tipo de collider
+        if (col is BoxCollider boxCol)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
+            Gizmos.DrawCube(boxCol.center, boxCol.size);
+            
+            // Wireframe siempre visible
+            Gizmos.color = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1f);
+            Gizmos.DrawWireCube(boxCol.center, boxCol.size);
+        }
+        else if (col is SphereCollider sphereCol)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(transform.position + sphereCol.center, transform.rotation, transform.lossyScale);
+            Gizmos.DrawSphere(Vector3.zero, sphereCol.radius);
+            
+            // Wireframe siempre visible
+            Gizmos.color = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1f);
+            Gizmos.DrawWireSphere(Vector3.zero, sphereCol.radius);
+        }
+        else if (col is CapsuleCollider capsuleCol)
+        {
+            // Para capsule, dibujaremos una esfera aproximada
+            Gizmos.matrix = Matrix4x4.TRS(transform.position + capsuleCol.center, transform.rotation, transform.lossyScale);
+            float radius = Mathf.Max(capsuleCol.radius, capsuleCol.height * 0.5f);
+            Gizmos.DrawSphere(Vector3.zero, radius);
+            
+            Gizmos.color = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1f);
+            Gizmos.DrawWireSphere(Vector3.zero, radius);
+        }
+        
+        // Resetear matrix
+        Gizmos.matrix = Matrix4x4.identity;
+        
+        // Dibujar conexiones con referencias (solo cuando está seleccionado)
+        if (isSelected)
+        {
+            DrawConnectionGizmos();
+        }
+    }
+    
+    /// <summary>
+    /// Dibuja líneas conectando el trigger con la puerta y estatua
+    /// </summary>
+    private void DrawConnectionGizmos()
+    {
+        Vector3 triggerPos = transform.position;
+        
+        // Conexión con la puerta
+        if (targetDoor != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(triggerPos, targetDoor.transform.position);
+            
+            // Dibujar un pequeño icono en la puerta
+            Gizmos.DrawWireCube(targetDoor.transform.position + Vector3.up * 2f, Vector3.one * 0.5f);
+        }
+        
+        // Conexión con la estatua
+        if (targetStatue != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(triggerPos, targetStatue.transform.position);
+            
+            // Dibujar un pequeño icono en la estatua
+            Gizmos.DrawWireSphere(targetStatue.transform.position + Vector3.up * 2f, 0.3f);
+        }
+    }
+    
+    #endregion
+    
     private void OnValidate()
     {
         // Validaciones en el editor
