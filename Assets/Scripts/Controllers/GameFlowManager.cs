@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,24 +6,11 @@ public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance { get; private set; }
 
-    /*[Tooltip("Transform del punto al que queremos teleportar")]
-    [SerializeField] private Transform pointToTeleport;
-    [SerializeField] private Door door; // Puerta con la que tiene que interactuar el jugador
-    [SerializeField] private Door initialDoor; // Puerta inicial del juego
-
-    [Header("Configuración de las habitaciones de cada nivel")]
-    [SerializeField] private List<GameObject> rooms; // Referencia a las habitaciones
-
-    [Header("Puerta museo 1 y 2")]
-    [SerializeField] private Door puertaMuseo1;
-    [SerializeField] private Door puertaMuseo2;
-*/
-    // Siguiente nivel
     private AsyncOperation nextSceneLoadingOperation;
+    private string nextSceneName = "";
+    private GameObject player;
 
     public bool IsInTransition { get; private set; }
-
-    private GameObject player; // Referencia al jugador
 
     private void Awake()
     {
@@ -40,18 +25,11 @@ public class GameFlowManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogError("No se encontró el objeto Player en la escena.");
-        }
     }
 
-
-    void Start()
+    private void Start()
     {
-        //AudioController.Instance.PlayMusic(AudioType.MusicLevel1, true);
+        player = GameObject.FindGameObjectWithTag("Player");
 
         string currentScene = SceneManager.GetActiveScene().name;
         string nextScene = GetNextSceneName(currentScene);
@@ -60,6 +38,7 @@ public class GameFlowManager : MonoBehaviour
         {
             PreloadNextScene(nextScene);
         }
+
         if (GameController.Instance.CurrentLevel > 1)
         {
             StartCoroutine(HandleLoopIntro());
@@ -72,18 +51,20 @@ public class GameFlowManager : MonoBehaviour
             SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-
-    public void SetTransitionStatus(bool value)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        IsInTransition = value;
+        Debug.Log($"[GameFlowManager] Escena cargada: {scene.name}");
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        if (GameController.Instance.CurrentLevel > 1)
+        {
+            StartCoroutine(HandleLoopIntro());
+        }
     }
 
-    //////////////////////////////////////////// DE CAM HIZO NUEVO
-
-    // Devuelve el nombre de la siguiente escena
     private string GetNextSceneName(string currentScene)
     {
-        // Hay que nombrar siempre las escenas como 'Loop_XX' asi precarga automaticamente la siguiente
         if (currentScene.StartsWith("Loop_"))
         {
             string[] parts = currentScene.Split('_');
@@ -94,52 +75,43 @@ public class GameFlowManager : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("Nombre de escena no existe");
+        Debug.LogWarning("[GameFlowManager] El nombre de la escena no tiene formato válido");
         return null;
     }
 
-    // Precarga la siguiente escena
+    public void SetPreloadedScene(AsyncOperation operation, string sceneName)
+    {
+        nextSceneLoadingOperation = operation;
+        nextSceneName = sceneName;
+    }
+
     public void PreloadNextScene(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName)) return;
 
+        Debug.Log($"[GameFlowManager] Precargando: {sceneName}");
         nextSceneLoadingOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         nextSceneLoadingOperation.allowSceneActivation = false;
     }
 
-    // Activa la escena precargada
     public void ActivatePreloadedScene()
     {
         if (nextSceneLoadingOperation != null)
         {
+            Debug.Log($"[GameFlowManager] Activando escena precargada: {nextSceneName}");
             nextSceneLoadingOperation.allowSceneActivation = true;
         }
         else
         {
-            Debug.LogWarning("No se había precargado ninguna escena.");
+            Debug.LogWarning("[GameFlowManager] No hay escena precargada para activar.");
         }
     }
 
 
-    // Se llama cuando se carga una nueva escena
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log($"[GameFlowManager] Nueva escena cargada: {scene.name}");
-
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        if (GameController.Instance.CurrentLevel > 1)
-        {
-            Debug.Log("[GameFlowManager] Iniciando HandleLoopIntro...");
-            StartCoroutine(HandleLoopIntro());
-        }
-    }
-
-
-    // Maneja la transición de nivel
     private IEnumerator HandleLoopIntro()
     {
-        Debug.Log("HandleLoopIntro");
+        Debug.Log("[GameFlowManager] Inicio del loop...");
+
         SetTransitionStatus(true);
 
         var player = GameObject.FindWithTag("Player");
@@ -150,21 +122,44 @@ public class GameFlowManager : MonoBehaviour
         {
             controller.SetControlesActivos(false);
             controller.SetStatusCharacterController(false);
-
+            controller.SetCamaraActiva(false);
         }
 
-        // Tiempo de animacion hay q ajustarlo y poner la animacion
-        yield return new WaitForSeconds(2.5f);
+        var fakeDoorObj = GameObject.FindWithTag("FakeDoor");
+        if (fakeDoorObj != null)
+        {
+            var fakeDoor = fakeDoorObj.GetComponentInChildren<FakeDoor>();
+            if (fakeDoor != null)
+            {
+                fakeDoor.PlayDoorOpen();
+            }
+            else
+            {
+                Debug.LogWarning("[GameFlowManager] FakeDoor encontrada pero no tiene componente FakeDoor.cs en hijos.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[GameFlowManager] No se encontró GameObject con tag 'FakeDoor'");
+        }
+
+
+        yield return new WaitForSeconds(2.5f); // Ajustar según animación
 
         if (controller != null)
         {
             controller.SetControlesActivos(true);
             controller.SetStatusCharacterController(true);
-
-            Debug.Log("Devuelve controles");
+            controller.SetCamaraActiva(true);
         }
-        Debug.Log("Fin handle loop");
+
         SetTransitionStatus(false);
+        Debug.Log("[GameFlowManager] Loop listo.");
+    }
+
+    public void SetTransitionStatus(bool value)
+    {
+        IsInTransition = value;
     }
 
     //////////////////////////////////////////// FIN DE CAM HIZO NUEVO
@@ -178,7 +173,7 @@ public class GameFlowManager : MonoBehaviour
         {
             SceneController.Instance.LoadInitialScene();
         }
-    
+
     }
 
 
