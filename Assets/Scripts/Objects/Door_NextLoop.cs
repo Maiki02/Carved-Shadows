@@ -4,7 +4,9 @@ using UnityEngine;
 public class Door_NextLoop : ObjectInteract
 {
     private bool isTransitioning = false;
-    [SerializeField] private Transform doorEntryPoint; 
+
+    [SerializeField] private Transform doorEntryPoint;
+    [SerializeField] private Transform lookTargetPoint;
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float rotateSpeed = 5f;
 
@@ -28,6 +30,7 @@ public class Door_NextLoop : ObjectInteract
         if (player != null)
         {
             player.SetControlesActivos(false);
+            player.SetCamaraActiva(false);
             player.SetStatusCharacterController(false);
         }
 
@@ -36,13 +39,48 @@ public class Door_NextLoop : ObjectInteract
         {
             while (Vector3.Distance(playerObj.transform.position, doorEntryPoint.position) > 0.05f)
             {
-                Vector3 dir = (doorEntryPoint.position - playerObj.transform.position).normalized;
-                Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
-                playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
+                // Calcular dirección horizontal hacia el objetivo de mirada
+                Vector3 lookDir = lookTargetPoint.position - playerObj.transform.position;
+                lookDir.y = 0f; // Eliminar inclinación vertical
 
-                playerObj.transform.position = Vector3.MoveTowards(playerObj.transform.position, doorEntryPoint.position, moveSpeed * Time.deltaTime);
+                if (lookDir != Vector3.zero)
+                {
+                    Quaternion targetRot = Quaternion.LookRotation(lookDir.normalized);
+                    playerObj.transform.rotation = Quaternion.Slerp(
+                        playerObj.transform.rotation,
+                        targetRot,
+                        rotateSpeed * Time.deltaTime
+                    );
+                }
+
+                // Mover al jugador hacia el punto de entrada
+                playerObj.transform.position = Vector3.MoveTowards(
+                    playerObj.transform.position,
+                    doorEntryPoint.position,
+                    moveSpeed * Time.deltaTime
+                );
 
                 yield return null;
+            }
+            if (lookTargetPoint != null && playerObj != null)
+            {
+                Vector3 lookDir = lookTargetPoint.position - playerObj.transform.position;
+                lookDir.y = 0f;
+
+                if (lookDir != Vector3.zero)
+                {
+                    Quaternion targetRot = Quaternion.LookRotation(lookDir.normalized);
+                    while (Quaternion.Angle(playerObj.transform.rotation, targetRot) > 0.5f)
+                    {
+                        playerObj.transform.rotation = Quaternion.Slerp(
+                            playerObj.transform.rotation,
+                            targetRot,
+                            rotateSpeed * Time.deltaTime
+                        );
+                        yield return null;
+                    }
+                    playerObj.transform.rotation = targetRot; // Asegura que quede exacto
+                }
             }
         }
 

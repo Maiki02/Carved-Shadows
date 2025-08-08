@@ -10,6 +10,7 @@ TagManager:
   - Perilla
   - CameraPhone
   - Alfombra
+  - FakeDoor
   layers:
   - Default
   - TransparentFX
