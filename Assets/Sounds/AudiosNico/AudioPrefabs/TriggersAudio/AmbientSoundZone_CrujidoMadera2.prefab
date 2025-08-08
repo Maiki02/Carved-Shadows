@@ -45,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bd494a864c78b3f48b394eabfb0e8394, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.413
+  m_Volume: 0.919
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -54,7 +54,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.5723114
-  MaxDistance: 1
+  MaxDistance: 1.5
   Pan2D: 0.39
   rolloffMode: 0
   BypassEffects: 0
@@ -150,15 +150,15 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: -7.8
-  directLevel: -3.3
+  gainLevel: -8.9
+  directLevel: -8.1
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 1.22
+  distanceCorrection: 2.05
   useUnityDistance: 0
   auralization: 0
-  roomPreset: 24
+  roomPreset: 27
   internalReverb: 1
   performanceMode: 0
   dearVRPlayOnAwake: 0
