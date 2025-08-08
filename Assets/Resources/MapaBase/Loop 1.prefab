@@ -25807,7 +25807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8086640084504821528
 Transform:
   m_ObjectHideFlags: 0
@@ -46163,13 +46163,14 @@ MonoBehaviour:
   openDoorClip: {fileID: 8300000, guid: feb746247f12f33478cce0801e56f9ae, type: 3}
   closeDoorClip: {fileID: 8300000, guid: 05e7deca8bd7a5b4b8493d9ffbd24139, type: 3}
   knockClip: {fileID: 8300000, guid: bce809ed651b07243ab1318d654c2bc0, type: 3}
+  slowCloseClip: {fileID: 0}
   type: 1
   openDegreesY: 110
   openDuration: 1
   knockAmount: 4
   knockSpeed: 5
   slowCloseDuration: 3
-  slowCloseSpeed: 0.5
+  initialOpenDegrees: 110
 --- !u!82 &4328085095064709636
 AudioSource:
   m_ObjectHideFlags: 0
