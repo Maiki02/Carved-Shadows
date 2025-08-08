@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-// El eje Y de la estatua no se moverá durante la animación, solo X y Z cambiarán.
 public class Statue : MonoBehaviour
 {
     [System.Serializable]
@@ -12,54 +11,42 @@ public class Statue : MonoBehaviour
         public bool rotateToTarget = false;
     }
 
-    [SerializeField]
-    private StatuePoint[] points;
+    [SerializeField] private StatuePoint[] points;
+    [SerializeField] private bool deactivateOnFinish = false;
+
+    private int currentStep = 0;
     private bool isMoving = false;
 
-    [Header("Comportamiento al finalizar")]
-    [Tooltip("Si está activo, la estatua desaparecerá (SetActive(false)) al terminar el recorrido. Si no, permanecerá visible.")]
-    [SerializeField]
-    private bool deactivateOnFinish = false;
-
-
-    public void Start()
+    // Llamado por el trigger
+    public void TriggerNextStep()
     {
-        this.StartStatueMovement(); 
-    }
+        if (isMoving) return;
 
-    // Llamar a esta función desde el trigger externo
-    public void StartStatueMovement()
-    {
-        if (!isMoving && points != null && points.Length > 0)
+        if (currentStep < points.Length)
         {
-            StartCoroutine(MoveAlongPoints());
+            StartCoroutine(MoveToPoint(points[currentStep]));
+            currentStep++;
         }
-    }
-
-    private IEnumerator MoveAlongPoints()
-    {
-        isMoving = true;
-        for (int i = 0; i < points.Length; i++)
+        else
         {
-            StatuePoint point = points[i];
-            yield return StartCoroutine(MoveToPoint(point));
-        }
-        isMoving = false;
-        if (deactivateOnFinish)
-        {
-            gameObject.SetActive(false);
+            Debug.Log("[Statue] No hay más pasos para ejecutar.");
+            if (deactivateOnFinish) gameObject.SetActive(false);
         }
     }
 
     private IEnumerator MoveToPoint(StatuePoint point)
     {
+        isMoving = true;
+
         if (point.targetPoint == null)
+        {
+            isMoving = false;
             yield break;
+        }
 
         Vector3 startPos = transform.position;
         Vector3 targetPos = point.targetPoint.position;
-        // Mantener el Y original de la estatua
-        targetPos.y = startPos.y;
+        targetPos.y = startPos.y; // Mantener la altura original
 
         while (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(targetPos.x, 0, targetPos.z)) > 0.05f)
         {
@@ -68,6 +55,7 @@ public class Statue : MonoBehaviour
                 new Vector3(targetPos.x, 0, targetPos.z),
                 point.moveSpeed * Time.deltaTime
             );
+
             transform.position = new Vector3(nextPos.x, startPos.y, nextPos.z);
 
             if (point.rotateToTarget)
@@ -80,10 +68,13 @@ public class Statue : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, point.moveSpeed * Time.deltaTime);
                 }
             }
+
             yield return null;
         }
-        // Snap to final position/rotación
+
+        // Ajustar posición final
         transform.position = targetPos;
+
         if (point.rotateToTarget)
         {
             Vector3 dir = (targetPos - transform.position);
@@ -93,5 +84,7 @@ public class Statue : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(dir);
             }
         }
+
+        isMoving = false;
     }
 }
