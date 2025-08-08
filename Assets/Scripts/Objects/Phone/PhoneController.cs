@@ -6,18 +6,14 @@ public class PhoneController : MonoBehaviour
 {
     [Header("Referencias")]
     [SerializeField] private Door door; // Puerta que se cerrará
-    [SerializeField] private GameObject telefonoColgado; // Teléfono en estado colgado
-    [SerializeField] private GameObject telefonoDescolgado; // Teléfono en estado descolgado
-    
-    [Header("Configuración de Audio")]
-    [SerializeField] private AudioSource phoneAudioSource; // AudioSource del teléfono
-    [SerializeField] private AudioClip phoneRingClip; // Sonido del teléfono sonando
-    [SerializeField] private float ringDuration = 5f; // Duración que suena el teléfono
+    [SerializeField] private PhoneClose phoneClose; // Script del teléfono cerrado
     
     [Header("Configuración")]
+    [SerializeField] private float ringDuration = 5f; // Duración que suena el teléfono
     [SerializeField] private bool triggerOnce = true; // Solo se activa una vez
     
     private bool hasTriggered = false;
+    private bool callCompleted = false; // Bandera para saber si ya se completó la llamada
     private Coroutine phoneSequenceCoroutine;
 
     private void Awake()
@@ -35,12 +31,19 @@ public class PhoneController : MonoBehaviour
 
     private void Start()
     {
-        // Asegurar que el teléfono esté en estado inicial (colgado)
-        SetPhoneState(true); // true = colgado, false = descolgado
+        // Validar referencias
+        ValidateReferences();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Si ya se completó la llamada, no hacer nada
+        if (callCompleted)
+        {
+            Debug.Log("[PhoneController] La llamada ya fue completada. No se puede pasar más.");
+            return;
+        }
+        
         // Verificar si es el player (asumiendo que tiene tag "Player" o CharacterController)
         if (other.CompareTag("Player") || other.GetComponent<CharacterController>() != null)
         {
@@ -75,48 +78,30 @@ public class PhoneController : MonoBehaviour
             phoneSequenceCoroutine = null;
         }
         
-        StopPhoneRing();
-    }
-
-    /// <summary>
-    /// Hace que el teléfono suene
-    /// </summary>
-    public void StartPhoneRing()
-    {
-        if (phoneAudioSource != null && phoneRingClip != null)
+        if (phoneClose != null)
         {
-            phoneAudioSource.clip = phoneRingClip;
-            phoneAudioSource.loop = true; // Loop para que suene continuamente
-            phoneAudioSource.Play();
-            Debug.Log("[PhoneController] Teléfono empezó a sonar");
+            phoneClose.StopRinging();
         }
     }
 
     /// <summary>
-    /// Detiene el sonido del teléfono
+    /// Llamado por PhoneOpen cuando la llamada se completa
     /// </summary>
-    public void StopPhoneRing()
+    public void OnCallCompleted()
     {
-        if (phoneAudioSource != null)
+        callCompleted = true;
+        Debug.Log("[PhoneController] Llamada completada. Trigger desactivado permanentemente.");
+        
+        // TODO: Interactuar con la puerta (cambiar tipo o abrirla)
+        if (door != null)
         {
-            phoneAudioSource.Stop();
-            Debug.Log("[PhoneController] Teléfono dejó de sonar");
+            // Ejemplo: cambiar el tipo de puerta para que se pueda abrir
+            door.SetType(TypeDoorInteract.OpenAndClose);
+            Debug.Log("[PhoneController] TODO: Configurar puerta para permitir interacción");
         }
-    }
-
-    /// <summary>
-    /// Cambia el estado visual del teléfono (colgado/descolgado)
-    /// </summary>
-    /// <param name="isHanging">true = colgado, false = descolgado</param>
-    public void SetPhoneState(bool isHanging)
-    {
-        if (telefonoColgado != null)
-            telefonoColgado.SetActive(isHanging);
         
-        if (telefonoDescolgado != null)
-            telefonoDescolgado.SetActive(!isHanging);
-        
-        Debug.Log($"[PhoneController] Teléfono estado: {(isHanging ? "Colgado" : "Descolgado")}");
+        // TODO: Otras acciones post-llamada aquí
+        Debug.Log("[PhoneController] TODO: Realizar acciones adicionales después de la llamada");
     }
 
     /// <summary>
@@ -133,21 +118,26 @@ public class PhoneController : MonoBehaviour
             door.StartSlowClosing(); // Usar el método de cierre lento
             
             // Esperar a que termine el cierre de la puerta
-            //yield return new WaitForSeconds(door.SlowCloseDuration);
+            yield return new WaitForSeconds(door.SlowCloseDuration);
             Debug.Log("[PhoneController] Puerta cerrada completamente");
         }
         
         // 2. Empezar a sonar el teléfono
-        StartPhoneRing();
+        if (phoneClose != null)
+        {
+            phoneClose.StartRinging();
+            Debug.Log("[PhoneController] Teléfono empezó a sonar");
+        }
         
-        // 3. Esperar la duración configurada del ring
+        // 3. Esperar la duración configurada del ring (o hasta que se conteste)
         yield return new WaitForSeconds(ringDuration);
         
-        // 4. Detener el sonido del teléfono
-        StopPhoneRing();
-        
-        // Aquí es donde más adelante se activaría el cambio de cámara/escena
-        Debug.Log("[PhoneController] Secuencia completada - Aquí iría el cambio de escena");
+        // 4. Si todavía está sonando después del tiempo, detener automáticamente
+        if (phoneClose != null)
+        {
+            phoneClose.StopRinging();
+            Debug.Log("[PhoneController] Tiempo de ring agotado - teléfono dejó de sonar");
+        }
     }
 
     /// <summary>
@@ -158,27 +148,24 @@ public class PhoneController : MonoBehaviour
         if (door == null)
             Debug.LogWarning("[PhoneController] Puerta no asignada");
         
-        if (telefonoColgado == null)
-            Debug.LogWarning("[PhoneController] Teléfono colgado no asignado");
-        
-        if (telefonoDescolgado == null)
-            Debug.LogWarning("[PhoneController] Teléfono descolgado no asignado");
-        
-        if (phoneAudioSource == null)
-            Debug.LogWarning("[PhoneController] AudioSource del teléfono no asignado");
-        
-        if (phoneRingClip == null)
-            Debug.LogWarning("[PhoneController] Clip de sonido del teléfono no asignado");
+        if (phoneClose == null)
+            Debug.LogWarning("[PhoneController] PhoneClose script no asignado");
     }
 
     /// <summary>
-    /// Resetea el trigger para que pueda activarse de nuevo
+    /// Resetea el trigger para que pueda activarse de nuevo (para testing)
     /// </summary>
     public void ResetTrigger()
     {
         hasTriggered = false;
+        callCompleted = false;
         Debug.Log("[PhoneController] Trigger reseteado");
     }
+
+    /// <summary>
+    /// Propiedad para verificar si la llamada fue completada
+    /// </summary>
+    public bool IsCallCompleted => callCompleted;
 
     // Para debugging en el editor
     private void OnDrawGizmos()
@@ -186,7 +173,7 @@ public class PhoneController : MonoBehaviour
         Collider col = GetComponent<Collider>();
         if (col != null)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = callCompleted ? Color.red : Color.yellow;
             Gizmos.DrawWireCube(transform.position, col.bounds.size);
         }
     }
