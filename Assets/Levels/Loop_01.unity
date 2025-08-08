@@ -670,6 +670,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loop 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4574089242882788062, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8086640084504821528, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
