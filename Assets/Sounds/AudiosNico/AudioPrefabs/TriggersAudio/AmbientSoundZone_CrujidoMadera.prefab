@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.15, y: 0, z: 0}
-  m_LocalScale: {x: 3.0514166, y: 1, z: 1}
+  m_LocalScale: {x: 2.3352187, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5735798771731734189}
@@ -124,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 7231052636406959164}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.442, y: 0.405, z: -0.528}
+  m_LocalPosition: {x: 0.214, y: -0.194, z: -0.528}
   m_LocalScale: {x: 1, y: 0.21940601, z: 1.998659}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -140,9 +140,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bd494a864c78b3f48b394eabfb0e8394, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 83cabf1ed59f34b49ac5f1ae24e13f23, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.413
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -151,7 +151,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.41754198
-  MaxDistance: 0.5
+  MaxDistance: 1.5
   Pan2D: 0.39
   rolloffMode: 0
   BypassEffects: 0
@@ -247,15 +247,15 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: -3.7
-  directLevel: -4.1
+  gainLevel: -3
+  directLevel: -3
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 1.37
+  distanceCorrection: 2.33
   useUnityDistance: 0
   auralization: 0
-  roomPreset: 24
+  roomPreset: 27
   internalReverb: 1
   performanceMode: 0
   dearVRPlayOnAwake: 0
