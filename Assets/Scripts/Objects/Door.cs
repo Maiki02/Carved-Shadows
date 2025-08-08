@@ -15,6 +15,7 @@ public class Door : ObjectInteract
     [SerializeField] private AudioClip closeDoorClip;
     [SerializeField] private AudioClip knockClip;
     [SerializeField] private AudioClip slowCloseClip; // Clip para el cierre lento
+    [SerializeField] private AudioClip fastCloseClip; // Clip para el cierre rápido
     private AudioSource audioSource;
 
     /*[Header("Requisitos")]
@@ -34,6 +35,9 @@ public class Door : ObjectInteract
     [Header("Configuración de cierre lento")]
     [SerializeField] private float slowCloseDuration = 3f; // Duración del cierre lento en segundos
     [SerializeField] private float initialOpenDegrees = 110f; // Grados abiertos al inicio para SlowClosing
+    
+    [Header("Configuración de cierre rápido")]
+    [SerializeField] private float fastCloseDuration = 0.5f; // Duración del cierre rápido en segundos
     
     private Quaternion initialRotation;
     private Coroutine doorCoroutine;
@@ -101,6 +105,19 @@ public class Door : ObjectInteract
     /// Propiedad pública para acceder a la duración del cierre lento
     /// </summary>
     public float SlowCloseDuration => slowCloseDuration;
+    
+    /// <summary>
+    /// Propiedad pública para acceder a la duración del cierre rápido
+    /// </summary>
+    public float FastCloseDuration => fastCloseDuration;
+    
+    /// <summary>
+    /// Permite asignar el clip de cierre rápido desde código
+    /// </summary>
+    public void SetFastCloseClip(AudioClip clip)
+    {
+        fastCloseClip = clip;
+    }
 
     /// Abre la puerta rotando en Y según el atributo openDegreesY
     public void OpenDoorByRotation()
@@ -145,6 +162,14 @@ public class Door : ObjectInteract
         if (doorCoroutine != null) StopCoroutine(doorCoroutine);
         doorCoroutine = StartCoroutine(SlowCloseCoroutine());
         Debug.Log("[Door] Iniciando cierre lento");
+    }
+
+    // Inicia el cierre rápido (para cuando se activa externamente)
+    public void StartFastClosing()
+    {
+        if (doorCoroutine != null) StopCoroutine(doorCoroutine);
+        doorCoroutine = StartCoroutine(FastCloseCoroutine());
+        Debug.Log("[Door] Iniciando cierre rápido");
     }
 
     /// <summary>
@@ -235,6 +260,31 @@ public class Door : ObjectInteract
         // Asegurar que termine exactamente en la rotación inicial
         transform.rotation = targetRot;
         Debug.Log("[Door] Cierre lento completado");
+    }
+
+    private IEnumerator FastCloseCoroutine()
+    {
+        Debug.Log("[Door] Iniciando cierre rápido...");
+        
+        // Reproducir sonido de cierre rápido al inicio de la animación
+        PlayDoorAudio(fastCloseClip);
+        
+        Quaternion startRot = transform.rotation; // Posición actual (abierta)
+        Quaternion targetRot = initialRotation; // Posición cerrada (rotación inicial)
+        float elapsed = 0f;
+        
+        while (elapsed < fastCloseDuration)
+        {
+            float t = Mathf.Clamp01(elapsed / fastCloseDuration);
+            // Usar interpolación rápida y directa para el cierre
+            transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        
+        // Asegurar que termine exactamente en la rotación inicial
+        transform.rotation = targetRot;
+        Debug.Log("[Door] Cierre rápido completado");
     }
     // Elimino llave de cierre extra para que las funciones siguientes estén dentro de la clase
 

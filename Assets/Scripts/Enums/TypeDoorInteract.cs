@@ -3,4 +3,5 @@ public enum TypeDoorInteract {
     OpenAndClose,
     Knocking,
     SlowClosing,
+    FastClosing,
 }
