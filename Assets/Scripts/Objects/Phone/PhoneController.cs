@@ -43,9 +43,9 @@ public class PhoneController : MonoBehaviour
             Debug.Log("[PhoneController] La llamada ya fue completada. No se puede pasar más.");
             return;
         }
-        
-        // Verificar si es el player (asumiendo que tiene tag "Player" o CharacterController)
-        if (other.CompareTag("Player") || other.GetComponent<CharacterController>() != null)
+
+        // Verificar si es el player (asumiendo que tiene tag "Player")
+        if (other.CompareTag("Player"))
         {
             if (triggerOnce && hasTriggered) return; // Si solo se activa una vez y ya se activó
             
@@ -140,6 +140,11 @@ public class PhoneController : MonoBehaviour
         }
     }
 
+    public void FinishCall()
+    {
+        this.door.SetType(TypeDoorInteract.OpenAndClose);
+    }
+
     /// <summary>
     /// Valida que todas las referencias estén asignadas
     /// </summary>
@@ -147,7 +152,7 @@ public class PhoneController : MonoBehaviour
     {
         if (door == null)
             Debug.LogWarning("[PhoneController] Puerta no asignada");
-        
+
         if (phoneClose == null)
             Debug.LogWarning("[PhoneController] PhoneClose script no asignado");
     }

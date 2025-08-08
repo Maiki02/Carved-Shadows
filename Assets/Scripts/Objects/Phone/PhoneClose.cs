@@ -12,6 +12,12 @@ public class PhoneClose : ObjectInteract
     [SerializeField] private PhoneOpen phoneOpenScript; // Referencia al script del teléfono abierto
     [SerializeField] private GameObject phoneOpenGameObject; // GameObject del teléfono abierto
     
+    [Header("Player Reference")]
+    [SerializeField] private PlayerController playerController; // Referencia opcional al PlayerController
+
+    [Header("Call Controller")]
+    [SerializeField] private PhoneController phoneController; // Referencia al controlador del teléfono
+
     private AudioSource audioSource;
     private bool isRinging = false;
     private bool canInteract = false;
@@ -20,6 +26,16 @@ public class PhoneClose : ObjectInteract
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
+        
+        // Buscar PlayerController si no está asignado
+        if (playerController == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                playerController = playerObj.GetComponent<PlayerController>();
+            }
+        }
     }
 
     private void Start()
@@ -29,8 +45,12 @@ public class PhoneClose : ObjectInteract
 
     public override void OnHoverEnter()
     {
+        
         // Solo mostrar outline si está sonando y se puede interactuar
-        if (!isRinging || !canInteract) return;
+        if (!isRinging || !canInteract) 
+        {
+            return;
+        }
         
         base.OnHoverEnter();
     }
@@ -38,14 +58,17 @@ public class PhoneClose : ObjectInteract
     public override void OnHoverExit()
     {
         if (!canInteract) return;
-        
+
         base.OnHoverExit();
     }
 
     public override void OnInteract()
-    {
-        if (!isRinging || !canInteract) return;
-        
+    {        
+        if (!isRinging || !canInteract) 
+        {
+            return;
+        }
+
         AnswerCall();
     }
 
@@ -66,7 +89,6 @@ public class PhoneClose : ObjectInteract
             audioSource.Play();
         }
         
-        Debug.Log("[PhoneClose] Teléfono empezó a sonar");
     }
 
     /// <summary>
@@ -83,7 +105,6 @@ public class PhoneClose : ObjectInteract
             audioSource.Stop();
         }
         
-        Debug.Log("[PhoneClose] Teléfono dejó de sonar");
     }
 
     /// <summary>
@@ -95,6 +116,13 @@ public class PhoneClose : ObjectInteract
         
         StopRinging();
         canInteract = false;
+        
+        // Desactivar controles del player al atender
+        if (playerController != null)
+        {
+            playerController.SetControlesActivos(false);
+            Debug.Log("[PhoneClose] Controles del player desactivados");
+        }
         
         // Reproducir sonido de atender
         if (audioSource != null && pickupClip != null)
@@ -112,33 +140,60 @@ public class PhoneClose : ObjectInteract
     /// </summary>
     private IEnumerator TransitionToPhoneOpen()
     {
-        // TODO: Implementar fade out aquí
-        Debug.Log("[PhoneClose] Iniciando fade out...");
+        Debug.Log("[PhoneClose] Iniciando transición al teléfono abierto...");
         
-        // Esperar un poco para el fade out
-        yield return new WaitForSeconds(0.5f);
+        // 1. Fade out
+        yield return StartCoroutine(FadeManager.Instance.FadeOutCoroutine(0.3f));
         
-        // Desactivar este GameObject
-        gameObject.SetActive(false);
-        
-        // Activar el teléfono abierto
+        // 2. Activar el teléfono abierto ANTES de desactivar este
         if (phoneOpenGameObject != null)
             phoneOpenGameObject.SetActive(true);
         
-        // TODO: Implementar movimiento de cámara aquí
-        Debug.Log("[PhoneClose] Cambiando posición de cámara...");
-        
-        // TODO: Implementar fade in aquí
-        Debug.Log("[PhoneClose] Iniciando fade in...");
-        
-        // Esperar un poco para el fade in
-        yield return new WaitForSeconds(0.5f);
-        
-        // Iniciar la llamada en el teléfono abierto
+        // 3. Llamar a la función del teléfono abierto para continuar
         if (phoneOpenScript != null)
         {
-            phoneOpenScript.StartCall();
+            phoneOpenScript.StartCallWithFadeIn();
         }
+        
+        // 4. Desactivar este GameObject AL FINAL
+        gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Función llamada cuando se cuelga desde PhoneOpen
+    /// </summary>
+    public void OnHangUp()
+    {
+        Debug.Log("[PhoneClose] Colgando llamada...");
+        StartCoroutine(HangUpRoutine());
+    }
+
+    /// <summary>
+    /// Corrutina que maneja el colgado de la llamada
+    /// </summary>
+    private IEnumerator HangUpRoutine()
+    {
+        // Cambiar prioridad de cámara de vuelta al player
+        // (Esto se maneja desde PhoneOpen antes de llamar OnHangUp)
+        
+        // Fade in para mostrar el teléfono cerrado de nuevo
+        yield return StartCoroutine(FadeManager.Instance.FadeInCoroutine(0.3f));
+
+        base.OnHoverExit();
+
+        // Reactivar controles del player después del Fade In
+        if (playerController != null)
+        {
+            playerController.SetControlesActivos(true);
+            Debug.Log("[PhoneClose] Controles del player reactivados");
+        }
+
+        if (phoneController != null)
+        {
+            phoneController.FinishCall();
+        }
+
+        Debug.Log("[PhoneClose] Teléfono cerrado restaurado - Player puede moverse");
     }
 
     /// <summary>
@@ -157,5 +212,8 @@ public class PhoneClose : ObjectInteract
         
         if (phoneOpenGameObject == null)
             Debug.LogWarning("[PhoneClose] PhoneOpen GameObject no asignado");
+        
+        if (playerController == null)
+            Debug.LogWarning("[PhoneClose] PlayerController no encontrado - controles no se desactivarán");
     }
 }

@@ -58,6 +58,42 @@ public class FadeManager : MonoBehaviour
         yield return StartCoroutine(FadeImage(blackImage, 0f, 1f, blinkDuration));
     }
 
+    /// <summary>
+    /// Fade Out público - Oscurece la pantalla con duración específica
+    /// </summary>
+    /// <param name="duration">Duración del fade out en segundos</param>
+    public void FadeOut(float duration)
+    {
+        StartCoroutine(FadeOutCoroutine(duration));
+    }
+
+    /// <summary>
+    /// Fade In público - Aclara la pantalla con duración específica
+    /// </summary>
+    /// <param name="duration">Duración del fade in en segundos</param>
+    public void FadeIn(float duration)
+    {
+        StartCoroutine(FadeInCoroutine(duration));
+    }
+
+    /// <summary>
+    /// Fade Out que retorna corrutina para poder ser esperada
+    /// </summary>
+    /// <param name="duration">Duración del fade out en segundos</param>
+    public IEnumerator FadeOutCoroutine(float duration)
+    {
+        yield return StartCoroutine(FadeImage(blackImage, 0f, 1f, duration));
+    }
+
+    /// <summary>
+    /// Fade In que retorna corrutina para poder ser esperada
+    /// </summary>
+    /// <param name="duration">Duración del fade in en segundos</param>
+    public IEnumerator FadeInCoroutine(float duration)
+    {
+        yield return StartCoroutine(FadeImage(blackImage, 1f, 0f, duration));
+    }
+
     public IEnumerator FaintAndLoadRoutine(GameObject go, Transform pt)
     {
         // 1) Fade out (oscurecer)

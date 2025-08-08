@@ -14,6 +14,7 @@ public class Door : ObjectInteract
     [SerializeField] private AudioClip openDoorClip;
     [SerializeField] private AudioClip closeDoorClip;
     [SerializeField] private AudioClip knockClip;
+    [SerializeField] private AudioClip slowCloseClip; // Clip para el cierre lento
     private AudioSource audioSource;
 
     /*[Header("Requisitos")]
@@ -32,7 +33,7 @@ public class Door : ObjectInteract
     
     [Header("Configuración de cierre lento")]
     [SerializeField] private float slowCloseDuration = 3f; // Duración del cierre lento en segundos
-    [SerializeField] private float slowCloseSpeed = 0.5f; // Velocidad del cierre lento
+    [SerializeField] private float initialOpenDegrees = 110f; // Grados abiertos al inicio para SlowClosing
     
     private Quaternion initialRotation;
     private Coroutine doorCoroutine;
@@ -46,8 +47,19 @@ public class Door : ObjectInteract
 
     private void Start()
     {
-        this.StartKnockingLoop();
-        this.StartSlowClosing();
+        // Si es de tipo SlowClosing, empezar con la puerta abierta
+        if (type == TypeDoorInteract.SlowClosing)
+        {
+            // Rotar la puerta a la posición inicial abierta
+            Quaternion openRotation = Quaternion.Euler(initialRotation.eulerAngles.x, 
+                                                     initialRotation.eulerAngles.y + initialOpenDegrees, 
+                                                     initialRotation.eulerAngles.z);
+            transform.rotation = openRotation;
+            Debug.Log($"[Door] Puerta SlowClosing iniciada abierta en {initialOpenDegrees} grados");
+        }
+        
+        //this.StartKnockingLoop();
+        //this.StartSlowClosing();
     }
 
     private void Update()
@@ -201,24 +213,28 @@ public class Door : ObjectInteract
 
     private IEnumerator SlowCloseCoroutine()
     {
-        // Esperar un poco antes de empezar a cerrar
-        yield return new WaitForSeconds(1f);
+        Debug.Log("[Door] Iniciando cierre lento...");
         
-        Quaternion startRot = transform.rotation;
-        Quaternion targetRot = initialRotation;
+        // Reproducir sonido de cierre lento al inicio de la animación
+        PlayDoorAudio(slowCloseClip);
+        
+        Quaternion startRot = transform.rotation; // Posición actual (abierta)
+        Quaternion targetRot = initialRotation; // Posición cerrada (rotación inicial)
         float elapsed = 0f;
         
         while (elapsed < slowCloseDuration)
         {
             float t = Mathf.Clamp01(elapsed / slowCloseDuration);
-            // Usar una curva suave para el cierre
+            // Usar interpolación suave para el cierre
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
-            transform.rotation = Quaternion.Slerp(startRot, targetRot, smoothT * slowCloseSpeed);
+            transform.rotation = Quaternion.Slerp(startRot, targetRot, smoothT);
             elapsed += Time.deltaTime;
             yield return null;
         }
         
+        // Asegurar que termine exactamente en la rotación inicial
         transform.rotation = targetRot;
+        Debug.Log("[Door] Cierre lento completado");
     }
     // Elimino llave de cierre extra para que las funciones siguientes estén dentro de la clase
 

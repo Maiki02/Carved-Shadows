@@ -18,17 +18,33 @@ public class PhoneOpen : MonoBehaviour
     [Header("Camera Settings")]
     [Tooltip("Priority to set for the phone camera during the call.")]
     public int phoneCameraPriority = 20;
+    [Tooltip("Priority of the player camera (to restore after call).")]
+    public int playerCameraPriority = 10;
     
     [Header("Controller Reference")]
     [SerializeField] private PhoneController phoneController; // Referencia al controlador principal
+    [SerializeField] private GameObject phoneCloseGameObject; // GameObject del teléfono cerrado para reactivar
     
     private CinemachineVirtualCamera phoneCamera;
+    private CinemachineVirtualCamera playerCamera;
+    private CinemachineBrain cinemachineBrain;
     private AudioSource audioSource;
     private bool isCalling = false;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        
+        // Buscar CinemachineBrain en la Main Camera
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
+            if (cinemachineBrain == null)
+            {
+                Debug.LogError("CinemachineBrain not found on Main Camera.");
+            }
+        }
         
         // Busca la cámara virtual con el tag "CameraPhone" en los hijos
         foreach (var cam in GetComponentsInChildren<CinemachineVirtualCamera>(true))
@@ -42,6 +58,21 @@ public class PhoneOpen : MonoBehaviour
         if (phoneCamera == null)
         {
             Debug.LogError($"No CinemachineVirtualCamera with tag 'CameraPhone' found in {gameObject.name}.");
+        }
+
+        // Busca la cámara del player por tag "PlayerVirtualCamera"
+        GameObject playerCameraObj = GameObject.FindGameObjectWithTag("PlayerVirtualCamera");
+        if (playerCameraObj != null)
+        {
+            playerCamera = playerCameraObj.GetComponent<CinemachineVirtualCamera>();
+            if (playerCamera == null)
+            {
+                Debug.LogError("CinemachineVirtualCamera component not found on CameraPlayer object.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player camera object with tag 'CameraPlayer' not found.");
         }
 
         // Busca el PlayerController por tag
@@ -69,13 +100,92 @@ public class PhoneOpen : MonoBehaviour
     }
 
     /// <summary>
-    /// Inicia la llamada telefónica
+    /// Fuerza un corte instantáneo en Cinemachine
     /// </summary>
+    private void ForceInstantCameraCut()
+    {
+        if (cinemachineBrain != null)
+        {
+            // Temporalmente cambiar el blend a Cut, luego restaurar
+            var originalBlend = cinemachineBrain.m_DefaultBlend;
+            var cutBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.Cut, 0f);
+            cinemachineBrain.m_DefaultBlend = cutBlend;
+            
+            // Restaurar el blend original después de un frame
+            StartCoroutine(RestoreBlendAfterFrame(originalBlend));
+        }
+    }
+
+    /// <summary>
+    /// Restaura el blend original después de un frame
+    /// </summary>
+    private IEnumerator RestoreBlendAfterFrame(CinemachineBlendDefinition originalBlend)
+    {
+        yield return null; // Esperar un frame
+        if (cinemachineBrain != null)
+        {
+            cinemachineBrain.m_DefaultBlend = originalBlend;
+        }
+    }
     public void StartCall()
     {
         if (isCalling) return;
         
         Debug.Log("[PhoneOpen] Iniciando llamada...");
+        
+        // Cambio instantáneo de cámara
+        if (phoneCamera != null)
+        {
+            phoneCamera.Priority = phoneCameraPriority;
+            Debug.Log("[PhoneOpen] Cámara del teléfono activada");
+        }
+        
+        if (playerCamera != null)
+        {
+            playerCamera.Priority = 0; // Desactivar cámara del player
+        }
+        
+        StartCoroutine(PhoneCallRoutine());
+    }
+
+    /// <summary>
+    /// Inicia la llamada con Fade In (llamado desde PhoneClose)
+    /// </summary>
+    public void StartCallWithFadeIn()
+    {
+        if (isCalling) return;
+        
+        Debug.Log("[PhoneOpen] Iniciando llamada con Fade In...");
+        StartCoroutine(StartCallWithFadeInRoutine());
+    }
+
+    /// <summary>
+    /// Corrutina que maneja el inicio de llamada con Fade In
+    /// </summary>
+    private IEnumerator StartCallWithFadeInRoutine()
+    {
+        // 1. Forzar corte instantáneo de cámara
+        ForceInstantCameraCut();
+        
+        // 2. Cambio instantáneo de cámara
+        if (phoneCamera != null)
+        {
+            phoneCamera.Priority = phoneCameraPriority;
+            Debug.Log("[PhoneOpen] Cámara del teléfono activada");
+        }
+        
+        if (playerCamera != null)
+        {
+            playerCamera.Priority = 0; // Desactivar cámara del player
+        }
+        
+        // 3. Esperar un frame para asegurar el cambio de cámara
+        yield return null;
+        
+        // 4. Fade in
+        yield return StartCoroutine(FadeManager.Instance.FadeInCoroutine(0.3f));
+        
+        // 5. Iniciar la llamada
         StartCoroutine(PhoneCallRoutine());
     }
 
@@ -88,14 +198,8 @@ public class PhoneOpen : MonoBehaviour
 
         isCalling = true;
         
-        // Desactiva controles del Player
-        if (playerController != null)
-            playerController.SetControlesActivos(false);
-
-        // Sube la prioridad para activar la cámara del teléfono
-        if (phoneCamera != null)
-            phoneCamera.Priority = phoneCameraPriority;
-
+        // Ya no desactivamos controles aquí - se hace en PhoneClose.AnswerCall()
+        
         // Reproducir sonido de la llamada si existe
         if (audioSource != null && callClip != null)
         {
@@ -146,32 +250,56 @@ public class PhoneOpen : MonoBehaviour
             yield return new WaitForSeconds(hangupClip.length);
         }
         
-        // TODO: Implementar fade out aquí
-        Debug.Log("[PhoneOpen] Iniciando fade out final...");
+        Debug.Log("[PhoneOpen] Iniciando transición de vuelta...");
         
-        yield return new WaitForSeconds(0.5f);
+        // 1. Fade out
+        yield return StartCoroutine(FadeManager.Instance.FadeOutCoroutine(0.3f));
         
-        // Baja la prioridad de la cámara del teléfono
+        // 2. Forzar corte instantáneo para el regreso
+        ForceInstantCameraCut();
+        
+        // 3. Cambio instantáneo de cámara de vuelta al player
+        if (playerCamera != null)
+        {
+            playerCamera.Priority = playerCameraPriority; // Restaurar cámara del player
+            Debug.Log("[PhoneOpen] Cámara del player restaurada");
+        }
+        
         if (phoneCamera != null)
-            phoneCamera.Priority = 0;
+        {
+            phoneCamera.Priority = 0; // Desactivar cámara del teléfono
+        }
         
-        // Reactiva controles del Player
-        if (playerController != null)
-            playerController.SetControlesActivos(true);
+        // 4. Esperar un frame para asegurar el cambio de cámara
+        yield return null;
         
-        // Notificar al controller que la llamada terminó
+        // 3. Los controles se reactivarán en PhoneClose.OnHangUp() después del Fade In
+        
+        // 4. Activar teléfono cerrado ANTES de desactivar este
+        if (phoneCloseGameObject != null)
+        {
+            phoneCloseGameObject.SetActive(true);
+            
+            // Llamar a la función de colgado en el teléfono cerrado
+            PhoneClose phoneCloseScript = phoneCloseGameObject.GetComponent<PhoneClose>();
+            if (phoneCloseScript != null)
+            {
+                phoneCloseScript.OnHangUp();
+            }
+        }
+        
+        // 5. Notificar al controller que la llamada terminó
         if (phoneController != null)
         {
             phoneController.OnCallCompleted();
         }
         
-        // TODO: Volver a la escena original aquí
-        Debug.Log("[PhoneOpen] Volviendo a escena original...");
-        
         isCalling = false;
         
-        // Desactivar este GameObject
+        // 6. Desactivar este GameObject AL FINAL
         gameObject.SetActive(false);
+        
+        Debug.Log("[PhoneOpen] Transición completada - Vuelto al mundo normal");
     }
 
     /// <summary>
@@ -216,5 +344,11 @@ public class PhoneOpen : MonoBehaviour
         
         if (phoneCamera == null)
             Debug.LogWarning("[PhoneOpen] Phone camera no encontrada");
+        
+        if (playerCamera == null)
+            Debug.LogWarning("[PhoneOpen] Player camera no encontrada");
+        
+        if (phoneCloseGameObject == null)
+            Debug.LogWarning("[PhoneOpen] PhoneClose GameObject no asignado");
     }
 }
