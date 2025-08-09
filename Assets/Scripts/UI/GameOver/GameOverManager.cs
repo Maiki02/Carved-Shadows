@@ -12,7 +12,6 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private Button returnToMenuButton;
     
     [Header("Referencias de Audio")]
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip gameOverAudioClip;
     
     [Header("Créditos")]
@@ -113,10 +112,10 @@ public class GameOverManager : MonoBehaviour
 
     private void PlayGameOverAudio()
     {
-        if (audioSource != null && gameOverAudioClip != null)
+        if (AudioController.Instance != null && gameOverAudioClip != null)
         {
-            audioSource.clip = gameOverAudioClip;
-            audioSource.Play();
+
+            AudioController.Instance.PlaySFXClip(gameOverAudioClip);
         }
     }
 

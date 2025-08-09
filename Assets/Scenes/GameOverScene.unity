@@ -813,8 +813,7 @@ MonoBehaviour:
   blackScreen: {fileID: 300853653}
   gameTitle: {fileID: 798358033}
   returnToMenuButton: {fileID: 133505806}
-  audioSource: {fileID: 0}
-  gameOverAudioClip: {fileID: 0}
+  gameOverAudioClip: {fileID: 8300000, guid: d023af2d8772bc5479f884c8dea9a07d, type: 3}
   creditsText: {fileID: 636133157}
   credits:
   - name: Escudero, Augusto

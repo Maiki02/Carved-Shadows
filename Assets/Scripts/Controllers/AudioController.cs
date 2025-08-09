@@ -114,6 +114,22 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    public void PlayMusicClip(AudioClip clip, bool loop = true)
+    {
+        if (clip == null) return;
+
+        if (loop)
+        {
+            musicSource.clip = clip;
+            musicSource.loop = true;
+            musicSource.Play();
+        }
+        else
+        {
+            musicSource.PlayOneShot(clip);
+        }
+    }
+
     //Detectamos el cambio de escena para poner la música adecuada
     private void OnEnable()
     {
