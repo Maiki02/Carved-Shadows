@@ -53,8 +53,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 16
+  MinDistance: 13.3641205
+  MaxDistance: 26.3527
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 1074556548438330485}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 16.12, y: 1.46, z: -12.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -234,7 +234,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 23.472412
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
   gainLevel: 2.4
-  directLevel: 1.8
+  directLevel: 0
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
@@ -389,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 1462970128541007603}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.16, y: 0, z: 0}
+  m_LocalPosition: {x: 15.82, y: 2.8, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -415,8 +415,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 22.383806
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1475,7 +1475,7 @@ Transform:
   m_GameObject: {fileID: 2726294359683984261}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.31, y: 0, z: 0}
+  m_LocalPosition: {x: 10.38, y: 1.8, z: -18.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1501,8 +1501,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 20.51423
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1682,7 +1682,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
+  MinDistance: 11.483998
   MaxDistance: 16
   Pan2D: 0
   rolloffMode: 0
@@ -1837,7 +1837,7 @@ Transform:
   m_GameObject: {fileID: 3217251662734032919}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.31, y: 0.98, z: -25.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1863,8 +1863,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 16.92957
+  MaxDistance: 23
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2199,7 +2199,7 @@ Transform:
   m_GameObject: {fileID: 4010337052965393639}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.97, y: 0, z: -14.74}
+  m_LocalPosition: {x: 11.79, y: 0, z: -11.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2225,7 +2225,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
+  MinDistance: 6.05978
   MaxDistance: 16
   Pan2D: 0
   rolloffMode: 0
@@ -2406,8 +2406,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.5
-  MaxDistance: 0.8986931
+  MinDistance: 1.1479893
+  MaxDistance: 6.3763475
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2561,7 +2561,7 @@ Transform:
   m_GameObject: {fileID: 5815457856967483108}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.16, y: 0, z: 0}
+  m_LocalPosition: {x: 9.16, y: -10.6, z: -16.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2587,7 +2587,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 33.69319
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -3346,7 +3346,7 @@ MonoBehaviour:
   - name: Radio Macabra
     source: {fileID: 1907035243802434842}
     isEnabled: 1
-    startDelay: 8
+    startDelay: 2
     loop: 1
     randomizeStart: 0
     enableFadeOut: 0
@@ -3560,7 +3560,7 @@ Transform:
   m_GameObject: {fileID: 6904760257252512724}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.182, y: -4.459, z: -0.045}
+  m_LocalPosition: {x: 8.23, y: -0.6, z: -14.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3578,7 +3578,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 1992caae9c51c244abb1dc3bfe4b0971, type: 2}
   m_audioClip: {fileID: 8300000, guid: 099106351f7a79d4ca78fd9e670faab2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.757
+  m_Volume: 0.881
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3586,8 +3586,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.8963823
-  MaxDistance: 3.1691246
+  MinDistance: 23.458944
+  MaxDistance: 35.322647
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3683,12 +3683,12 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: 0.3
-  directLevel: -0.7
+  gainLevel: -5.7
+  directLevel: -4.8
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 7.33
+  distanceCorrection: 4.12
   useUnityDistance: 0
   auralization: 0
   roomPreset: 16
@@ -3741,7 +3741,7 @@ Transform:
   m_GameObject: {fileID: 7006199973025137234}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 0, z: -17.87}
+  m_LocalPosition: {x: -4.64, y: -2.49, z: -9.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3767,8 +3767,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3.6552057
-  MaxDistance: 16
+  MinDistance: 23.361958
+  MaxDistance: 27.419807
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3864,15 +3864,15 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: -3.5
-  directLevel: -4.5
+  gainLevel: -11.6
+  directLevel: 4.4
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 2.81
+  distanceCorrection: 1.11
   useUnityDistance: 0
   auralization: 0
-  roomPreset: 4
+  roomPreset: 16
   internalReverb: 1
   performanceMode: 0
   dearVRPlayOnAwake: 0
@@ -3949,7 +3949,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 18
-  MaxDistance: 19
+  MaxDistance: 24.329784
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

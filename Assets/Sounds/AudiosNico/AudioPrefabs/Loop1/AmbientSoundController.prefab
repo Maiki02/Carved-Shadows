@@ -138,8 +138,8 @@ MonoBehaviour:
     fadeOutDuration: 2
   - name: Radio Segundo Loop
     source: {fileID: 7775956240546790175}
-    isEnabled: 1
-    startDelay: 23
+    isEnabled: 0
+    startDelay: 17
     loop: 0
     randomizeStart: 0
     enableFadeOut: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   - name: Interferencia
     source: {fileID: 3083471170178664356}
     isEnabled: 1
-    startDelay: 26
+    startDelay: 23
     loop: 0
     randomizeStart: 0
     enableFadeOut: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   - name: "M\xFAsica"
     source: {fileID: 5126293773035693894}
     isEnabled: 1
-    startDelay: 2
+    startDelay: 0
     loop: 1
     randomizeStart: 0
     enableFadeOut: 0
@@ -248,6 +248,15 @@ MonoBehaviour:
     source: {fileID: 2923427220840468233}
     isEnabled: 1
     startDelay: 0
+    loop: 1
+    randomizeStart: 0
+    enableFadeOut: 0
+    fadeOutStartTime: 0
+    fadeOutDuration: 2
+  - name: Lluvia
+    source: {fileID: 8912463850472626688}
+    isEnabled: 1
+    startDelay: 5
     loop: 1
     randomizeStart: 0
     enableFadeOut: 0
@@ -307,7 +316,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.5
-  MaxDistance: 0.8986931
+  MaxDistance: 3.2491827
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -642,7 +651,7 @@ Transform:
   m_GameObject: {fileID: 3092868325177853619}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 7.49, z: -4.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -668,7 +677,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 11.669056
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -849,8 +858,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 8.100788
-  MaxDistance: 17.070774
+  MinDistance: 5.8678684
+  MaxDistance: 17.880373
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -947,11 +956,11 @@ MonoBehaviour:
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
   gainLevel: -17.5
-  directLevel: -15.8
+  directLevel: -11.1
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 1.57
+  distanceCorrection: 1.18
   useUnityDistance: 0
   auralization: 0
   roomPreset: 16
@@ -1004,7 +1013,7 @@ Transform:
   m_GameObject: {fileID: 3383377726026559421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.72, y: 1.51, z: -18.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1030,7 +1039,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 35.858204
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -1185,7 +1194,7 @@ Transform:
   m_GameObject: {fileID: 3412501810560095712}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.78, y: 0, z: -23.95}
+  m_LocalPosition: {x: -1.92, y: 0, z: -26.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1211,8 +1220,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 16
+  MinDistance: 22.06456
+  MaxDistance: 28.488255
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1313,7 +1322,7 @@ MonoBehaviour:
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 2.4
+  distanceCorrection: 1.31
   useUnityDistance: 0
   auralization: 0
   roomPreset: 24
@@ -1366,7 +1375,7 @@ Transform:
   m_GameObject: {fileID: 3647943289345094057}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.16, y: 0, z: 0}
+  m_LocalPosition: {x: 9.16, y: 2.24, z: -9.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1562,7 +1571,7 @@ AudioSource:
   m_GameObject: {fileID: 3799685771639745399}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: d648da4c519030040b699c0229b98c52, type: 2}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 177c787453ae69448b5ecc6b41e3aa9f, type: 2}
   m_audioClip: {fileID: 8300000, guid: c9ccfec7d3cde934d9dbdd2737f15d60, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1675,7 +1684,7 @@ MonoBehaviour:
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 2.99
+  distanceCorrection: 0.47
   useUnityDistance: 0
   auralization: 0
   roomPreset: 27
@@ -1909,7 +1918,7 @@ Transform:
   m_GameObject: {fileID: 4628856070393528259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 0, z: -17.87}
+  m_LocalPosition: {x: -0.15, y: -0.48, z: -12.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1935,8 +1944,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3.6552057
-  MaxDistance: 16
+  MinDistance: 15.976976
+  MaxDistance: 23.670118
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2032,12 +2041,12 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: -10
-  directLevel: -15.7
+  gainLevel: -8.8
+  directLevel: -6.2
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 2.81
+  distanceCorrection: 0.99
   useUnityDistance: 0
   auralization: 0
   roomPreset: 4
@@ -2286,7 +2295,7 @@ AudioSource:
   m_GameObject: {fileID: 5053210375689522196}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: d648da4c519030040b699c0229b98c52, type: 2}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 177c787453ae69448b5ecc6b41e3aa9f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6e7be2ea146c24c4c9ccff1b7531a2ea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -2399,7 +2408,7 @@ MonoBehaviour:
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 2.99
+  distanceCorrection: 0.41
   useUnityDistance: 0
   auralization: 0
   roomPreset: 16
@@ -2479,7 +2488,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 2
-  MaxDistance: 8
+  MaxDistance: 12.630293
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2580,7 +2589,7 @@ MonoBehaviour:
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 1.66
+  distanceCorrection: 0.97
   useUnityDistance: 0
   auralization: 0
   roomPreset: 16
