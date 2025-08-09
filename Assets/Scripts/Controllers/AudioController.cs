@@ -98,6 +98,22 @@ public class AudioController : MonoBehaviour
         musicSource.Stop();
     }
 
+    public void PlaySFXClip(AudioClip clip, bool loop = false)
+    {
+        if (clip == null) return;
+
+        if (loop)
+        {
+            sfxSource.clip = clip;
+            sfxSource.loop = true;
+            sfxSource.Play();
+        }
+        else
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+    }
+
     //Detectamos el cambio de escena para poner la música adecuada
     private void OnEnable()
     {
