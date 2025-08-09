@@ -1428,15 +1428,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2407247592355202725, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.09
+      objectReference: {fileID: 0}
     - target: {fileID: 4207626997114343975, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
       propertyPath: m_Name
       value: AmbientSoundControllerLoop3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576440121396329328, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: distanceCorrection
+      value: 2.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.size
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.data[19].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.data[19].name
+      value: Lluvia
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.data[19].source
+      value: 
+      objectReference: {fileID: 6131351519247639488}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.data[19].isEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.data[19].startDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740206551753520010, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+      propertyPath: ambientSounds.Array.data[19].fadeOutDuration
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+--- !u!82 &6131351519247639488 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8132906693303334527, guid: 9191fd0f116f3b6478069f60cb574286, type: 3}
+  m_PrefabInstance: {fileID: 6131351519247639487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

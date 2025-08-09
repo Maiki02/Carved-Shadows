@@ -1475,7 +1475,7 @@ Transform:
   m_GameObject: {fileID: 2726294359683984261}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.31, y: 0, z: 0}
+  m_LocalPosition: {x: 10.38, y: 1.8, z: -18.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1501,8 +1501,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 20.51423
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3346,7 +3346,7 @@ MonoBehaviour:
   - name: Radio Macabra
     source: {fileID: 1907035243802434842}
     isEnabled: 1
-    startDelay: 8
+    startDelay: 2
     loop: 1
     randomizeStart: 0
     enableFadeOut: 0
@@ -3586,8 +3586,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 8.505161
-  MaxDistance: 13.403012
+  MinDistance: 23.458944
+  MaxDistance: 35.322647
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3683,12 +3683,12 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: -15.1
-  directLevel: -14.3
+  gainLevel: -5.7
+  directLevel: -4.8
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 6.14
+  distanceCorrection: 4.12
   useUnityDistance: 0
   auralization: 0
   roomPreset: 16
@@ -3767,8 +3767,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 15.27057
-  MaxDistance: 17.869322
+  MinDistance: 23.361958
+  MaxDistance: 27.419807
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3864,12 +3864,12 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: -3.5
-  directLevel: 1.4
+  gainLevel: -11.6
+  directLevel: 4.4
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
-  distanceCorrection: 2.81
+  distanceCorrection: 1.11
   useUnityDistance: 0
   auralization: 0
   roomPreset: 16

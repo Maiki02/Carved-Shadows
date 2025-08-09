@@ -2004,6 +2004,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4133394769431713605, guid: bc6661be3b225fd429b288bc277c50c1, type: 3}
+      propertyPath: gainLevel
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4133394769431713605, guid: bc6661be3b225fd429b288bc277c50c1, type: 3}
+      propertyPath: directLevel
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4133394769431713605, guid: bc6661be3b225fd429b288bc277c50c1, type: 3}
+      propertyPath: distanceCorrection
+      value: 3.43
+      objectReference: {fileID: 0}
     - target: {fileID: 6299665661934925133, guid: bc6661be3b225fd429b288bc277c50c1, type: 3}
       propertyPath: m_Name
       value: AmbientSoundControllerLoop4
