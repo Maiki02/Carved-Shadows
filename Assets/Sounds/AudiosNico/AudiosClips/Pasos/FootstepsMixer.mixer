@@ -38,6 +38,25 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!245 &-1169480195535329319
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FootSteps loop 4
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 27619dcbb619e1e4f8fe6bb202db75d0
+  m_FloatValues:
+    6a1af700d06b6c6418003dea5a650f14: 2.6
+    78824923253886a49a1df101e55e61ca: -7.1384296
+    4e77cad44045b6a42945ff98301bd967: -0.4
+    5976e6c6429483742924cf45e7e62bb3: -7.550188
+    c106d847f5205074daa37865858e1ce5: 70.6
+    2140a63a139f5fb44a5cc9b60fe060c4: 24
+    cfb5f46d23be31844b03dfa1f25aec76: 5
+    cba6849ee5165a74a8973860f9ed6bc1: -31.818047
+  m_TransitionOverrides: {}
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -49,6 +68,7 @@ AudioMixerController:
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
   - {fileID: 24500006}
+  - {fileID: -1169480195535329319}
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -108,13 +128,13 @@ AudioMixerSnapshotController:
   m_SnapshotID: 8f2933c224dc1fe4baa4af1736f2a8d5
   m_FloatValues:
     6a1af700d06b6c6418003dea5a650f14: 2.6
-    78824923253886a49a1df101e55e61ca: -3.9622955
+    78824923253886a49a1df101e55e61ca: -7.1384296
     4e77cad44045b6a42945ff98301bd967: -0.4
-    5976e6c6429483742924cf45e7e62bb3: -24.346352
+    5976e6c6429483742924cf45e7e62bb3: -16.191175
     c106d847f5205074daa37865858e1ce5: 70.6
     2140a63a139f5fb44a5cc9b60fe060c4: 24
     cfb5f46d23be31844b03dfa1f25aec76: 5
-    cba6849ee5165a74a8973860f9ed6bc1: -41.680454
+    cba6849ee5165a74a8973860f9ed6bc1: -31.818047
   m_TransitionOverrides: {}
 --- !u!244 &2198100211410178107
 AudioMixerEffectController:

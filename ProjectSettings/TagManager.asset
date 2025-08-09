@@ -11,6 +11,7 @@ TagManager:
   - CameraPhone
   - Alfombra
   - FakeDoor
+  - Escaleras
   layers:
   - Default
   - TransparentFX
