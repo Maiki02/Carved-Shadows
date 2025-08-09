@@ -391,25 +391,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5129350198196122121, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 2062745603}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3552407577790728462, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 766261230}
   m_SourcePrefab: {fileID: 100100000, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
---- !u!4 &766261227 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5129350198196122121, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
-  m_PrefabInstance: {fileID: 766261226}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &766261228 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6828433660671259460, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
-  m_PrefabInstance: {fileID: 766261226}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &766261229 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3552407577790728462, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
@@ -554,17 +541,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1245593820}
   m_SourcePrefab: {fileID: 100100000, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
---- !u!114 &1245593813 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-  m_PrefabInstance: {fileID: 1245593812}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245593814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4fa30f7f7acd94d8429e3b4c0633ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1245593814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1178417553791232897, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
@@ -1033,78 +1009,6 @@ MonoBehaviour:
   obstructionRayUpdateFreq: 0.2
   obstructionDebugRayCast: 0
   reverbSends: []
---- !u!1 &2062745602
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2062745603}
-  - component: {fileID: 2062745605}
-  - component: {fileID: 2062745604}
-  m_Layer: 0
-  m_Name: DoorStatueSequence
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2062745603
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062745602}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.54, y: -1.529, z: -4.71}
-  m_LocalScale: {x: 0.2, y: 2, z: 3}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 766261227}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2062745604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062745602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dbe485bc433aaf47801a2e8d6bcb985, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetDoor: {fileID: 1245593813}
-  targetStatue: {fileID: 766261228}
-  triggerOnce: 1
-  fastCloseClip: {fileID: 8300000, guid: ce60267ec10c1de448a8a040961af9f5, type: 3}
-  autoSetupOnStart: 1
-  showDebugLogs: 1
---- !u!65 &2062745605
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062745602}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2100281472
 PrefabInstance:
   m_ObjectHideFlags: 0
