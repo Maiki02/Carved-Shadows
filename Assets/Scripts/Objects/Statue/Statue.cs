@@ -13,11 +13,12 @@ public class Statue : MonoBehaviour
 
     [SerializeField] private StatuePoint[] points;
     [SerializeField] private bool deactivateOnFinish = false;
+    [SerializeField] private Door doorToClose;
+
 
     private int currentStep = 0;
     private bool isMoving = false;
 
-    // Llamado por el trigger
     public void TriggerNextStep()
     {
         if (isMoving) return;
@@ -30,7 +31,29 @@ public class Statue : MonoBehaviour
         else
         {
             Debug.Log("[Statue] No hay más pasos para ejecutar.");
-            if (deactivateOnFinish) gameObject.SetActive(false);
+
+            if (doorToClose != null)
+            {
+                StartCoroutine(WaitAndDeactivateAfterDoorCloses());
+            }
+            else if (deactivateOnFinish)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private IEnumerator WaitAndDeactivateAfterDoorCloses()
+    {
+        doorToClose.StartSlowClosing();
+
+        float waitTime = doorToClose.SlowCloseDuration;
+        yield return new WaitForSeconds(waitTime);
+
+        if (deactivateOnFinish)
+        {
+            Debug.Log("[Statue] Desactivando estatua después de cerrar la puerta.");
+            gameObject.SetActive(false);
         }
     }
 
@@ -46,7 +69,7 @@ public class Statue : MonoBehaviour
 
         Vector3 startPos = transform.position;
         Vector3 targetPos = point.targetPoint.position;
-        targetPos.y = startPos.y; // Mantener la altura original
+        targetPos.y = startPos.y;
 
         while (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(targetPos.x, 0, targetPos.z)) > 0.05f)
         {
@@ -72,7 +95,6 @@ public class Statue : MonoBehaviour
             yield return null;
         }
 
-        // Ajustar posición final
         transform.position = targetPos;
 
         if (point.rotateToTarget)
@@ -84,7 +106,13 @@ public class Statue : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(dir);
             }
         }
-
         isMoving = false;
+
+        if (currentStep >= points.Length && doorToClose != null)
+        {
+            Debug.Log("[Statue] Recorrido completo. Cerrando la puerta.");
+            doorToClose.StartSlowClosing();
+        }
+
     }
 }
