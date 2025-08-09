@@ -23,6 +23,8 @@ public class Statue : MonoBehaviour
     {
         if (isMoving) return;
 
+        Debug.Log("[Statue] Activando siguiente paso de la estatua.");
+
         if (currentStep < points.Length)
         {
             StartCoroutine(MoveToPoint(points[currentStep]));
@@ -48,13 +50,20 @@ public class Statue : MonoBehaviour
         doorToClose.StartSlowClosing();
 
         float waitTime = doorToClose.SlowCloseDuration;
+
+        Debug.Log("[Statue] Esperando " + waitTime + " segundos para desactivar la estatua después de cerrar la puerta.");
         yield return new WaitForSeconds(waitTime);
+
+        Debug.Log("[Statue] Puerta cerrada, desactivando estatua. "+ deactivateOnFinish);
 
         if (deactivateOnFinish)
         {
             Debug.Log("[Statue] Desactivando estatua después de cerrar la puerta.");
             gameObject.SetActive(false);
+
+            doorToClose.SetType(TypeDoorInteract.OpenAndClose);
         }
+
     }
 
     private IEnumerator MoveToPoint(StatuePoint point)
@@ -111,7 +120,9 @@ public class Statue : MonoBehaviour
         if (currentStep >= points.Length && doorToClose != null)
         {
             Debug.Log("[Statue] Recorrido completo. Cerrando la puerta.");
-            doorToClose.StartSlowClosing();
+            //Cambie esto para que se cierre la puerta, desaparezca la estatua y se cambie el tipo de puerta
+            StartCoroutine(WaitAndDeactivateAfterDoorCloses());
+            
         }
 
     }
