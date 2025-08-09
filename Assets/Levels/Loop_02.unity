@@ -1195,6 +1195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 5146161217788134673, guid: 0fa2d7e8e9f45884d9bbb3fc241c533c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7664126971398830350, guid: 0fa2d7e8e9f45884d9bbb3fc241c533c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1483,7 +1487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2747977445798172607, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2747977445798172607, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
       propertyPath: m_TagString
