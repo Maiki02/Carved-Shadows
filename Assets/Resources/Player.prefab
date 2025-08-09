@@ -531,8 +531,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8037780393427549748}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.051402885, y: -0.33286119, z: 0.018175116, w: 0.9413984}
-  m_LocalPosition: {x: 6.7992153, y: -2.1202724, z: 22.801786}
+  m_LocalRotation: {x: 0.22543941, y: 0.43264213, z: -0.112675674, w: 0.8656224}
+  m_LocalPosition: {x: -0.38800055, y: 0.895, z: -0.011000693}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -605,7 +605,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -633,7 +633,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 931382094502205608, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.115
       objectReference: {fileID: 0}
     - target: {fileID: 931382094502205608, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 931382094502205608, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 931382094502205608, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -671,6 +671,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: stairPitchBoost
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: alfombraBeats.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 95f47dfd291be7948a7c1e67b4030c9b, type: 3}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: alfombraBeats.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b5f19fbd028e674da08aba4090018f5, type: 3}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: alfombraBeats.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d24505daaf0ad044bab1d3b967d67e2, type: 3}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: alfombraPasos.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2e6d9e5111ce9444d8d722414a9830f7, type: 3}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: alfombraPasos.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: a1d33a76370a919408cbfdb5a5454522, type: 3}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: alfombraPasos.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d01910c693ed0f49a609f8e6b447d86, type: 3}
     - target: {fileID: 6268973076133264169, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
       propertyPath: m_Name
       value: Footsteps
