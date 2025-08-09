@@ -1734,8 +1734,8 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: 5.5
-  directLevel: 0
+  gainLevel: 12.7
+  directLevel: 12.5
   reflectionLevel: 4.1
   reverbLevel: 0
   azimuthCorrection: 1
@@ -4262,8 +4262,8 @@ MonoBehaviour:
   occlusionRayUpdateTime: 1
   obstructionRayUpdateTime: 1
   clipIsPlaying: 0
-  gainLevel: 0
-  directLevel: 0
+  gainLevel: 3.6
+  directLevel: 7.7
   reflectionLevel: 0
   reverbLevel: 0
   azimuthCorrection: 1
