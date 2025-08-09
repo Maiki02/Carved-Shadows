@@ -800,9 +800,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3599459732674494355, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
-      propertyPath: moveSpeed
-      value: 6
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.79555553
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442095384805070582, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7442095384805070582, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1287,14 +1291,6 @@ PrefabInstance:
       propertyPath: radio
       value: 
       objectReference: {fileID: 1245593813}
-    - target: {fileID: 8206457491322206373, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
-      propertyPath: radioMessages
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e1a83b4dcafaec4b8dc4e0d60135213, type: 2}
-    - target: {fileID: 8206457491322206373, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
-      propertyPath: radioDialogSequence.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1305,6 +1301,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1245593812}
+  - {fileID: 1257011186}
   - {fileID: 1885759019}
   - {fileID: 2082780915}
   - {fileID: 488728179}
@@ -1313,7 +1310,6 @@ SceneRoots:
   - {fileID: 1542498165}
   - {fileID: 464404891}
   - {fileID: 2126420206}
-  - {fileID: 1257011186}
   - {fileID: 6530964152130183450}
   - {fileID: 2090720588}
   - {fileID: 156018574}

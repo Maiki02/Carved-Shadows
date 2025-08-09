@@ -69,9 +69,7 @@ MonoBehaviour:
   radio: {fileID: 0}
   radioClip: {fileID: 8300000, guid: f8d8dba392eff064f89b4238074518e8, type: 3}
   audioDuration: 121
-  radioMessages: {fileID: 0}
+  radioMessages: {fileID: 11400000, guid: 5e1a83b4dcafaec4b8dc4e0d60135213, type: 2}
   loopType: 0
-  radioDialogSequence:
-  - text: 
-    duration: 0
+  radioDialogSequence: []
   triggerOnce: 1
