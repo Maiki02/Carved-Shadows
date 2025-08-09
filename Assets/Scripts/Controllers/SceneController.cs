@@ -34,12 +34,12 @@ public class SceneController : MonoBehaviour
         LoadScene(sceneGame);
     }
 
-    /*public void LoadGameOverScene()
+    public void LoadGameOverScene()
     {
         LoadScene("GameOverScene");
     }
 
-    public void LoadHowToPlayScene()
+    /*public void LoadHowToPlayScene()
     {
         LoadScene("TutorialScene");
     }*/
