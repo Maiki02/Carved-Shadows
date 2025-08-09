@@ -242,9 +242,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a37d481b40d95304c9345e3b0260e248, type: 3}
   - {fileID: 8300000, guid: 1144353b90de41f45acf0abe87e04c53, type: 3}
   alfombraBeats:
-  - {fileID: 8300000, guid: d548d07b19e11fa409cc8685c281b93c, type: 3}
-  - {fileID: 8300000, guid: 31da8e18da73969468abc474827d46e6, type: 3}
-  - {fileID: 8300000, guid: c29929151173a2d4caa828e2722094bf, type: 3}
+  - {fileID: 8300000, guid: 2e6d9e5111ce9444d8d722414a9830f7, type: 3}
+  - {fileID: 8300000, guid: a1d33a76370a919408cbfdb5a5454522, type: 3}
+  - {fileID: 8300000, guid: 5d01910c693ed0f49a609f8e6b447d86, type: 3}
   pasosSource: {fileID: 3109698849566582107}
   beatsSource: {fileID: 1655232409326674215}
   pasosMixer: {fileID: -8311540754041167246, guid: e3f5f3b673833a24da3a4055d11eea17, type: 2}
