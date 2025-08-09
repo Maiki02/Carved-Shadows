@@ -2,11 +2,10 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Controla una secuencia completa de puerta-estatua mediante un trigger.
-/// Cuando el jugador entra al trigger, cierra la puerta rápidamente y activa la estatua.
-/// Incluye configuración automática y manual.
+/// Controla una secuencia completa de puerta-estatua mediante triggers.
+/// Cuando el jugador entra a cualquier trigger hijo, cierra la puerta rápidamente y activa la estatua.
+/// Los triggers pueden estar en GameObjects hijos con ChildTriggerRelay.
 /// </summary>
-[RequireComponent(typeof(Collider))]
 public class DoorStatueSequence : MonoBehaviour
 {
     [Header("Referencias principales")]
@@ -16,124 +15,45 @@ public class DoorStatueSequence : MonoBehaviour
     [Header("Configuración del trigger")]
     [SerializeField] private bool triggerOnce = true; // Si se activa solo una vez
     
-    [Header("Configuración de audio (opcional)")]
-    [SerializeField] private AudioClip fastCloseClip; // Clip personalizado para cierre rápido
-    
-    [Header("Configuración automática")]
-    [SerializeField] private bool autoSetupOnStart = true; // Configuración automática al iniciar
-    [SerializeField] private bool showDebugLogs = true; // Mostrar logs de debug
-    
+    // ...existing code...
     private bool hasTriggered = false; // Control para evitar múltiples activaciones
-    
-    private void Awake()
-    {
-        ValidateComponents();
-    }
-    
+
     private void Start()
     {
-        if (autoSetupOnStart)
-        {
-            SetupSequence();
-        }
-    }
-    
-    /// <summary>
-    /// Valida que todos los componentes necesarios estén presentes
-    /// </summary>
-    private void ValidateComponents()
-    {
-        // Asegurar que el collider sea un trigger
-        Collider triggerCollider = GetComponent<Collider>();
-        if (triggerCollider != null)
-        {
-            triggerCollider.isTrigger = true;
-            if (showDebugLogs)
-                Debug.Log($"[DoorStatueSequence] Collider configurado como trigger en {gameObject.name}");
-        }
-        else
-        {
-            Debug.LogError($"[DoorStatueSequence] No se encontró Collider en {gameObject.name}. Se requiere para el trigger.");
-        }
-    }
-    
-    /// <summary>
-    /// Configura automáticamente toda la secuencia
-    /// </summary>
-    [ContextMenu("Setup Sequence")]
-    public void SetupSequence()
-    {
-        if (showDebugLogs)
-            Debug.Log("[DoorStatueSequence] Configurando secuencia...");
-        
-        // Configurar la puerta
-        SetupDoor();
-        
-        // Configurar la estatua
-        SetupStatue();
-        
-        if (showDebugLogs)
-            Debug.Log("[DoorStatueSequence] ¡Secuencia configurada correctamente!");
-    }
-    
-    /// <summary>
-    /// Configura la puerta con el audio personalizado si está disponible
-    /// </summary>
-    private void SetupDoor()
-    {
-        if (targetDoor != null)
-        {
-            // Asignar el clip de cierre rápido si está disponible
-            if (fastCloseClip != null)
-            {
-                targetDoor.SetFastCloseClip(fastCloseClip);
-                if (showDebugLogs)
-                    Debug.Log($"[DoorStatueSequence] Audio clip de cierre rápido asignado a {targetDoor.name}");
-            }
-            
-            if (showDebugLogs)
-                Debug.Log($"[DoorStatueSequence] Puerta {targetDoor.name} configurada");
-        }
-        else
-        {
-            Debug.LogWarning("[DoorStatueSequence] No se ha asignado ninguna puerta");
-        }
-    }
-    
-    /// <summary>
-    /// Configura la estatua (la desactiva inicialmente)
-    /// </summary>
-    private void SetupStatue()
-    {
-        if (targetStatue != null)
+        if(targetStatue != null)
         {
             targetStatue.SetActive(false);
-            if (showDebugLogs)
-                Debug.Log($"[DoorStatueSequence] Estatua {targetStatue.name} desactivada al inicio");
-        }
-        else
-        {
-            Debug.LogWarning("[DoorStatueSequence] No se ha asignado ninguna estatua");
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         // Verificar si es el jugador y si no se ha activado antes (si triggerOnce está activo)
+
+
+
         if (!other.CompareTag("Player")) return;
         if (triggerOnce && hasTriggered) return;
-        
-        if (showDebugLogs)
-            Debug.Log($"[DoorStatueSequence] Jugador entró al trigger. Activando secuencia...");
-        
+
+
+
         // Marcar como activado si es de una sola vez
         if (triggerOnce)
         {
             hasTriggered = true;
         }
-        
+
         // Ejecutar la secuencia
         ActivateSequence();
+    }
+    
+    /// <summary>
+    /// Método público para ser llamado por los ChildTriggerRelay
+    /// </summary>
+    public void OnChildTriggerEnter(Collider other)
+    {
+        // Reutilizar la misma lógica del trigger principal
+        OnTriggerEnter(other);
     }
     
     /// <summary>
@@ -141,19 +61,28 @@ public class DoorStatueSequence : MonoBehaviour
     /// </summary>
     private void ActivateSequence()
     {
+        StartCoroutine(ActivateSequenceCoroutine());
+    }
+
+    private IEnumerator ActivateSequenceCoroutine()
+    {
         // Cerrar la puerta rápidamente
         if (targetDoor != null)
         {
-            if (showDebugLogs)
-                Debug.Log($"[DoorStatueSequence] Cerrando puerta {targetDoor.name} rápidamente");
+        // ...existing code...
             targetDoor.StartFastClosing();
+            // Esperar a que termine el cierre rápido
+            yield return new WaitForSeconds(targetDoor.FastCloseDuration);
         }
-        
+        else
+        {
+            yield break;
+        }
+
         // Activar la estatua
         if (targetStatue != null)
         {
-            if (showDebugLogs)
-                Debug.Log($"[DoorStatueSequence] Activando estatua {targetStatue.name}");
+        // ...existing code...
             targetStatue.SetActive(true);
         }
     }
@@ -164,8 +93,7 @@ public class DoorStatueSequence : MonoBehaviour
     public void ResetTrigger()
     {
         hasTriggered = false;
-        if (showDebugLogs)
-            Debug.Log($"[DoorStatueSequence] Trigger reseteado");
+    // ...existing code...
     }
     
     /// <summary>
@@ -175,20 +103,7 @@ public class DoorStatueSequence : MonoBehaviour
     {
         targetDoor = door;
         targetStatue = statue;
-        if (showDebugLogs)
-            Debug.Log($"[DoorStatueSequence] Referencias actualizadas: Puerta={door?.name}, Estatua={statue?.name}");
-    }
-    
-    /// <summary>
-    /// Permite asignar un clip de audio personalizado para el cierre rápido
-    /// </summary>
-    public void SetFastCloseClip(AudioClip clip)
-    {
-        fastCloseClip = clip;
-        if (targetDoor != null)
-        {
-            targetDoor.SetFastCloseClip(clip);
-        }
+    // ...existing code...
     }
     
     #region Gizmos
@@ -209,7 +124,36 @@ public class DoorStatueSequence : MonoBehaviour
     /// <param name="isSelected">Si el objeto está seleccionado</param>
     private void DrawTriggerGizmos(bool isSelected)
     {
+        // Dibujar triggers del propio objeto (si los tiene)
         Collider col = GetComponent<Collider>();
+        if (col != null)
+        {
+            DrawColliderGizmo(col, isSelected, transform);
+        }
+        
+        // Dibujar triggers de los hijos
+        ChildTriggerRelay[] childTriggers = GetComponentsInChildren<ChildTriggerRelay>();
+        foreach (ChildTriggerRelay childTrigger in childTriggers)
+        {
+            Collider childCol = childTrigger.GetComponent<Collider>();
+            if (childCol != null)
+            {
+                DrawColliderGizmo(childCol, isSelected, childTrigger.transform);
+            }
+        }
+        
+        // Dibujar conexiones con referencias (solo cuando está seleccionado)
+        if (isSelected)
+        {
+            DrawConnectionGizmos();
+        }
+    }
+    
+    /// <summary>
+    /// Dibuja un gizmo para un collider específico
+    /// </summary>
+    private void DrawColliderGizmo(Collider col, bool isSelected, Transform colliderTransform)
+    {
         if (col == null) return;
         
         // Colores diferentes según el estado
@@ -238,7 +182,7 @@ public class DoorStatueSequence : MonoBehaviour
         // Dibujar según el tipo de collider
         if (col is BoxCollider boxCol)
         {
-            Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
+            Gizmos.matrix = Matrix4x4.TRS(colliderTransform.position, colliderTransform.rotation, colliderTransform.lossyScale);
             Gizmos.DrawCube(boxCol.center, boxCol.size);
             
             // Wireframe siempre visible
@@ -247,7 +191,7 @@ public class DoorStatueSequence : MonoBehaviour
         }
         else if (col is SphereCollider sphereCol)
         {
-            Gizmos.matrix = Matrix4x4.TRS(transform.position + sphereCol.center, transform.rotation, transform.lossyScale);
+            Gizmos.matrix = Matrix4x4.TRS(colliderTransform.position + sphereCol.center, colliderTransform.rotation, colliderTransform.lossyScale);
             Gizmos.DrawSphere(Vector3.zero, sphereCol.radius);
             
             // Wireframe siempre visible
@@ -257,7 +201,7 @@ public class DoorStatueSequence : MonoBehaviour
         else if (col is CapsuleCollider capsuleCol)
         {
             // Para capsule, dibujaremos una esfera aproximada
-            Gizmos.matrix = Matrix4x4.TRS(transform.position + capsuleCol.center, transform.rotation, transform.lossyScale);
+            Gizmos.matrix = Matrix4x4.TRS(colliderTransform.position + capsuleCol.center, colliderTransform.rotation, colliderTransform.lossyScale);
             float radius = Mathf.Max(capsuleCol.radius, capsuleCol.height * 0.5f);
             Gizmos.DrawSphere(Vector3.zero, radius);
             
@@ -267,12 +211,6 @@ public class DoorStatueSequence : MonoBehaviour
         
         // Resetear matrix
         Gizmos.matrix = Matrix4x4.identity;
-        
-        // Dibujar conexiones con referencias (solo cuando está seleccionado)
-        if (isSelected)
-        {
-            DrawConnectionGizmos();
-        }
     }
     
     /// <summary>
@@ -313,14 +251,40 @@ public class DoorStatueSequence : MonoBehaviour
             Debug.LogError("[DoorStatueSequence] El objeto asignado como puerta no tiene componente Door");
         }
         
-        Collider col = GetComponent<Collider>();
-        if (col != null && !col.isTrigger)
+        // Verificar que haya al menos un trigger (propio o en hijos)
+        Collider ownCol = GetComponent<Collider>();
+        ChildTriggerRelay[] childTriggers = GetComponentsInChildren<ChildTriggerRelay>();
+        
+        bool hasTrigger = false;
+        
+        if (ownCol != null)
         {
-            Debug.LogWarning("[DoorStatueSequence] El Collider debe estar marcado como 'Is Trigger'");
+            if (!ownCol.isTrigger)
+            {
+                Debug.LogWarning("[DoorStatueSequence] El Collider propio debe estar marcado como 'Is Trigger'");
+            }
+            else
+            {
+                hasTrigger = true;
+            }
         }
-        else if (col == null)
+        
+        if (childTriggers.Length > 0)
         {
-            Debug.LogWarning("[DoorStatueSequence] Se necesita un Collider configurado como Trigger");
+            hasTrigger = true;
+            foreach (ChildTriggerRelay childTrigger in childTriggers)
+            {
+                Collider childCol = childTrigger.GetComponent<Collider>();
+                if (childCol != null && !childCol.isTrigger)
+                {
+                    Debug.LogWarning($"[DoorStatueSequence] El Collider en {childTrigger.name} debe estar marcado como 'Is Trigger'");
+                }
+            }
+        }
+        
+        if (!hasTrigger)
+        {
+            Debug.LogWarning("[DoorStatueSequence] Se necesita al menos un Collider configurado como Trigger (propio o en objetos hijos con ChildTriggerRelay)");
         }
     }
 }

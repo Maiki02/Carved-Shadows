@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public int Score { get; private set; } = 0; // Puntaje del jugador //Creo que no se usa, pero lo dejo por si acaso
 
     public int CurrentLevel { get; private set; } = 1; // Nivel actual del juego //Con esto seteamos distintas rooms
+    [SerializeField] private int maxLevels = 4; // Número máximo de niveles
 
     public float MouseSensitivity { get; set; } = 400f; // Sensibilidad del mouse
     public bool InvertMouse { get; set; } = false; // Invertir el movimiento del mouse
@@ -38,9 +39,14 @@ public class GameController : MonoBehaviour
 
     public void FinishGame()
     {
+        //Hacemos un FadeIn
+        FadeManager.Instance.FadeIn(0.5f);
+
+        //Cambiamos de escena
+        SceneController.Instance.LoadGameOverScene();
+
         //TODO: Qué pasa cuando se termina el juego?
 
-        //AudioController.Instance.PlayMusic(AudioType.GameOver);
         //SceneController.Instance.LoadGameOverScene();
     }
 
@@ -90,6 +96,11 @@ public class GameController : MonoBehaviour
     public void NextLevel()
     {
         CurrentLevel++;
+
+        if (CurrentLevel > maxLevels)
+        {
+            this.FinishGame();
+        }
     }
 
 }

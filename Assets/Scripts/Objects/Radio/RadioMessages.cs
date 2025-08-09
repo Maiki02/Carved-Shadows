@@ -1,0 +1,100 @@
+using UnityEngine;
+
+/// <summary>
+/// Enum para seleccionar el tipo de loop de radio
+/// </summary>
+public enum RadioLoopType
+{
+    PrimerLoop,     // Presentación del personaje
+    SegundoLoop     // Decadencia del personaje
+}
+
+/// <summary>
+/// ScriptableObject que contiene los arrays de diálogos predefinidos para las radios.
+/// Esto permite tener los mensajes preconfigurados y reutilizarlos en múltiples RadioControllers.
+/// </summary>
+[CreateAssetMenu(fileName = "RadioMessages", menuName = "Radio/Radio Messages")]
+public class RadioMessages : ScriptableObject
+{
+    [Header("Primer Loop - Presentación del Personaje")]
+    [Tooltip("Mensajes del primer loop para la presentación del personaje")]
+    public DialogMessage[] primerLoopMessages = new DialogMessage[]
+    {
+        new DialogMessage { text = "...", duration = 0.5f },
+        new DialogMessage { text = "...", duration = 0.5f },
+        new DialogMessage { text = "AM, República Argentina", duration = 2.5f },
+        new DialogMessage { text = "Es la una y un minuto, antes de continuar con la sección musical, vamos con la noticia del día", duration = 4.5f },
+        new DialogMessage { text = "El panorama artístico argentino ha dado un vuelco con la reciente obra de...", duration = 4.0f },
+        new DialogMessage { text = "...", duration = 0.5f },
+        new DialogMessage { text = "…un artista presuntamente desconocido", duration = 3.0f },
+        new DialogMessage { text = "aunque según pudimos confirmar, proviene de la conocida casa de artistas", duration = 4.0f },
+        new DialogMessage { text = "...", duration = 0.5f },
+        new DialogMessage { text = "De igual forma, sea cual sea el motivo por el cual había permanecido en el anonimato,", duration = 4.5f },
+        new DialogMessage { text = "su futuro parece ser prometedor...", duration = 3.0f },
+        new DialogMessage { text = "y ahora los dejamos con la sección musical", duration = 3.5f }
+    };
+
+    [Header("Segundo Loop - Decadencia del Personaje")]
+    [Tooltip("Mensajes del segundo loop para contar la decadencia del personaje")]
+    public DialogMessage[] segundoLoopMessages = new DialogMessage[]
+    {
+        // TODO: Agregar aquí los mensajes del segundo loop cuando estén listos
+        new DialogMessage { text = "Placeholder - Segundo loop no definido aún", duration = 2.0f }
+    };
+
+    /// <summary>
+    /// Obtiene una copia de los mensajes del primer loop
+    /// </summary>
+    public DialogMessage[] GetPrimerLoopMessages()
+    {
+        DialogMessage[] copy = new DialogMessage[primerLoopMessages.Length];
+        System.Array.Copy(primerLoopMessages, copy, primerLoopMessages.Length);
+        return copy;
+    }
+
+    /// <summary>
+    /// Obtiene una copia de los mensajes del segundo loop
+    /// </summary>
+    public DialogMessage[] GetSegundoLoopMessages()
+    {
+        DialogMessage[] copy = new DialogMessage[segundoLoopMessages.Length];
+        System.Array.Copy(segundoLoopMessages, copy, segundoLoopMessages.Length);
+        return copy;
+    }
+
+    /// <summary>
+    /// Obtiene una copia de los mensajes según el tipo especificado
+    /// </summary>
+    public DialogMessage[] GetMessagesByType(RadioLoopType type)
+    {
+        switch (type)
+        {
+            case RadioLoopType.PrimerLoop:
+                return GetPrimerLoopMessages();
+            case RadioLoopType.SegundoLoop:
+                return GetSegundoLoopMessages();
+            default:
+                return GetPrimerLoopMessages();
+        }
+    }
+
+    /// <summary>
+    /// Obtiene la duración total de los mensajes de un loop específico
+    /// </summary>
+    public float GetTotalDuration(RadioLoopType type)
+    {
+        DialogMessage[] messages = GetMessagesByType(type);
+        float totalDuration = 0f;
+        foreach (var msg in messages)
+            totalDuration += msg.duration;
+        return totalDuration;
+    }
+
+    /// <summary>
+    /// Obtiene el número de mensajes de un loop específico
+    /// </summary>
+    public int GetMessageCount(RadioLoopType type)
+    {
+        return GetMessagesByType(type).Length;
+    }
+}

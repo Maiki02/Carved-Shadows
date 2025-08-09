@@ -1047,7 +1047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0.69411767}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2755,11 +2755,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 68894369012590057, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 68894369012590057, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1215620825757386168, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_Color.a
@@ -2863,11 +2863,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2526723225198829082, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2526723225198829082, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025265394348826953, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025265394348826953, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4025265394348826953, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2877,9 +2885,13 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 52
       objectReference: {fileID: 0}
+    - target: {fileID: 4025265394348826953, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4251511196713023154, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4313685860239930230, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2907,27 +2919,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318625074312800843, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4318625074312800843, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4318625074312800843, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064946999022946514, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064946999022946514, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064946999022946514, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5826491961190240197, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_Name
@@ -2943,10 +2955,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7500860798118688834, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5730961046661110403, guid: d2cbd38d16b94ff499cc4de173556511, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

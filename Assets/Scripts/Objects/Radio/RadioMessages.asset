@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ca333cd2a3d054eae4f9272987fe1e, type: 3}
+  m_Name: RadioMessages
+  m_EditorClassIdentifier: 
+  primerLoopMessages:
+  - text: ...
+    duration: 0.5
+  - text: ...
+    duration: 0.5
+  - text: "AM, Rep\xFAblica Argentina"
+    duration: 2.5
+  - text: "Es la una y un minuto, antes de continuar con la secci\xF3n musical, vamos
+      con la noticia del d\xEDa"
+    duration: 4.5
+  - text: "El panorama art\xEDstico argentino ha dado un vuelco con la reciente obra
+      de..."
+    duration: 4
+  - text: ...
+    duration: 0.5
+  - text: "\u2026un artista presuntamente desconocido"
+    duration: 3
+  - text: "aunque seg\xFAn pudimos confirmar, proviene de la conocida casa de artistas"
+    duration: 4
+  - text: ...
+    duration: 0.5
+  - text: "De igual forma, sea cual sea el motivo por el cual hab\xEDa permanecido
+      en el anonimato,"
+    duration: 4.5
+  - text: su futuro parece ser prometedor...
+    duration: 3
+  - text: "y ahora los dejamos con la secci\xF3n musical"
+    duration: 3.5
+  segundoLoopMessages:
+  - text: "Placeholder - Segundo loop no definido a\xFAn"
+    duration: 2
