@@ -766,7 +766,7 @@ PrefabInstance:
     - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: slowCloseClip
       value: 
-      objectReference: {fileID: 8300000, guid: bce809ed651b07243ab1318d654c2bc0, type: 3}
+      objectReference: {fileID: 8300000, guid: 6c882a2294278e648becb3e7fd93ec22, type: 3}
     - target: {fileID: 3799001535155952546, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.007
