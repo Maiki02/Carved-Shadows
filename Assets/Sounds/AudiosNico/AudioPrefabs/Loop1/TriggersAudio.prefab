@@ -339,12 +339,16 @@ PrefabInstance:
       value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5630151579476479531, guid: 5a320e2dea8b16b48bf9c576e168bb89, type: 3}
+      propertyPath: roomPreset
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630151579476479531, guid: 5a320e2dea8b16b48bf9c576e168bb89, type: 3}
       propertyPath: directLevel
-      value: 3.6
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5630151579476479531, guid: 5a320e2dea8b16b48bf9c576e168bb89, type: 3}
       propertyPath: distanceCorrection
-      value: 3.56
+      value: 4.26
       objectReference: {fileID: 0}
     - target: {fileID: 8486471577389289551, guid: 5a320e2dea8b16b48bf9c576e168bb89, type: 3}
       propertyPath: m_LocalPosition.x

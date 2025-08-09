@@ -134,18 +134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriggersAudio
       objectReference: {fileID: 0}
-    - target: {fileID: 4932028452182154095, guid: 0a04263d5b124e84a9a8398be2243d5a, type: 3}
-      propertyPath: roomPreset
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932028452182154095, guid: 0a04263d5b124e84a9a8398be2243d5a, type: 3}
-      propertyPath: directLevel
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932028452182154095, guid: 0a04263d5b124e84a9a8398be2243d5a, type: 3}
-      propertyPath: distanceCorrection
-      value: 4.26
-      objectReference: {fileID: 0}
     - target: {fileID: 8723436067495263203, guid: 0a04263d5b124e84a9a8398be2243d5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.3978043
@@ -725,14 +713,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4817039723692025748, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
-      propertyPath: stairPitchBoost
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4817039723692025748, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
-      propertyPath: stairStepInterval
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7442095384805070582, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.164
@@ -1042,63 +1022,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1606707203200575444, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: distanceCorrection
-      value: 5.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4588622262553559876, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: gainLevel
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4588622262553559876, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: directLevel
-      value: -15.7
-      objectReference: {fileID: 0}
     - target: {fileID: 4674552768662325959, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: ambientSounds.Array.data[16].startDelay
-      value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 5317246323048747523, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: gainLevel
-      value: -3.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5317246323048747523, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: directLevel
-      value: -12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5317246323048747523, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: reflectionLevel
-      value: -7.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5317246323048747523, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: distanceCorrection
-      value: 8.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 8771067802216154455, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: roomSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8771067802216154455, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: gainLevel
-      value: 3.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8771067802216154455, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: roomPreset
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 8771067802216154455, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: directLevel
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8771067802216154455, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-      propertyPath: distanceCorrection
-      value: 1.66
+      propertyPath: ambientSounds.Array.data[8].startDelay
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1802288084657612280, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-    - {fileID: 2852660976395969591, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
-    - {fileID: 4918500384128509358, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}

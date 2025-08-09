@@ -672,6 +672,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
+      propertyPath: stairPitchBoost
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616350896219218580, guid: 253c6dcd439c54f4d8c86cdb1efc58e2, type: 3}
       propertyPath: alfombraBeats.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 95f47dfd291be7948a7c1e67b4030c9b, type: 3}
