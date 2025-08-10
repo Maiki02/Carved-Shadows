@@ -734,6 +734,34 @@ PrefabInstance:
       propertyPath: radio
       value: 
       objectReference: {fileID: 1245593813}
+    - target: {fileID: 2624075940261388305, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.443
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624075940261388305, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624075940261388305, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624075940261388305, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624075940261388305, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624075940261388305, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3430522630368305216, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
+      propertyPath: openDegreesY
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4574089242882788062, guid: 5af86839adeb7f84fb39f73a6088322e, type: 3}
       propertyPath: m_Name
       value: Loop 1
@@ -809,7 +837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1899218577543915264, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_AmplitudeGain
-      value: 0.01500182
+      value: 0.127455
       objectReference: {fileID: 0}
     - target: {fileID: 2499208386405555340, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_Enabled
@@ -845,11 +873,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5170364997927154048, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_VerticalAxis.m_MaxSpeed
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5170364997927154048, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_HorizontalAxis.m_MaxSpeed
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5805687225146223358, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalRotation.w
