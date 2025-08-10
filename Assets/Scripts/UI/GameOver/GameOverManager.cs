@@ -14,6 +14,9 @@ public class GameOverManager : MonoBehaviour
     [Header("Referencias de Audio")]
     [SerializeField] private AudioClip gameOverAudioClip;
     
+    [Header("Información del Estudio")]
+    [SerializeField] private GameObject studioInfoObject;
+    
     [Header("Créditos")]
     [SerializeField] private TextMeshProUGUI creditsText;
     [SerializeField] private CreditEntry[] credits;
@@ -29,6 +32,12 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private float titleFadeInDuration = 2f;
     [SerializeField] private float titleDisplayTime = 3f;
     [SerializeField] private float titleFadeOutDuration = 2f;
+    
+    [Header("Configuración de Tiempo - Información del Estudio")]
+    [SerializeField] private float studioInfoStartDelay = 0.5f;
+    [SerializeField] private float studioInfoFadeInDuration = 1.5f;
+    [SerializeField] private float studioInfoDisplayTime = 3f;
+    [SerializeField] private float studioInfoFadeOutDuration = 1.5f;
     
     [Header("Configuración de Tiempo - Créditos")]
     [SerializeField] private float creditsFadeInDuration = 1.5f;
@@ -90,6 +99,19 @@ public class GameOverManager : MonoBehaviour
             creditsText.text = "";
         }
         
+        // Inicializar información del estudio con opacidad 0
+        if (studioInfoObject != null)
+        {
+            // Intentar obtener CanvasGroup si existe, si no, crearlo
+            CanvasGroup studioCanvasGroup = studioInfoObject.GetComponent<CanvasGroup>();
+            if (studioCanvasGroup == null)
+            {
+                studioCanvasGroup = studioInfoObject.AddComponent<CanvasGroup>();
+            }
+            studioCanvasGroup.alpha = 0f;
+            studioInfoObject.SetActive(true);
+        }
+        
         // Inicializar botón de retorno con opacidad 0
         if (returnToMenuButton != null)
         {
@@ -137,13 +159,20 @@ public class GameOverManager : MonoBehaviour
         // 3. Hacer desaparecer el título
         yield return StartCoroutine(FadeOutTitle());
         
-        // 4. Mostrar créditos uno por uno
+        // 4. Esperar el delay inicial y mostrar información del estudio
+        if (studioInfoObject != null)
+        {
+            yield return new WaitForSeconds(studioInfoStartDelay);
+            yield return StartCoroutine(ShowStudioInfo());
+        }
+        
+        // 5. Mostrar créditos uno por uno
         yield return StartCoroutine(ShowCreditsSequence());
         
-        // 5. Mostrar botón de regreso al menú
+        // 6. Mostrar botón de regreso al menú
         yield return StartCoroutine(ShowReturnButton());
         
-        // 6. Habilitar el botón de regreso al menú
+        // 7. Habilitar el botón de regreso al menú
         canReturnToMenu = true;
     }
 
@@ -202,6 +231,74 @@ public class GameOverManager : MonoBehaviour
         // Asegurar que el alpha final sea exactamente 0
         titleColor.a = 0f;
         gameTitle.color = titleColor;
+    }
+
+    private IEnumerator ShowStudioInfo()
+    {
+        if (studioInfoObject == null) yield break;
+
+        // Fade in de la información del estudio
+        yield return StartCoroutine(FadeInStudioInfo());
+        
+        // Mantener visible por el tiempo especificado
+        yield return new WaitForSeconds(studioInfoDisplayTime);
+        
+        // Fade out de la información del estudio
+        yield return StartCoroutine(FadeOutStudioInfo());
+    }
+
+    private IEnumerator FadeInStudioInfo()
+    {
+        if (studioInfoObject == null) yield break;
+
+        CanvasGroup studioCanvasGroup = studioInfoObject.GetComponent<CanvasGroup>();
+        if (studioCanvasGroup == null)
+        {
+            studioCanvasGroup = studioInfoObject.AddComponent<CanvasGroup>();
+        }
+
+        float elapsedTime = 0f;
+        float startAlpha = studioCanvasGroup.alpha;
+        
+        while (elapsedTime < studioInfoFadeInDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, 1f, elapsedTime / studioInfoFadeInDuration);
+            
+            studioCanvasGroup.alpha = alpha;
+            
+            yield return null;
+        }
+        
+        // Asegurar que el alpha final sea exactamente 1
+        studioCanvasGroup.alpha = 1f;
+    }
+
+    private IEnumerator FadeOutStudioInfo()
+    {
+        if (studioInfoObject == null) yield break;
+
+        CanvasGroup studioCanvasGroup = studioInfoObject.GetComponent<CanvasGroup>();
+        if (studioCanvasGroup == null)
+        {
+            studioCanvasGroup = studioInfoObject.AddComponent<CanvasGroup>();
+        }
+
+        float elapsedTime = 0f;
+        float startAlpha = studioCanvasGroup.alpha;
+        
+        while (elapsedTime < studioInfoFadeOutDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / studioInfoFadeOutDuration);
+            
+            studioCanvasGroup.alpha = alpha;
+            
+            yield return null;
+        }
+        
+        // Asegurar que el alpha final sea exactamente 0
+        studioCanvasGroup.alpha = 0f;
     }
 
     private IEnumerator ShowCreditsSequence()
@@ -355,6 +452,12 @@ public class GameOverManager : MonoBehaviour
         titleFadeInDuration = Mathf.Max(0.1f, titleFadeInDuration);
         titleDisplayTime = Mathf.Max(0.1f, titleDisplayTime);
         titleFadeOutDuration = Mathf.Max(0.1f, titleFadeOutDuration);
+        
+        studioInfoStartDelay = Mathf.Max(0f, studioInfoStartDelay);
+        studioInfoFadeInDuration = Mathf.Max(0.1f, studioInfoFadeInDuration);
+        studioInfoDisplayTime = Mathf.Max(0.1f, studioInfoDisplayTime);
+        studioInfoFadeOutDuration = Mathf.Max(0.1f, studioInfoFadeOutDuration);
+        
         creditsFadeInDuration = Mathf.Max(0.1f, creditsFadeInDuration);
         creditsDisplayTime = Mathf.Max(0.1f, creditsDisplayTime);
         creditsFadeOutDuration = Mathf.Max(0.1f, creditsFadeOutDuration);
