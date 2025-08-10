@@ -42,11 +42,12 @@ public class GameController : MonoBehaviour
         //Hacemos un FadeIn
         FadeManager.Instance.FadeIn(0.5f);
 
-        //La escena se cambia en ResetValues
+        //Cambiamos de escena
+        SceneController.Instance.LoadGameOverScene();
 
-        //Reiniciamos el juego
-        this.ResetValues();
+
         
+
         //SceneController.Instance.LoadGameOverScene();
     }
 
