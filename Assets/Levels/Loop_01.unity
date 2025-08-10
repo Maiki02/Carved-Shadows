@@ -828,6 +828,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Screaming statue
       objectReference: {fileID: 0}
+    - target: {fileID: 181300, guid: a90ee9a0a54eeb2438f28f411e0a8f8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 481300, guid: a90ee9a0a54eeb2438f28f411e0a8f8d, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.01
