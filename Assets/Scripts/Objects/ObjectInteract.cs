@@ -4,43 +4,42 @@ using UnityEngine;
 
 public class ObjectInteract : MonoBehaviour, IInteractable
 {
-    private Outline _outline;  // O el componente que uses para hacer el contorno
+    protected Outline _outline;
+    protected bool _isHovered = false;
 
     protected virtual void Awake()
     {
-
-        // Asegúrate de que haya un Collider
         if (GetComponent<Collider>() == null)
         {
-            var meshFilter = GetComponent<MeshFilter>();
-            if (meshFilter != null)
+            var mf = GetComponent<MeshFilter>();
+            if (mf != null)
             {
                 var mc = gameObject.AddComponent<MeshCollider>();
-                mc.convex = true; // para que actúe como trigger o con Rigidbody
+                mc.convex = true;
             }
         }
 
-        // Busca o añade tu componente de outline
         _outline = GetComponent<Outline>();
-        if (_outline == null)
-        {
-            _outline = gameObject.AddComponent<Outline>();
-            // configura aquí tu material, ancho de línea, etc.
-        }
+        if (_outline == null) _outline = gameObject.AddComponent<Outline>();
         _outline.enabled = false;
-
     }
 
     public virtual void OnHoverEnter()
     {
-        if(_outline == null) return;
-        _outline.enabled = true;
+        _isHovered = true;
+        if (_outline != null) _outline.enabled = true;
     }
 
     public virtual void OnHoverExit()
     {
-        if (_outline == null) return;
-        _outline.enabled = false;
+        _isHovered = false;
+        if (_outline != null) _outline.enabled = false;
+    }
+
+    public void ForceUnhover()
+    {
+        _isHovered = false;
+        if (_outline != null) _outline.enabled = false;
     }
 
     public virtual void OnInteract()
