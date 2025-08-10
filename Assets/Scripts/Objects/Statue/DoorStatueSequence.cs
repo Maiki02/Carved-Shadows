@@ -15,6 +15,10 @@ public class DoorStatueSequence : MonoBehaviour
     [Header("Configuración del trigger")]
     [SerializeField] private bool triggerOnce = true; // Si se activa solo una vez
     
+    [Header("Configuración de audio (opcional)")]
+    [SerializeField] private float volumeBoostMultiplier = 1.5f; // Multiplicador del volumen para el clip de cierre
+    [SerializeField] private bool useVolumeBoost = true; // Si aplicar el boost de volumen
+    
     // ...existing code...
     private bool hasTriggered = false; // Control para evitar múltiples activaciones
 
@@ -66,13 +70,33 @@ public class DoorStatueSequence : MonoBehaviour
 
     private IEnumerator ActivateSequenceCoroutine()
     {
-        // Cerrar la puerta rápidamente
+        // Cerrar la puerta rápidamente con boost de volumen opcional
         if (targetDoor != null)
         {
-        // ...existing code...
+            float originalVolume = 1f;
+            AudioSource doorAudioSource = null;
+            
+            // Aplicar boost de volumen temporal si está habilitado
+            if (useVolumeBoost)
+            {
+                doorAudioSource = targetDoor.GetComponent<AudioSource>();
+                if (doorAudioSource != null)
+                {
+                    originalVolume = doorAudioSource.volume;
+                    doorAudioSource.volume = originalVolume * volumeBoostMultiplier;
+                }
+            }
+            
             targetDoor.StartFastClosing();
+            
             // Esperar a que termine el cierre rápido
             yield return new WaitForSeconds(targetDoor.FastCloseDuration);
+            
+            // Restaurar el volumen original
+            if (useVolumeBoost && doorAudioSource != null)
+            {
+                doorAudioSource.volume = originalVolume;
+            }
         }
         else
         {
@@ -82,12 +106,9 @@ public class DoorStatueSequence : MonoBehaviour
         // Activar la estatua
         if (targetStatue != null)
         {
-        // ...existing code...
             targetStatue.SetActive(true);
         }
-    }
-    
-    /// <summary>
+    }    /// <summary>
     /// Permite resetear el trigger desde código si es necesario
     /// </summary>
     public void ResetTrigger()

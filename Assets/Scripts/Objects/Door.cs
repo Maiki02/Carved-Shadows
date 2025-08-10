@@ -1,6 +1,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
@@ -16,7 +17,12 @@ public class Door : ObjectInteract
     [SerializeField] private AudioClip knockClip;
     [SerializeField] private AudioClip slowCloseClip; // Clip para el cierre lento
     [SerializeField] private AudioClip fastCloseClip; // Clip para el cierre rápido
+    
+    [Header("Audio Mixer Groups")]
+    [SerializeField] private UnityEngine.Audio.AudioMixerGroup fastCloseMixer; // Mixer específico para el cierre rápido
+    
     private AudioSource audioSource;
+    private UnityEngine.Audio.AudioMixerGroup originalMixerGroup; // Para guardar el mixer original
 
     /*[Header("Requisitos")]
     [SerializeField] private PuzzlePiece objetoRequerido;
@@ -47,6 +53,12 @@ public class Door : ObjectInteract
         base.Awake(); // Llamamos al Awake de la clase base para inicializar el objeto interactivo
         initialRotation = transform.rotation;
         audioSource = GetComponent<AudioSource>();
+        
+        // Guardar el mixer group original
+        if (audioSource != null)
+        {
+            originalMixerGroup = audioSource.outputAudioMixerGroup;
+        }
     }
 
     private void Start()
@@ -177,8 +189,26 @@ public class Door : ObjectInteract
     /// </summary>
     private void PlayDoorAudio(AudioClip clip)
     {
+        PlayDoorAudio(clip, null);
+    }
+    
+    /// <summary>
+    /// Reproduce un sonido de audio específico con un mixer group opcional
+    /// </summary>
+    private void PlayDoorAudio(AudioClip clip, UnityEngine.Audio.AudioMixerGroup mixerGroup)
+    {
         if (audioSource != null && clip != null)
         {
+            // Cambiar temporalmente el mixer group si se especifica uno
+            if (mixerGroup != null)
+            {
+                audioSource.outputAudioMixerGroup = mixerGroup;
+            }
+            else
+            {
+                audioSource.outputAudioMixerGroup = originalMixerGroup;
+            }
+            
             audioSource.clip = clip;
             audioSource.Play();
         }
@@ -266,8 +296,8 @@ public class Door : ObjectInteract
     {
         Debug.Log("[Door] Iniciando cierre rápido...");
         
-        // Reproducir sonido de cierre rápido al inicio de la animación
-        PlayDoorAudio(fastCloseClip);
+        // Reproducir sonido de cierre rápido al inicio de la animación con mixer específico
+        PlayDoorAudio(fastCloseClip, fastCloseMixer);
         
         Quaternion startRot = transform.rotation; // Posición actual (abierta)
         Quaternion targetRot = initialRotation; // Posición cerrada (rotación inicial)
