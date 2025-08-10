@@ -531,6 +531,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 529425042407811148, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
+      propertyPath: m_Size.y
+      value: 0.01036397
+      objectReference: {fileID: 0}
+    - target: {fileID: 529425042407811148, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
+      propertyPath: m_Center.y
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 1178417553791232897, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0

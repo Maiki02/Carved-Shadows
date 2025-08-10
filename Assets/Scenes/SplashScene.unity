@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use headphones for better experience
+  m_text: Utilice auriculares para una mejor experiencia
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b3757bf504a40d4ead7c4abfffb1533, type: 2}
   m_sharedMaterial: {fileID: 8095256763132048382, guid: 4b3757bf504a40d4ead7c4abfffb1533, type: 2}
