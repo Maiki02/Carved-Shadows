@@ -149,7 +149,18 @@ public class PhoneClose : ObjectInteract
         // 3. Llamar a la función del teléfono abierto para continuar
         if (phoneOpenScript != null)
         {
-            phoneOpenScript.StartCallWithFadeIn();
+            // Obtener parámetros del PhoneController si está disponible
+            if (phoneController != null)
+            {
+                AudioClip phoneCallClip = phoneController.GetPhoneCallClip();
+                DialogMessage[] phoneDialogs = phoneController.GetDialogsToUse();
+                phoneOpenScript.StartCallWithParameters(phoneCallClip, phoneDialogs);
+            }
+            else
+            {
+                // Fallback al método anterior si no hay PhoneController
+                phoneOpenScript.StartCallWithFadeIn();
+            }
         }
         
         // 4. Desactivar este GameObject AL FINAL

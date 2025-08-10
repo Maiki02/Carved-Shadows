@@ -8,6 +8,20 @@ public class PhoneController : MonoBehaviour
     [SerializeField] private Door door; // Puerta que se cerrará
     [SerializeField] private PhoneClose phoneClose; // Script del teléfono cerrado
     
+    [Header("Audio Configuration")]
+    [SerializeField] private AudioClip phoneCallClip; // Clip de audio de la llamada telefónica
+    
+    [Header("Dialog Configuration")]
+    [Tooltip("ScriptableObject con mensajes predefinidos (opcional)")]
+    [SerializeField] private PhoneMessages phoneMessages;
+    
+    [Tooltip("Tipo de loop de diálogos a usar")]
+    [SerializeField] private PhoneLoopType loopType = PhoneLoopType.PrimerLoop;
+    
+    [Space]
+    [Tooltip("Secuencia de diálogos personalizada (solo si phoneMessages está vacío)")]
+    [SerializeField] private DialogMessage[] phoneDialogSequence;
+    
     [Header("Configuración")]
     [SerializeField] private float ringDuration = 5f; // Duración que suena el teléfono
     [SerializeField] private bool triggerOnce = true; // Solo se activa una vez
@@ -105,6 +119,37 @@ public class PhoneController : MonoBehaviour
     }
 
     /// <summary>
+    /// Obtiene los diálogos a usar según la configuración
+    /// </summary>
+    public DialogMessage[] GetDialogsToUse()
+    {
+        // Si hay PhoneMessages asignado, usar los predefinidos
+        if (phoneMessages != null)
+        {
+            switch (loopType)
+            {
+                case PhoneLoopType.PrimerLoop:
+                    return phoneMessages.GetPrimerLoopMessages();
+                case PhoneLoopType.SegundoLoop:
+                    return phoneMessages.GetSegundoLoopMessages();
+                default:
+                    return phoneMessages.GetPrimerLoopMessages();
+            }
+        }
+        
+        // Si no hay PhoneMessages, usar la secuencia personalizada
+        return phoneDialogSequence;
+    }
+
+    /// <summary>
+    /// Obtiene el clip de audio de la llamada
+    /// </summary>
+    public AudioClip GetPhoneCallClip()
+    {
+        return phoneCallClip;
+    }
+
+    /// <summary>
     /// Corrutina principal que maneja toda la secuencia
     /// </summary>
     private IEnumerator PhoneSequenceCoroutine()
@@ -155,6 +200,27 @@ public class PhoneController : MonoBehaviour
 
         if (phoneClose == null)
             Debug.LogWarning("[PhoneController] PhoneClose script no asignado");
+
+        if (phoneCallClip == null)
+            Debug.LogWarning($"[PhoneController] {name}: No se asignó AudioClip para la llamada telefónica");
+        
+        // Validar que hay diálogos disponibles
+        bool hasDialogs = false;
+        if (phoneMessages != null)
+        {
+            hasDialogs = true;
+            Debug.Log($"[PhoneController] {name}: Usando PhoneMessages predefinidos - {loopType}");
+        }
+        else if (phoneDialogSequence != null && phoneDialogSequence.Length > 0)
+        {
+            hasDialogs = true;
+            Debug.Log($"[PhoneController] {name}: Usando diálogos personalizados ({phoneDialogSequence.Length} mensajes)");
+        }
+        
+        if (!hasDialogs)
+        {
+            Debug.LogWarning($"[PhoneController] {name}: No se asignaron diálogos (ni PhoneMessages ni phoneDialogSequence)");
+        }
     }
 
     /// <summary>

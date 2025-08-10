@@ -1108,8 +1108,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 0fa2d7e8e9f45884d9bbb3fc241c533c, type: 3}
 --- !u!114 &2072856741 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7049676011515309399, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-  m_PrefabInstance: {fileID: 9074417784393678928}
+  m_CorrespondingSourceObject: {fileID: 1268583035383815986, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
+  m_PrefabInstance: {fileID: 2138981496}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1222,6 +1222,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1268583035383815986, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 1245593815}
+    - target: {fileID: 1268583035383815986, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
+      propertyPath: loopType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268583035383815986, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
+      propertyPath: phoneClose
+      value: 
+      objectReference: {fileID: 1245593816}
+    - target: {fileID: 1268583035383815986, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
+      propertyPath: phoneCallClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f80bdd847da16dd40a43ca60a94a736b, type: 3}
+    - target: {fileID: 1268583035383815986, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
+      propertyPath: phoneMessages
+      value: 
+      objectReference: {fileID: 11400000, guid: 15c55db3431ffc0438ae85402e64f5ca, type: 2}
     - target: {fileID: 1686735674214347690, guid: f573e53dff4deb0459f5d0aad33e2c27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1396,71 +1416,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
---- !u!1001 &9074417784393678928
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2938282422942597105, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_Name
-      value: CallControllerTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.416
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -13.617
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5644725961652508288, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7049676011515309399, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 1245593815}
-    - target: {fileID: 7049676011515309399, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
-      propertyPath: phoneClose
-      value: 
-      objectReference: {fileID: 1245593816}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b2ff8f380ccffd648919db0b50a492c4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1471,7 +1426,6 @@ SceneRoots:
   - {fileID: 1276661232}
   - {fileID: 464404891}
   - {fileID: 1361659431}
-  - {fileID: 9074417784393678928}
   - {fileID: 1180199324}
   - {fileID: 668888828928881127}
   - {fileID: 1282980724}

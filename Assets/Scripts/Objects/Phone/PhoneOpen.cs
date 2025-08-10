@@ -157,6 +157,27 @@ public class PhoneOpen : MonoBehaviour
     }
 
     /// <summary>
+    /// Configura e inicia la llamada telefónica con parámetros específicos
+    /// </summary>
+    public void StartCallWithParameters(AudioClip phoneCallClip, DialogMessage[] phoneDialogs)
+    {
+        if (isCalling) return;
+        
+        // Configurar los parámetros de la llamada
+        if (phoneCallClip != null)
+        {
+            callClip = phoneCallClip;
+        }
+        
+        if (phoneDialogs != null && phoneDialogs.Length > 0)
+        {
+            callDialogSequence = phoneDialogs;
+        }
+        
+        StartCoroutine(StartCallWithFadeInRoutine());
+    }
+
+    /// <summary>
     /// Corrutina que maneja el inicio de llamada con Fade In
     /// </summary>
     private IEnumerator StartCallWithFadeInRoutine()

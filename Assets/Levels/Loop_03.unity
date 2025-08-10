@@ -529,26 +529,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base
       objectReference: {fileID: 0}
-    - target: {fileID: 5063283599108354106, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: DopplerLevel
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5063283599108354106, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5395951006702852291, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: gainLevel
-      value: 4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5395951006702852291, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: directLevel
-      value: -1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5395951006702852291, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: distanceCorrection
-      value: 2.84
-      objectReference: {fileID: 0}
     - target: {fileID: 6642571630702195300, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: m_TagString
       value: Escaleras
