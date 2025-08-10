@@ -51,6 +51,10 @@ public class GameOverManager : MonoBehaviour
     {
         // Reproducir audio al iniciar
         PlayGameOverAudio();
+
+        Cursor.lockState = CursorLockMode.None; // Desbloquear el cursor
+        Cursor.visible = true; // Hacer visible el cursor
+
         
         if (startWithBlackScreen)
         {
