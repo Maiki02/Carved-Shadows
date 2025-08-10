@@ -134,10 +134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TriggersAudio
       objectReference: {fileID: 0}
-    - target: {fileID: 5546626249714254391, guid: 0a04263d5b124e84a9a8398be2243d5a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8723436067495263203, guid: 0a04263d5b124e84a9a8398be2243d5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.3978043
@@ -1074,7 +1070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2266633661642632318, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3127264829515754190, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
       propertyPath: m_IsActive

@@ -30,7 +30,7 @@ public class MenuController : MonoBehaviour
 
     public void OnExitButton()
     {
-        Application.Quit();
         Debug.Log("Saliendo del juego...");
+        Application.Quit();
     }
 }

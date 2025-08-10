@@ -120,6 +120,8 @@ public class Statue : MonoBehaviour
         if (currentStep >= points.Length && doorToClose != null)
         {
             Debug.Log("[Statue] Recorrido completo. Cerrando la puerta.");
+
+            yield return new WaitForSeconds(2f); // Pequeña espera para asegurar que la estatua se ha movido completamente
             //Cambie esto para que se cierre la puerta, desaparezca la estatua y se cambie el tipo de puerta
             StartCoroutine(WaitAndDeactivateAfterDoorCloses());
             

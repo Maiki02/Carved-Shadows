@@ -982,7 +982,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5501054008266332115, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8339973427272527646, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
@@ -1292,6 +1293,22 @@ PrefabInstance:
       propertyPath: doorToClose
       value: 
       objectReference: {fileID: 934456613}
+    - target: {fileID: 4482059911728628787, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482059911728628787, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.756
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616003522038448165, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716137888315129738, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7660261592570448856, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
       propertyPath: m_Name
       value: EstatuaMovedizaTrigger
@@ -1463,6 +1480,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 482333118060060417, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890449560910720707, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 1387845611017363860, guid: 2cdc40768dbe4d749822e4d6baddb24b, type: 2}
     - target: {fileID: 2499808571914718674, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
       propertyPath: m_Name
       value: TriggersAudioLoop4
@@ -1506,6 +1531,14 @@ PrefabInstance:
     - target: {fileID: 3941746519346308861, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667120172566055356, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.834
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667120172566055356, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -59.712
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

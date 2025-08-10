@@ -137,7 +137,7 @@ MonoBehaviour:
   inspectionCam: {fileID: 0}
   freezeCam: {fileID: 0}
   brain: {fileID: 4726441344874717124}
-  idleAmplitude: 0.05
+  idleAmplitude: 0.015
   maxShake: 1
   maxSpeed: 5
   walkNoiseProfile: {fileID: 11400000, guid: 49ba87a3dcbf5944c85bc075f829e500, type: 2}

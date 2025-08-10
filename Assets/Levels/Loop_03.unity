@@ -251,9 +251,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1967815961364378099, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967815961364378099, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.84
+      objectReference: {fileID: 0}
     - target: {fileID: 3552407577790728462, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085595357634795855, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.19
       objectReference: {fileID: 0}
     - target: {fileID: 5129350198196122121, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -304,8 +316,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2014608311}
     - target: {fileID: 8917748051874012748, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: useVolumeBoost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917748051874012748, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
       propertyPath: volumeBoostMultiplier
-      value: 1.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9210071176546331849, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
       propertyPath: radio
@@ -501,30 +517,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1178417553791232897, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2587831439899443319, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2587831439899443319, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 24300002, guid: c5caf85daed4adc45a43ef8c646447ff, type: 2}
+      objectReference: {fileID: -8572321155207758258, guid: c5caf85daed4adc45a43ef8c646447ff, type: 2}
     - target: {fileID: 3084480775727354089, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: fastCloseClip
-      value: 
-      objectReference: {fileID: 8300000, guid: c2aa7dd810909734398d7594586248be, type: 3}
-    - target: {fileID: 3668617245446974156, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
-      propertyPath: fastCloseMixer
-      value: 
-      objectReference: {fileID: -8572321155207758258, guid: c5caf85daed4adc45a43ef8c646447ff, type: 2}
     - target: {fileID: 4044353371881805713, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
       propertyPath: m_Name
       value: Base
@@ -1259,6 +1259,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3047793064973388560, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445304966737646247, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996692766622979006, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.37
+      objectReference: {fileID: 0}
     - target: {fileID: 4344388574380112642, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
       propertyPath: gainLevel
       value: 3.6
@@ -1270,6 +1282,14 @@ PrefabInstance:
     - target: {fileID: 4814737477146197766, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
       propertyPath: m_Name
       value: TriggersAudioLoop3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4857965908901178848, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.838
+      objectReference: {fileID: 0}
+    - target: {fileID: 4857965908901178848, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -78.75
       objectReference: {fileID: 0}
     - target: {fileID: 4870931441174184084, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1318,6 +1338,14 @@ PrefabInstance:
     - target: {fileID: 5839574402199158355, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
       propertyPath: directLevel
       value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8555821655256837408, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.8689
+      objectReference: {fileID: 0}
+    - target: {fileID: 8555821655256837408, guid: fe7d67a2e16fdc64d98d9f7bc7df5782, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.869
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

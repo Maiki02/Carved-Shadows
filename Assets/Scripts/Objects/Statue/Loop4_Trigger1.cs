@@ -9,8 +9,11 @@ public class Loop4_Trigger1 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player has triggered Loop4_Trigger1");
+            Debug.Log("Woman crying sound played");
+
             statue.TriggerNextStep();
-            womanCryingAudio.Stop();
+            //womanCryingAudio.Stop();
             gameObject.SetActive(false); // para que no se reactive
         }
     }

@@ -769,6 +769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmbientSoundZone_RadioLoop1
       objectReference: {fileID: 0}
+    - target: {fileID: 6045814342654869160, guid: baa5d4b151c1f6a47afd99e70f593434, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6102784373861059766, guid: baa5d4b151c1f6a47afd99e70f593434, type: 3}
       propertyPath: MaxDistance
       value: 7.610574
@@ -1367,6 +1371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmbientSoundZone_RisaCorta
       objectReference: {fileID: 0}
+    - target: {fileID: 6686709221702983859, guid: 289d7086576d52f4aa77a8a0d9bc67fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6818657582240987978, guid: 289d7086576d52f4aa77a8a0d9bc67fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.7721958
@@ -1519,6 +1527,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmbientSoundZone_Piano
       objectReference: {fileID: 0}
+    - target: {fileID: 6045814342654869160, guid: baa5d4b151c1f6a47afd99e70f593434, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102784373861059766, guid: baa5d4b151c1f6a47afd99e70f593434, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 1387845611017363860, guid: 2cdc40768dbe4d749822e4d6baddb24b, type: 2}
     - target: {fileID: 7006338605674949727, guid: baa5d4b151c1f6a47afd99e70f593434, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.0411959
