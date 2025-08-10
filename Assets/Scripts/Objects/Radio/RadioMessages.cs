@@ -45,8 +45,15 @@ public class RadioMessages : ScriptableObject
     [Tooltip("Mensajes del segundo loop para contar la decadencia del personaje")]
     public DialogMessage[] segundoLoopMessages = new DialogMessage[]
     {
-        // TODO: Agregar aquí los mensajes del segundo loop cuando estén listos
-        new DialogMessage { text = "Placeholder - Segundo loop no definido aún", duration = 2.0f }
+        new DialogMessage { text = "", duration = 9.0f },
+        new DialogMessage { text = "Siendo las dos y dos minutos,", duration = 4.0f },
+        new DialogMessage { text = "y continuando con las noticias del día,", duration = 4.0f },
+        new DialogMessage { text = "", duration = 4.0f },
+        new DialogMessage { text = "las críticas han destruido al famoso escultor...", duration = 4.0f },
+        new DialogMessage { text = "", duration = 4.0f },
+        new DialogMessage { text = "y la sociedad...", duration = 2.0f },
+        new DialogMessage { text = "estaría conmocionada...", duration = 3.0f },
+        new DialogMessage { text = "Ampliaremos...", duration = 3.0f }
     };
 
     /// <summary>

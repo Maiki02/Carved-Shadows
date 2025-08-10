@@ -299,6 +299,18 @@ PrefabInstance:
       propertyPath: targetDoor
       value: 
       objectReference: {fileID: 2014608311}
+    - target: {fileID: 9210071176546331849, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: radio
+      value: 
+      objectReference: {fileID: 1245593813}
+    - target: {fileID: 9210071176546331849, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: radioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cc23b8773ccb1ba479bb0976c3421302, type: 3}
+    - target: {fileID: 9210071176546331849, guid: f4f56a32289976c4b9efddcc41941ed5, type: 3}
+      propertyPath: radioMessages
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e1a83b4dcafaec4b8dc4e0d60135213, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -516,6 +528,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1245593820}
   m_SourcePrefab: {fileID: 100100000, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
+--- !u!114 &1245593813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6349105674642229612, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
+  m_PrefabInstance: {fileID: 1245593812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3436bdafc37fd5a40b957ffd10a04a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1245593814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1178417553791232897, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
