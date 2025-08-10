@@ -417,7 +417,7 @@ public class GameOverManager : MonoBehaviour
     private IEnumerator ReturnToMainMenuCoroutine()
     {
         GameController.Instance.ResetValues(); // Reiniciar valores del juego
-
+        GameFlowManager.Instance.ResetGameFlow(); // Reiniciar flujo del juego
         //SceneController.Instance.LoadInitialScene(); // Ajustar el nombre de la escena según corresponda
 
         // Opcional: Hacer fade out antes de cambiar de escena
@@ -431,7 +431,7 @@ public class GameOverManager : MonoBehaviour
             // Cargar directamente la escena del menú principal
             SceneController.Instance.LoadInitialScene(); // Ajustar el nombre de la escena según corresponda
         }*/
-        
+
         yield return null;
     }
 
