@@ -1,91 +1,63 @@
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 public class Door_NextLoop : ObjectInteract
 {
-    private bool isTransitioning = false;
-
+    [Header("Refs")]
+    [SerializeField] private CinemachineVirtualCamera doorVCam; 
     [SerializeField] private Transform doorEntryPoint;
     [SerializeField] private Transform lookTargetPoint;
+
+    [Header("Timings")]
+    [SerializeField] private float blendSeconds = 2f;
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float rotateSpeed = 5f;
+
+    private bool isTransitioning = false;
 
     public override void OnInteract()
     {
-        if (!isTransitioning)
-        {
-            StartCoroutine(ApproachAndTransition());
-        }
+        if (!isTransitioning) StartCoroutine(Sequence());
     }
 
-    private IEnumerator ApproachAndTransition()
+    private IEnumerator Sequence()
     {
         isTransitioning = true;
         GameFlowManager.Instance.SetTransitionStatus(true);
 
         var playerObj = GameObject.FindWithTag("Player");
-        if (playerObj == null) yield break;
+        if (!playerObj) yield break;
 
         var player = playerObj.GetComponent<PlayerController>();
-        if (player != null)
+        if (!player) yield break;
+
+        player.SetControlesActivos(false);
+        player.SetCamaraActiva(false);
+        player.SetStatusCharacterController(false);
+
+        if (doorVCam != null)
         {
-            player.SetControlesActivos(false);
-            player.SetCamaraActiva(false);
-            player.SetStatusCharacterController(false);
+            doorVCam.LookAt = lookTargetPoint;
+            doorVCam.gameObject.SetActive(true);
+            doorVCam.Priority = 20;
         }
 
-        // Mover al jugador hacia el punto de entrada de la puerta
-        if (doorEntryPoint != null && playerObj != null)
+        yield return new WaitForSeconds(blendSeconds);
+
+        if (doorEntryPoint != null)
         {
             while (Vector3.Distance(playerObj.transform.position, doorEntryPoint.position) > 0.05f)
             {
-                // Calcular dirección horizontal hacia el objetivo de mirada
-                Vector3 lookDir = lookTargetPoint.position - playerObj.transform.position;
-                lookDir.y = 0f; // Eliminar inclinación vertical
-
-                if (lookDir != Vector3.zero)
-                {
-                    Quaternion targetRot = Quaternion.LookRotation(lookDir.normalized);
-                    playerObj.transform.rotation = Quaternion.Slerp(
-                        playerObj.transform.rotation,
-                        targetRot,
-                        rotateSpeed * Time.deltaTime
-                    );
-                }
-
-                // Mover al jugador hacia el punto de entrada
                 playerObj.transform.position = Vector3.MoveTowards(
                     playerObj.transform.position,
                     doorEntryPoint.position,
                     moveSpeed * Time.deltaTime
                 );
-
                 yield return null;
-            }
-            if (lookTargetPoint != null && playerObj != null)
-            {
-                Vector3 lookDir = lookTargetPoint.position - playerObj.transform.position;
-                lookDir.y = 0f;
-
-                if (lookDir != Vector3.zero)
-                {
-                    Quaternion targetRot = Quaternion.LookRotation(lookDir.normalized);
-                    while (Quaternion.Angle(playerObj.transform.rotation, targetRot) > 0.5f)
-                    {
-                        playerObj.transform.rotation = Quaternion.Slerp(
-                            playerObj.transform.rotation,
-                            targetRot,
-                            rotateSpeed * Time.deltaTime
-                        );
-                        yield return null;
-                    }
-                    playerObj.transform.rotation = targetRot; // Asegura que quede exacto
-                }
             }
         }
 
-        // Esperar un breve momento antes de cambiar de escena
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
 
         GameController.Instance.NextLevel();
         GameFlowManager.Instance.ActivatePreloadedScene();

@@ -3,9 +3,9 @@ using System.Collections;
 
 public class MenuInitializer : MonoBehaviour
 {
-    [SerializeField] private GameObject menuRoot;   // Objeto MainMenu completo
-    [SerializeField] private GameObject[] canvasToActivate; // Otros Canvas que se activan al iniciar el juego
-    [SerializeField] private GameObject menuCamera; // Cámara del menú
+    [SerializeField] private GameObject menuRoot;
+    [SerializeField] private GameObject[] canvasToActivate;
+    [SerializeField] private GameObject menuCamera;
 
 
     private PlayerController playerController;
@@ -17,7 +17,6 @@ public class MenuInitializer : MonoBehaviour
             playerController = playerGO.GetComponent<PlayerController>();
 
         if (menuRoot != null) menuRoot.SetActive(false);
-        //if (playerUI != null) playerUI.SetActive(false);
         if (menuCamera != null) menuCamera.SetActive(true);
 
         if (playerController != null)

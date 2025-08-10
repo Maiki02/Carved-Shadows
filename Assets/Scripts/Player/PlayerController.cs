@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Cámaras")]
     [SerializeField] private CinemachineVirtualCamera mainCam;
     [SerializeField] private CinemachineVirtualCamera inspectionCam;
-    [SerializeField] private CinemachineVirtualCamera freezeCam;
+    [SerializeField] private CinemachineVirtualCamera cinematicCam;
     [SerializeField] private CinemachineBrain brain;
 
     [Header("Shake al caminar")]
@@ -184,6 +184,66 @@ public class PlayerController : MonoBehaviour
         SetControlesActivos(true);
         isFalling = false;
     }
+
+    public void StartCutsceneLook(Transform lookAt)
+    {
+        if (brain) brain.enabled = true;            // Asegurar Brain activo
+        if (cinematicCam == null)
+        {
+            Debug.LogWarning("[Cam] cinematicCam no asignada");
+            return;
+        }
+
+        // Preparar targets
+        if (mainCam != null) cinematicCam.Follow = mainCam.Follow; // CameraPoint del player
+        cinematicCam.LookAt = lookAt;
+
+        // Activar la vcam (importante si la tenías desactivada en el inspector)
+        if (!cinematicCam.gameObject.activeSelf)
+            cinematicCam.gameObject.SetActive(true);
+
+        // Subir prioridad por encima de la principal para forzar el blend/switch
+        int basePrio = (mainCam != null) ? mainCam.Priority : 10;
+        cinematicCam.Priority = basePrio + 100;
+
+        // Opcional: congelar el POV de la cámara principal para que no “pelee”
+        if (mainPOV != null)
+        {
+            mainPOV.m_HorizontalAxis.m_MaxSpeed = 0f;
+            mainPOV.m_VerticalAxis.m_MaxSpeed = 0f;
+        }
+
+        // Log para comprobar qué vcam quedó activa
+        StartCoroutine(LogActiveVcamNextFrame());
+    }
+
+    private IEnumerator LogActiveVcamNextFrame()
+    {
+        yield return null; // esperar un frame al Brain
+        if (brain != null && brain.ActiveVirtualCamera != null)
+            Debug.Log("[Cam] Activa: " + brain.ActiveVirtualCamera.VirtualCameraGameObject.name);
+        else
+            Debug.LogWarning("[Cam] No hay vcam activa");
+    }
+
+    public void EndCutsceneLook()
+    {
+        // Bajar prioridad y opcionalmente apagar la vcam
+        if (cinematicCam != null)
+        {
+            cinematicCam.Priority = 0;
+            cinematicCam.gameObject.SetActive(false);
+        }
+
+        // Restaurar sensibilidad del POV de la cámara principal si lo usas
+        if (mainPOV != null)
+        {
+            float sens = GameController.Instance.MouseSensitivity;
+            mainPOV.m_HorizontalAxis.m_MaxSpeed = sens;
+            mainPOV.m_VerticalAxis.m_MaxSpeed = sens;
+        }
+    }
+
 
     public void ActivarCamaraInspeccion(Transform inspectionPoint)
     {
