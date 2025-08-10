@@ -28,6 +28,18 @@ public class AmbientSoundController : MonoBehaviour
     {
         foreach (var sound in ambientSounds)
         {
+            if (sound == null)
+            {
+                Debug.LogWarning("AmbientSoundController: Se encontró un AmbientSound nulo en la lista.");
+                continue;
+            }
+
+            if (sound.source == null)
+            {
+                Debug.LogWarning($"AmbientSoundController: El AudioSource es nulo para el sonido '{sound.name}'. Saltando este sonido.");
+                continue;
+            }
+
             if (sound.isEnabled)
             {
                 StartCoroutine(PlayWithDelay(sound));
@@ -37,6 +49,13 @@ public class AmbientSoundController : MonoBehaviour
 
     private IEnumerator PlayWithDelay(AmbientSound sound)
     {
+        // Validación adicional por si el AudioSource se hace null durante la ejecución
+        if (sound.source == null)
+        {
+            Debug.LogWarning($"AmbientSoundController: El AudioSource se volvió nulo para el sonido '{sound.name}' durante PlayWithDelay.");
+            yield break;
+        }
+
         float delay = sound.startDelay;
         if (sound.randomizeStart)
         {
@@ -44,6 +63,13 @@ public class AmbientSoundController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(delay);
+
+        // Validación antes de reproducir
+        if (sound.source == null)
+        {
+            Debug.LogWarning($"AmbientSoundController: El AudioSource se volvió nulo para el sonido '{sound.name}' después del retraso.");
+            yield break;
+        }
 
         sound.source.loop = sound.loop;
         sound.source.Play();
@@ -58,6 +84,18 @@ public class AmbientSoundController : MonoBehaviour
     {
         foreach (var sound in ambientSounds)
         {
+            if (sound == null)
+            {
+                Debug.LogWarning("AmbientSoundController: Se encontró un AmbientSound nulo durante FadeOutAll.");
+                continue;
+            }
+
+            if (sound.source == null)
+            {
+                Debug.LogWarning($"AmbientSoundController: El AudioSource es nulo para el sonido '{sound.name}' durante FadeOutAll.");
+                continue;
+            }
+
             if (sound.source.isPlaying)
             {
                 StartCoroutine(FadeOut(sound.source, fadeTime));
@@ -82,6 +120,13 @@ public class AmbientSoundController : MonoBehaviour
     private IEnumerator HandleFadeOut(AmbientSound sound)
     {
         yield return new WaitForSeconds(sound.fadeOutStartTime);
+        
+        if (sound.source == null)
+        {
+            Debug.LogWarning($"AmbientSoundController: El AudioSource se volvió nulo para el sonido '{sound.name}' durante HandleFadeOut.");
+            yield break;
+        }
+
         yield return FadeOut(sound.source, sound.fadeOutDuration);
     }
 

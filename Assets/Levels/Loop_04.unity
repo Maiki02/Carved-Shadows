@@ -777,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7442095384805070582, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.491
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7442095384805070582, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -963,6 +963,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618155655768562244, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757231066525997654, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757231066525997654, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757231066525997654, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757231066525997654, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757231066525997654, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5399349737187224532, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
@@ -1488,9 +1508,17 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 1387845611017363860, guid: 2cdc40768dbe4d749822e4d6baddb24b, type: 2}
+    - target: {fileID: 2165199175812009369, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -74.868034
+      objectReference: {fileID: 0}
     - target: {fileID: 2499808571914718674, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
       propertyPath: m_Name
       value: TriggersAudioLoop4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160050406739987801, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.868
       objectReference: {fileID: 0}
     - target: {fileID: 3941746519346308861, guid: 7fbb5537b98a25843a7b217b44a02e73, type: 3}
       propertyPath: m_LocalPosition.x

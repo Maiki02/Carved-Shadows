@@ -144,7 +144,7 @@ public class GameFlowManager : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds(2.5f); // Ajustar según animación
+        yield return new WaitForSeconds(2f); // Ajustar según animación
 
         if (controller != null)
         {
