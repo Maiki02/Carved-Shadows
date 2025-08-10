@@ -200,115 +200,6 @@ MonoBehaviour:
   obstructionRayUpdateFreq: 0.2
   obstructionDebugRayCast: 0
   reverbSends: []
---- !u!1 &273768320 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6418498480555563758, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-  m_PrefabInstance: {fileID: 668888828928881127}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &273768327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273768320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51e54047889f1c4dac64a27f85a09c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  occlusionWallMask:
-    serializedVersion: 2
-    m_Bits: 63
-  obstructionWallMask:
-    serializedVersion: 2
-    m_Bits: 63
-  occlusionRayUpdateTime: 1
-  obstructionRayUpdateTime: 1
-  clipIsPlaying: 0
-  gainLevel: 0
-  directLevel: 0
-  reflectionLevel: 0
-  reverbLevel: 0
-  azimuthCorrection: 1
-  distanceCorrection: 1
-  useUnityDistance: 0
-  auralization: 0
-  roomPreset: 7
-  internalReverb: 1
-  performanceMode: 0
-  dearVRPlayOnAwake: 0
-  bypass: 0
-  bypassPerformance: 0
-  reverbStopOverlap: 1
-  inputChannel: 0
-  reflectionLP: 20000
-  reverbLP: 20000
-  roomSize: 100
-  bassBoost: 0
-  occlusionLevel: 0.6
-  obsturctionLevel: 0.6
-  occlusionActive: 0
-  obstructionActive: 0
-  forceOcclusion: 0
-  forceObstruction: 0
-  occlusionDebugRayCast: 0
-  occlusionRayUpdateFreq: 0.2
-  obstructionRayUpdateFreq: 0.2
-  obstructionDebugRayCast: 0
-  reverbSends: []
---- !u!114 &273768328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273768320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51e54047889f1c4dac64a27f85a09c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  occlusionWallMask:
-    serializedVersion: 2
-    m_Bits: 63
-  obstructionWallMask:
-    serializedVersion: 2
-    m_Bits: 63
-  occlusionRayUpdateTime: 1
-  obstructionRayUpdateTime: 1
-  clipIsPlaying: 0
-  gainLevel: 0
-  directLevel: 0
-  reflectionLevel: 0
-  reverbLevel: 0
-  azimuthCorrection: 1
-  distanceCorrection: 1
-  useUnityDistance: 0
-  auralization: 0
-  roomPreset: 16
-  internalReverb: 1
-  performanceMode: 0
-  dearVRPlayOnAwake: 0
-  bypass: 0
-  bypassPerformance: 0
-  reverbStopOverlap: 1
-  inputChannel: 0
-  reflectionLP: 20000
-  reverbLP: 20000
-  roomSize: 100
-  bassBoost: 0
-  occlusionLevel: 0.6
-  obsturctionLevel: 0.6
-  occlusionActive: 0
-  obstructionActive: 0
-  forceOcclusion: 0
-  forceObstruction: 0
-  occlusionDebugRayCast: 0
-  occlusionRayUpdateFreq: 0.2
-  obstructionRayUpdateFreq: 0.2
-  obstructionDebugRayCast: 0
-  reverbSends: []
 --- !u!1 &456543537 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 358883112764792158, guid: 85214bbfd53b17d4f95d1ad75b14b60d, type: 3}
@@ -838,9 +729,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 134036103467394347, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: field of view
+      value: 60.000004
+      objectReference: {fileID: 0}
     - target: {fileID: 1018849495417795051, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.0433626
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.38377777
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.04535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9393055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.14608307
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.30673987
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.04770493
       objectReference: {fileID: 0}
     - target: {fileID: 7442095384805070582, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1404,18 +1327,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FakeDoor
       objectReference: {fileID: 0}
-    - target: {fileID: 2747977445798172607, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2747977445798172607, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-      propertyPath: m_TagString
-      value: FakeDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 3098367292908171937, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4098550038068109369, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.532
@@ -1456,20 +1367,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6418498480555563758, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6418498480555563758, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 273768328}
-    - targetCorrespondingSourceObject: {fileID: 6418498480555563758, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 273768327}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f08608164e4f7d4fa5e0ffb9ae0cbb7, type: 3}
 --- !u!1001 &9074417784393678928
 PrefabInstance:
