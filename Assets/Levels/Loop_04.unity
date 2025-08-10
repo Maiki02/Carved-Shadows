@@ -1320,7 +1320,11 @@ PrefabInstance:
       objectReference: {fileID: 1496687788}
     - target: {fileID: 3542045899854053155, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
       propertyPath: pianoVolume
-      value: 4
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542045899854053155, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
+      propertyPath: activationDuration
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7967586906764525306, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
       propertyPath: m_Name
