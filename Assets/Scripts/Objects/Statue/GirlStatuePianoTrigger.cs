@@ -15,12 +15,12 @@ public class GirlStatuePianoTrigger : MonoBehaviour
     [Header("Configuración de activación")]
     [SerializeField] private bool activateGirl = true; // Si activar la niña
     [SerializeField] private bool activateStatue = true; // Si activar la estatua
-    [SerializeField] private float activationDuration = 1f; // Tiempo que permanecen activos
+    [SerializeField] private float activationDuration = 4f; // Tiempo que permanecen activos
 
     [Header("Configuración de audio")]
     [SerializeField] private AudioClip pianoSound; // Sonido del piano a reproducir
     [SerializeField] private AudioSource audioSource; // AudioSource para reproducir el sonido
-    [SerializeField] private float pianoVolume = 1f; // Volumen del piano
+    [SerializeField] private float pianoVolume = 1.25f; // Volumen del piano
 
     [Header("Configuración del trigger")]
     [SerializeField] private bool triggerOnce = true; // Si se activa solo una vez
@@ -103,35 +103,30 @@ public class GirlStatuePianoTrigger : MonoBehaviour
         // Activar la niña si está configurado
         if (girlObject != null && activateGirl)
         {
-            Debug.Log("Activando objeto de la niña");
             girlObject.SetActive(true);
         }
 
         // Activar la estatua si está configurado
         if (statueObject != null && activateStatue)
         {
-            Debug.Log("Activando objeto de la estatua");
             statueObject.SetActive(true);
         }
-
+        Debug.Log("Duración de activación: " + activationDuration + " segundos");
         // Esperar el tiempo especificado
         yield return new WaitForSeconds(activationDuration);
 
         // Desactivar la niña si estaba activada
         if (girlObject != null && activateGirl)
         {
-            Debug.Log("Desactivando objeto de la niña");
             girlObject.SetActive(false);
         }
 
         // Desactivar la estatua si estaba activada
         if (statueObject != null && activateStatue)
         {
-            Debug.Log("Desactivando objeto de la estatua");
             statueObject.SetActive(false);
         }
 
-        Debug.Log("Secuencia de activación completada");
     }
 
     /// <summary>
@@ -141,7 +136,6 @@ public class GirlStatuePianoTrigger : MonoBehaviour
     {
         if (pianoSound != null && audioSource != null)
         {
-            Debug.Log("Reproduciendo sonido del piano");
             audioSource.clip = pianoSound;
             audioSource.volume = pianoVolume;
             audioSource.Play();
