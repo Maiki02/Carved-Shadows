@@ -62380,7 +62380,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.43
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -62388,11 +62388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.75
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalRotation.x
@@ -62400,7 +62400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalRotation.z
@@ -62412,7 +62412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1548280988314264991, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -62422,6 +62422,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RadioTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 8206457491322206373, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
+      propertyPath: radioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b77d86cecaceb6c45a04eb8488c4ac7f, type: 3}
+    - target: {fileID: 8206457491322206373, guid: 3eeecaaf445030e40bf66a9b22663dae, type: 3}
+      propertyPath: radioMessages
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e1a83b4dcafaec4b8dc4e0d60135213, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

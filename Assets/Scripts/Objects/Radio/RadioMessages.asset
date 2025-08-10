@@ -13,33 +13,44 @@ MonoBehaviour:
   m_Name: RadioMessages
   m_EditorClassIdentifier: 
   primerLoopMessages:
-  - text: ...
-    duration: 0.5
-  - text: ...
-    duration: 0.5
-  - text: "AM, Rep\xFAblica Argentina"
+  - text: 
+    duration: 13
+  - text: Siendo la una y un minuto,
+    duration: 3
+  - text: "antes de continuar con la secci\xF3n musical,"
+    duration: 3
+  - text: "vamos con la noticia del d\xEDa"
     duration: 2.5
-  - text: "Es la una y un minuto, antes de continuar con la secci\xF3n musical, vamos
-      con la noticia del d\xEDa"
-    duration: 4.5
-  - text: "El panorama art\xEDstico argentino ha dado un vuelco con la reciente obra
-      de..."
-    duration: 4
-  - text: ...
-    duration: 0.5
-  - text: "\u2026un artista presuntamente desconocido"
+  - text: 
     duration: 3
-  - text: "aunque seg\xFAn pudimos confirmar, proviene de la conocida casa de artistas"
-    duration: 4
-  - text: ...
-    duration: 0.5
-  - text: "De igual forma, sea cual sea el motivo por el cual hab\xEDa permanecido
-      en el anonimato,"
-    duration: 4.5
-  - text: su futuro parece ser prometedor...
+  - text: "El panorama art\xEDstico argentino"
+    duration: 2
+  - text: ha dado un vuelco con la reciente obra
+    duration: 5
+  - text: 
     duration: 3
-  - text: "y ahora los dejamos con la secci\xF3n musical"
+  - text: un artista presuntamente desconocido
+    duration: 3
+  - text: "aunque seg\xFAn pudimos confirmar,"
+    duration: 3
+  - text: proviene de la famosa familia de artistas
+    duration: 3
+  - text: 
+    duration: 2.5
+  - text: De igual forma,
+    duration: 1.5
+  - text: sea cual sea el motivo por el cual
+    duration: 3
+  - text: "habr\xEDa permanecido en el anonimato,"
+    duration: 3
+  - text: su futuro parece ser prometedor
+    duration: 4
+  - text: y ahora si,
+    duration: 2
+  - text: "con la secci\xF3n musical"
     duration: 3.5
+  - text: 
+    duration: 2.5
   segundoLoopMessages:
   - text: "Placeholder - Segundo loop no definido a\xFAn"
     duration: 2

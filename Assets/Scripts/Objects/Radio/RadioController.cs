@@ -11,28 +11,28 @@ public class RadioController : MonoBehaviour
 {
     [Header("Referencias")]
     [SerializeField] private Radio radio; // Referencia a la radio que se activará
-    
+
     [Header("Audio Configuration")]
     [SerializeField] private AudioClip radioClip; // Clip de audio que se reproducirá
     [SerializeField] private float audioDuration = 121f; // Duración del audio de la radio
-    
+
     [Header("Dialog Configuration")]
     [Tooltip("ScriptableObject con mensajes predefinidos (opcional)")]
     [SerializeField] private RadioMessages radioMessages;
-    
+
     [Tooltip("Tipo de loop de diálogos a usar")]
     [SerializeField] private RadioLoopType loopType = RadioLoopType.PrimerLoop;
-    
+
     [Space]
     [Tooltip("Secuencia de diálogos personalizada (solo si radioMessages está vacío)")]
     [SerializeField] private DialogMessage[] radioDialogSequence;
-    
+
     [Header("Trigger Settings")]
     [SerializeField] private bool triggerOnce = true; // Solo se activa una vez
-    
+
     private bool hasTriggered = false;
     private bool radioPlayed = false; // Bandera para evitar múltiples reproducciones
-    
+
     private void Awake()
     {
         // Asegurar que el collider es trigger
@@ -42,12 +42,12 @@ public class RadioController : MonoBehaviour
             col.isTrigger = true;
         }
     }
-    
+
     private void Start()
     {
         ValidateReferences();
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         // Si ya se reprodujo la radio, no hacer nada
@@ -56,17 +56,17 @@ public class RadioController : MonoBehaviour
             Debug.Log("[RadioController] La radio ya fue reproducida anteriormente.");
             return;
         }
-        
+
         // Verificar si es el player (asumiendo que tiene tag "Player")
         if (other.CompareTag("Player"))
         {
             if (triggerOnce && hasTriggered) return; // Si solo se activa una vez y ya se activó
-            
+
             hasTriggered = true;
             StartRadioSequence();
         }
     }
-    
+
     /// <summary>
     /// Inicia la secuencia de reproducción de la radio
     /// </summary>
@@ -75,10 +75,10 @@ public class RadioController : MonoBehaviour
         if (radio != null)
         {
             Debug.Log("[RadioController] Iniciando secuencia de radio...");
-            
+
             // Obtener los diálogos a usar
             DialogMessage[] dialogsToUse = GetDialogsToUse();
-            
+
             radio.PlayRadioWithParameters(radioClip, audioDuration, dialogsToUse);
 
             Debug.Log("[RadioController] " + loopType);
@@ -90,7 +90,7 @@ public class RadioController : MonoBehaviour
             Debug.LogError("[RadioController] No hay referencia a la radio asignada.");
         }
     }
-    
+
     /// <summary>
     /// Obtiene los diálogos a usar según la configuración
     /// </summary>

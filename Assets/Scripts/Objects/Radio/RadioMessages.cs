@@ -20,18 +20,25 @@ public class RadioMessages : ScriptableObject
     [Tooltip("Mensajes del primer loop para la presentación del personaje")]
     public DialogMessage[] primerLoopMessages = new DialogMessage[]
     {
-        new DialogMessage { text = "...", duration = 0.5f },
-        new DialogMessage { text = "...", duration = 0.5f },
-        new DialogMessage { text = "AM, República Argentina", duration = 2.5f },
-        new DialogMessage { text = "Es la una y un minuto, antes de continuar con la sección musical, vamos con la noticia del día", duration = 4.5f },
-        new DialogMessage { text = "El panorama artístico argentino ha dado un vuelco con la reciente obra de...", duration = 4.0f },
-        new DialogMessage { text = "...", duration = 0.5f },
-        new DialogMessage { text = "…un artista presuntamente desconocido", duration = 3.0f },
-        new DialogMessage { text = "aunque según pudimos confirmar, proviene de la conocida casa de artistas", duration = 4.0f },
-        new DialogMessage { text = "...", duration = 0.5f },
-        new DialogMessage { text = "De igual forma, sea cual sea el motivo por el cual había permanecido en el anonimato,", duration = 4.5f },
-        new DialogMessage { text = "su futuro parece ser prometedor...", duration = 3.0f },
-        new DialogMessage { text = "y ahora los dejamos con la sección musical", duration = 3.5f }
+        new DialogMessage { text = "", duration = 13f },
+        new DialogMessage { text = "Siendo la una y un minuto,", duration = 3f },
+        new DialogMessage { text = "antes de continuar con la sección musical,", duration = 3f },
+        new DialogMessage { text = "vamos con la noticia del día", duration = 2.5f },
+        new DialogMessage { text = "", duration = 3.0f },
+        new DialogMessage { text = "El panorama artístico argentino", duration = 2f },
+        new DialogMessage { text = "ha dado un vuelco con la reciente obra", duration = 5f },
+        new DialogMessage { text = "", duration = 3f },
+        new DialogMessage { text = "un artista presuntamente desconocido", duration = 3.0f },
+        new DialogMessage { text = "aunque según pudimos confirmar,", duration = 3f },
+        new DialogMessage { text = "proviene de la famosa familia de artistas", duration = 3f }, //43
+        new DialogMessage { text = "", duration = 2.5f },
+        new DialogMessage { text = "De igual forma,", duration = 1.5f }, //47
+        new DialogMessage { text = "sea cual sea el motivo por el cual", duration = 3f },
+        new DialogMessage { text = "habría permanecido en el anonimato,", duration = 3f },
+        new DialogMessage { text = "su futuro parece ser prometedor", duration = 4f },
+        new DialogMessage { text = "y ahora si,", duration = 2.0f },
+        new DialogMessage { text = "con la sección musical", duration = 3.5f },
+        new DialogMessage { text = "", duration = 2.5f }
     };
 
     [Header("Segundo Loop - Decadencia del Personaje")]

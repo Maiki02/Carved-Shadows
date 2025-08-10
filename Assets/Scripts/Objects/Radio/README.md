@@ -41,17 +41,28 @@ Este sistema permite activar automáticamente una radio cuando el jugador entra 
 - **Trigger Settings**:
   - `Trigger Once`: Si true, solo se activa una vez
 
-### Radio.cs
-**Propósito**: Ejecuta la reproducción de audio y diálogos.
+### Radio.cs (Actualizado con DearVR)
+**Propósito**: Ejecuta la reproducción de audio espacializado y diálogos usando DearVR.
 
 **Funcionalidades**:
-- Reproduce audio con clip proporcionado por el controller
-- Desactiva controles del jugador durante reproducción
+- Integración completa con DearVRSource para audio espacial de alta calidad
+- Reproducción con clip proporcionado por el controller
+- Desactiva controles del jugador durante reproducción  
 - Muestra secuencia de diálogos en paralelo
 - Reactiva controles al finalizar
+- Configuraciones automáticas optimizadas para radio
+- Compatibilidad con AudioSource estándar como fallback
 
 **Configuración en Inspector**:
-- `Audio Source`: Componente AudioSource para reproducir el audio
+- `DearVRSource`: Componente DearVR para audio espacial (se busca automáticamente)
+- `Audio Source`: AudioSource requerido por DearVR (se busca automáticamente)
+- `Use DearVR Playback`: Si usar DearVR o AudioSource estándar
+
+**Configuración DearVR Automática**:
+- Performance Mode: Activado para mejor rendimiento
+- Internal Reverb: Activado
+- Room Preset: Room_Medium (ambiente de habitación)
+- Niveles de audio optimizados para radio
 
 ## Uso
 
@@ -59,7 +70,7 @@ Este sistema permite activar automáticamente una radio cuando el jugador entra 
 1. Crear RadioMessages asset: Click derecho → Create → Radio → Radio Messages
 2. Crear un GameObject con `RadioController`
 3. Asegurar que tiene un Collider configurado como Trigger
-4. Crear un GameObject con `Radio` y `AudioSource`
+4. **Crear un GameObject con `Radio`, `DearVRSource` y `AudioSource`**
 5. En el RadioController, asignar:
    - Referencia al componente Radio
    - AudioClip a reproducir
@@ -70,13 +81,20 @@ Este sistema permite activar automáticamente una radio cuando el jugador entra 
 ### Configuración Manual:
 1. Crear un GameObject con `RadioController`
 2. Asegurar que tiene un Collider configurado como Trigger
-3. Crear un GameObject con `Radio` y `AudioSource`
+3. **Crear un GameObject con `Radio`, `DearVRSource` y `AudioSource`**
 4. En el RadioController, asignar:
    - Referencia al componente Radio
    - AudioClip a reproducir
    - Duración del audio
    - Dejar RadioMessages vacío
    - Configurar manualmente el array Radio Dialog Sequence
+
+### Configuración de DearVR:
+- **Automática**: El script Radio.cs configura automáticamente DearVR
+- **Manual**: Puedes ajustar configuraciones en DearVRSource según necesites:
+  - Room Preset: Para diferentes ambientes
+  - Direct/Reflection/Reverb Levels: Para control de espacialización
+  - Occlusion/Obstruction: Para interacciones físicas con el entorno
 
 ## Creación de Assets
 
@@ -132,16 +150,20 @@ Total: 12 mensajes, ~34.5 segundos
 - `ResetTrigger()`: Resetea el trigger para testing
 
 **Radio**:
-- `PlayRadioWithParameters()`: Reproduce con parámetros específicos
-- `ResetRadio()`: Resetea el estado para testing
+- `PlayRadioWithParameters()`: Reproduce con parámetros específicos usando DearVR
+- `ResetRadio()`: Resetea el estado para testing (incluye DearVR)
 - `IsRadioPlayed` (propiedad): Verifica si ya fue reproducida
+- `ConfigureForRadio()`: Aplica configuraciones optimizadas de DearVR
 
 ## Notas de Implementación
 
+- **DearVR Integration**: Usa DearVRSource para audio espacializado de alta calidad
+- **Fallback**: Si DearVR no está disponible, usa AudioSource estándar
+- **Auto-configuration**: DearVR se configura automáticamente para radios
 - El sistema requiere que el jugador tenga tag "Player"
 - Los controles del jugador se desactivan durante la reproducción
 - Los diálogos se muestran usando DialogController.Instance
-- El sistema es compatible con el flujo existente del juego
+- **Performance Mode**: DearVR se configura en modo performance para mejor rendimiento
 
 ## Debugging
 
