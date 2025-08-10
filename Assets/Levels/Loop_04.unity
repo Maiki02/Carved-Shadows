@@ -743,6 +743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1899218577543915264, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
+      propertyPath: m_AmplitudeGain
+      value: 0.01502801
+      objectReference: {fileID: 0}
     - target: {fileID: 4920232510922284887, guid: 502e539d75bb4364db88d4daa2e287fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.000000014901161
@@ -1387,6 +1391,26 @@ PrefabInstance:
       propertyPath: doorToClose
       value: 
       objectReference: {fileID: 934456613}
+    - target: {fileID: 640255071911652615, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: points.Array.data[0].moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503597283253071626, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503597283253071626, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503597283253071626, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503597283253071626, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.158
+      objectReference: {fileID: 0}
     - target: {fileID: 7660261592570448856, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
       propertyPath: m_Name
       value: EstatuaMovedizaTrigger
@@ -1430,6 +1454,14 @@ PrefabInstance:
     - target: {fileID: 8946736576943314468, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8946736576943314468, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981305758443408164, guid: 9fb5d874dd7db3a4593b8aadb99eb1af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.095
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
