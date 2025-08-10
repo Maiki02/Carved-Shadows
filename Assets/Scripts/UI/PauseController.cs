@@ -80,6 +80,8 @@ public class PauseController : MonoBehaviour
         this.TogglePauseMenu();
         GameController.Instance.SetGameStarted(false);
         GameController.Instance.ResetValues();
+
+        GameFlowManager.Instance.ResetGameFlow(); // Reiniciar el flujo del juego
     }
 
     public void TogglePauseMenu()
