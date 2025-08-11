@@ -1253,9 +1253,29 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3932694953049757337, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932694953049757337, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628856070393528259, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4674552768662325959, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
       propertyPath: ambientSounds.Array.data[8].startDelay
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630555546431022799, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630555546431022799, guid: 71dd2acb6b5680f4eae680c4b545f8d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.61
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
