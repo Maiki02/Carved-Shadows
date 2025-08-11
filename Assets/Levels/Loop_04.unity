@@ -1056,6 +1056,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5501054008266332115, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+    - {fileID: 708130659609110195, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8339973427272527646, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
@@ -1121,7 +1122,7 @@ MonoBehaviour:
   reverbSends: []
 --- !u!1 &1496687788 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 708130659609110195, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7269510479140653198, guid: 34aacfd1eccc1974799ce4671020f21d, type: 3}
   m_PrefabInstance: {fileID: 1496687785}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2108315400
@@ -1366,6 +1367,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 544843470695702189, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.075
+      objectReference: {fileID: 0}
     - target: {fileID: 3542045899854053155, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
       propertyPath: girlObject
       value: 
@@ -1376,7 +1381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3542045899854053155, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
       propertyPath: activationDuration
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7967586906764525306, guid: 161609b27eeb5be42b2e97ed863656b1, type: 3}
       propertyPath: m_Name
